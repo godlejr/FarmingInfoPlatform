@@ -3,7 +3,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const defaults = {
-  entry: './src/main/webapp/resources/static/js/index.js',
+  entry: './src/main/webapp/resources/static/js/index.jsx',
   output: {
     path: path.join(__dirname, './src/main/webapp/resources/static/js'),
     filename: 'bundle.js',
@@ -11,7 +11,7 @@ const defaults = {
   
   module: {
     loaders: [{
-      test: /\.js$/,
+      test: /\.jsx$/,
       exclude: /(node_modules|bower_components|public)/,
       loader: "babel",
       query:

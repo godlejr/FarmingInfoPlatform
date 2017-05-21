@@ -19,7 +19,6 @@ public class UserEntity {
 	private String createdAt;
 	private String updatedAt;
 	
-	
 
 	public int getLevel() {
 		return level;

@@ -9,5 +9,5 @@ public class UserRepositoryImpl extends QueryDslRepositorySupport implements Cus
 	public UserRepositoryImpl() {
 		super(UserEntity.class);
 	}
-
+	
 }

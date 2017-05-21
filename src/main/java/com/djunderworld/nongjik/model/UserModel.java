@@ -5,15 +5,18 @@ public class UserModel {
 	private String password;
 	private String name;
 	private String avatar;
+	private int level;
 	private String createdAt;
 	private String updatedAt;
-	
-	public UserModel(long id, String password, String name, String avatar, String createdAt, String updatedAt) {
+
+	public UserModel(long id, String password, String name, String avatar, int level, String createdAt,
+			String updatedAt) {
 		super();
 		this.id = id;
 		this.password = password;
 		this.name = name;
 		this.avatar = avatar;
+		this.level = level;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
 	}
@@ -54,6 +57,14 @@ public class UserModel {
 		this.avatar = avatar;
 	}
 
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
+	}
+
 	public String getCreatedAt() {
 		return createdAt;
 	}
@@ -70,6 +81,4 @@ public class UserModel {
 		this.updatedAt = updatedAt;
 	}
 
-	
-	
 }

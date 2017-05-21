@@ -25,6 +25,8 @@ public class QUserEntity extends EntityPathBase<UserEntity> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
+    public final NumberPath<Integer> level = createNumber("level", Integer.class);
+
     public final StringPath name = createString("name");
 
     public final StringPath password = createString("password");

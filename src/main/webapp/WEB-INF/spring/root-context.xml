@@ -18,6 +18,21 @@
 	<!-- Root Context: defines shared resources visible to all other web components -->
 
 
+	<beans:bean
+		class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration">
+		<beans:property name="maxInactiveIntervalInSeconds"
+			value="600" />
+	</beans:bean>
+
+	<beans:bean id='jedisConnectionFactory'
+		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+		<beans:property name="port" value="6379" />
+		<beans:property name="hostName"
+			value="ec2-52-78-209-196.ap-northeast-2.compute.amazonaws.com" />
+		<beans:property name="usePool" value="true" />
+
+	</beans:bean>
+
 	<jpa:repositories base-package="com.djunderworld.nongjik.repository"></jpa:repositories>
 
 	<beans:bean name="dataSource"
@@ -29,10 +44,28 @@
 		<beans:property name="password" value="djunderworld12"></beans:property>
 	</beans:bean>
 
+	<!-- transaction -->
 	<beans:bean id="transactionManager"
 		class="org.springframework.orm.jpa.JpaTransactionManager">
 		<beans:property name="dataSource" ref="dataSource"></beans:property>
 	</beans:bean>
+
+	<aop:config proxy-target-class="true">
+		<aop:pointcut id="serviceImpls"
+			expression="within(@org.springframework.stereotype.Service *)" />
+		<aop:advisor id="transactionAdvisor" pointcut-ref="serviceImpls"
+			advice-ref="txAdvice" />
+	</aop:config>
+
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="insert*" rollback-for="Exception" />
+			<tx:method name="update*" rollback-for="Exception" />
+			<tx:method name="select*" rollback-for="Exception" />
+			<tx:method name="delete*" rollback-for="Exception" />
+		</tx:attributes>
+	</tx:advice>
+
 
 	<beans:bean
 		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"></beans:bean>
@@ -58,7 +91,8 @@
 				<beans:prop key="hibernate.format_sql">true</beans:prop>
 				<beans:prop key="hibernate.use_sql_comments">true</beans:prop>
 				<beans:prop key="hibernate.id.new_generator_mappings">true</beans:prop>
-				<beans:prop key="hibernate.physical_naming_strategy">com.djunderworld.nongjik.config.PhysicalNamingStrategyImpl</beans:prop>
+				<beans:prop key="hibernate.physical_naming_strategy">com.djunderworld.nongjik.config.PhysicalNamingStrategyImpl
+				</beans:prop>
 			</beans:props>
 		</beans:property>
 	</beans:bean>

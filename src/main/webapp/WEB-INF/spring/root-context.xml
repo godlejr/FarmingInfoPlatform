@@ -17,7 +17,7 @@
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
 
-
+	<context:annotation-config />
 	<beans:bean
 		class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration">
 		<beans:property name="maxInactiveIntervalInSeconds"
@@ -47,6 +47,7 @@
 	<!-- transaction -->
 	<beans:bean id="transactionManager"
 		class="org.springframework.orm.jpa.JpaTransactionManager">
+		<beans:property name="entityManagerFactory" ref="entityManagerFactory" />
 		<beans:property name="dataSource" ref="dataSource"></beans:property>
 	</beans:bean>
 

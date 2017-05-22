@@ -1,5 +1,7 @@
 package com.djunderworld.nongjik.model;
 
+import com.djunderworld.nongjik.domain.User;
+
 public class UserModel {
 	private long id;
 	private String password;
@@ -80,5 +82,28 @@ public class UserModel {
 	public void setUpdatedAt(String updatedAt) {
 		this.updatedAt = updatedAt;
 	}
+	
+	public User buildDomain() {
+		User user = new User();
+		user.setId(id);
+		user.setName(name);
+		user.setAvatar(avatar);
+		user.setPassword(password);
+		user.setLevel(level);
+		user.setCreatedAt(createdAt);
+		user.setUpdatedAt(updatedAt);
+		return user;
+	}
+
+	public void buildModel(User user) { 
+		id = user.getId();
+		name = user.getName();
+		password = user.getPassword();
+		avatar = user.getAvatar();
+		level = user.getLevel();
+		createdAt = user.getCreatedAt();
+		updatedAt = user.getUpdatedAt();
+	}
+
 
 }

@@ -5,6 +5,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.djunderworld.nongjik.domain.User;
+
 @Entity
 @Table(name = "users")
 public class UserEntity {
@@ -18,7 +20,6 @@ public class UserEntity {
 	private int level;
 	private String createdAt;
 	private String updatedAt;
-	
 
 	public int getLevel() {
 		return level;
@@ -91,6 +92,28 @@ public class UserEntity {
 
 	public void setUpdatedAt(String updatedAt) {
 		this.updatedAt = updatedAt;
+	}
+
+	public User buildDomain() {
+		User user = new User();
+		user.setId(id);
+		user.setName(name);
+		user.setAvatar(avatar);
+		user.setPassword(password);
+		user.setLevel(level);
+		user.setCreatedAt(createdAt);
+		user.setUpdatedAt(updatedAt);
+		return user;
+	}
+
+	public void buildEntity(User user) { 
+		id = user.getId();
+		name = user.getName();
+		password = user.getPassword();
+		avatar = user.getAvatar();
+		level = user.getLevel();
+		createdAt = user.getCreatedAt();
+		updatedAt = user.getUpdatedAt();
 	}
 
 }

@@ -48,15 +48,15 @@ ol,ul,li { list-style:none; margin:0; padding:0; vertical-align:top; }
 
 #header .content .content-body{
 	padding:10px;
-    height: 100%;
     width: 100%;
-    position: relative;
+    position: fixed;
 }
 
 .section-logo{
 	display: flex;
 	align-items: center;
 	 float: left;
+	 height:40px;
 	 cursor: pointer;
 	
 }
@@ -70,7 +70,7 @@ ol,ul,li { list-style:none; margin:0; padding:0; vertical-align:top; }
 	max-width: 250px;
     width: 100%;
 	height: 40px;
-    position: absolute;
+  	float:right;
     right: 5px;
     color: gray;
     font-size: 16px;

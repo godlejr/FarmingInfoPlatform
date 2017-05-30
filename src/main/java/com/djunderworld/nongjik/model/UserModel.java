@@ -3,6 +3,8 @@ package com.djunderworld.nongjik.model;
 import com.djunderworld.nongjik.domain.User;
 
 public class UserModel {
+	
+	
 	private long id;
 	private String password;
 	private String name;

@@ -40,18 +40,31 @@
 	<header id="header">
 		<div class="content">
 			<tiles:insertAttribute name="top" />
-			<tiles:insertAttribute name="navigation" />
+
 		</div>
 	</header>
 
+	<div id="banner">
+		<tiles:insertAttribute name="banner" />
+	</div>
+
+	<nav id="navigation">
+		<tiles:insertAttribute name="navigation" />
+	</nav>
+
+
 
 	<div id="container">
-		<div class="left-content">
-			<tiles:insertAttribute name="menu" />
-		</div>
-		
-		<div class="right-content">
-			<tiles:insertAttribute name="content" />
+		<div class="contatiner-content">
+			<div class="content-body">
+				<div class="left-content">
+					<tiles:insertAttribute name="menu" />
+				</div>
+
+				<div class="right-content">
+					<tiles:insertAttribute name="content" />
+				</div>
+			</div>
 		</div>
 	</div>
 
@@ -61,4 +74,41 @@
 	</footer>
 
 </body>
+<script type="text/javascript">
+	$(function scrollCheck() {
+		var init = function() {
+			$(window).on('scroll', scroll);
+			scroll();
+		}, scroll = function() {
+			var currentScrollTop = $(this).scrollTop();
+
+			if (currentScrollTop >= 370) {
+				$('.navi-content').css({
+					position : 'fixed'
+				});
+				$('#banner').css({
+					display : 'none'
+				});
+				$('#left-menu').css({
+					position : 'fixed'
+				});
+			} else {
+				if (currentScrollTop <= 130) {
+					$('.navi-content').css({
+						position : 'relative'
+					});
+					$('#banner').css({
+						display : 'block'
+					});
+					$('#left-menu').css({
+						position : 'relative'
+					});
+				}
+
+			}
+
+		}
+		init();
+	});
+</script>
 </html>

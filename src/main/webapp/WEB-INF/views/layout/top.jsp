@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<div class="content-body">
+<div class="top-content">
 	<div class="section-logo">
 		<img src="<c:url value='/resources/static/img/main/logo.jpg' />"
 			class="header-logo">

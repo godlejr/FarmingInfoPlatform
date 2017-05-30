@@ -5,6 +5,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import com.djunderworld.nongjik.domain.User;
 
 @Entity
@@ -20,7 +22,20 @@ public class UserEntity {
 	private int level;
 	private String createdAt;
 	private String updatedAt;
+	private String email;
 
+	private String confirmPassword;
+
+
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
+
+	
 	public int getLevel() {
 		return level;
 	}
@@ -34,8 +49,18 @@ public class UserEntity {
 		// TODO Auto-generated constructor stub
 	}
 
-	public UserEntity(long id, String password, String name, String avatar, int level, String createdAt,
-			String updatedAt) {
+
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public UserEntity(long id, String password, String name, String avatar,
+			int level, String createdAt, String updatedAt, String email) {
 		super();
 		this.id = id;
 		this.password = password;
@@ -44,6 +69,7 @@ public class UserEntity {
 		this.level = level;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
+		this.email = email;
 	}
 
 	public long getId() {

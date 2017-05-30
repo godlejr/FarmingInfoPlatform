@@ -1,17 +1,28 @@
 package com.djunderworld.nongjik.domain;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
+
 public class User {
 	private long id;
+
 	private String password;
+	
+
 	private String name;
+	private String email;
+	
 	private String avatar;
 	private int level;
 	private String createdAt;
 	private String updatedAt;
+	
 
 
 
-	public User(long id, String password, String name, String avatar, int level, String createdAt, String updatedAt) {
+
+	public User(long id, String password, String name, String avatar,
+			int level, String createdAt, String updatedAt, String email) {
 		super();
 		this.id = id;
 		this.password = password;
@@ -20,6 +31,7 @@ public class User {
 		this.level = level;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
+		this.email = email;
 	}
 
 	public User() {
@@ -83,4 +95,13 @@ public class User {
 		this.updatedAt = updatedAt;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	
 }

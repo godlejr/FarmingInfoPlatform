@@ -1,26 +1,56 @@
 package com.djunderworld.nongjik.model;
 
+
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import com.djunderworld.nongjik.domain.User;
+
 
 public class UserModel {
 	private long id;
+	
+	@NotEmpty (message="비밀번호를 입력해주세요")
 	private String password;
+	
+	@NotNull (message="비밀번호가 일치하지 않습니다.")
+	private String passwordConfirm;
+	
+	@NotEmpty (message="이름을 입력해주세요")
 	private String name;
+	
+	@NotEmpty (message="이메일을 입력해주세요")
+	@Email(message="올바른 이메일 형식이 아닙니다.")
+	private String email;
+	
 	private String avatar;
 	private int level;
 	private String createdAt;
 	private String updatedAt;
+	
 
-	public UserModel(long id, String password, String name, String avatar, int level, String createdAt,
-			String updatedAt) {
+	public UserModel(long id, String password,String passwordConfirm, String name, String avatar,
+			int level, String createdAt, String updatedAt, String email) {
 		super();
 		this.id = id;
 		this.password = password;
+		this.passwordConfirm = passwordConfirm;
 		this.name = name;
 		this.avatar = avatar;
 		this.level = level;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
+		this.email = email;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public UserModel() {
@@ -81,6 +111,24 @@ public class UserModel {
 
 	public void setUpdatedAt(String updatedAt) {
 		this.updatedAt = updatedAt;
+	}
+	
+	public String getPasswordConfirm() {
+		return passwordConfirm;
+	}
+
+	public void setPasswordConfirm(String passwordConfirm) {
+		this.passwordConfirm = passwordConfirm;
+		checkPassword();
+	}
+	
+	private void checkPassword() {
+	    if(this.password == null || this.passwordConfirm == null){
+	        return;
+	    }else if(!this.password.equals(passwordConfirm)){
+	        this.passwordConfirm = null;
+	        this.password = null;
+	    }
 	}
 	
 	public User buildDomain() {

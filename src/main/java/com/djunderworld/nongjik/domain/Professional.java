@@ -1,24 +1,20 @@
 package com.djunderworld.nongjik.domain;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class Category {
+public class Professional {
 	private long id;
-	private String name;
+	private User user;
+	private String businessNo;
 	private String createdAt;
 	private String updatedAt;
 
-	private List<ItemCategory> itemCategories = new ArrayList<ItemCategory>();
-
-	public Category() {
+	public Professional() {
 		super();
 	}
 
-	public Category(long id, String name, String createdAt, String updatedAt) {
+	public Professional(long id, String businessNo, String createdAt, String updatedAt) {
 		super();
 		this.id = id;
-		this.name = name;
+		this.businessNo = businessNo;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
 	}
@@ -31,12 +27,12 @@ public class Category {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getBusinessNo() {
+		return businessNo;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setBusinessNo(String businessNo) {
+		this.businessNo = businessNo;
 	}
 
 	public String getCreatedAt() {
@@ -55,12 +51,12 @@ public class Category {
 		this.updatedAt = updatedAt;
 	}
 
-	public List<ItemCategory> getItemCategories() {
-		return itemCategories;
+	public User getUser() {
+		return user;
 	}
 
-	public void setItemCategories(List<ItemCategory> itemCategories) {
-		this.itemCategories = itemCategories;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }

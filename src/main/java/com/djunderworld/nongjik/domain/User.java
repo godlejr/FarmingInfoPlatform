@@ -2,6 +2,7 @@ package com.djunderworld.nongjik.domain;
 
 public class User {
 	private long id;
+	private String email;
 	private String password;
 	private String name;
 	private String avatar;
@@ -20,6 +21,7 @@ public class User {
 		this.level = level;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
+		this.email = email;
 	}
 
 	public User() {
@@ -83,4 +85,13 @@ public class User {
 		this.updatedAt = updatedAt;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	
 }

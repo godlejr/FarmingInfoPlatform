@@ -7,6 +7,7 @@ import com.mysema.query.types.path.*;
 import com.mysema.query.types.PathMetadata;
 import javax.annotation.Generated;
 import com.mysema.query.types.Path;
+import com.mysema.query.types.path.PathInits;
 
 
 /**
@@ -19,13 +20,20 @@ public class QCategoryEntity extends EntityPathBase<CategoryEntity> {
 
     public static final QCategoryEntity categoryEntity = new QCategoryEntity("categoryEntity");
 
-    public final StringPath createdAt = createString("createdAt");
+    public final QBaseEntity _super = new QBaseEntity(this);
 
-    public final NumberPath<Long> id = createNumber("id", Long.class);
+    //inherited
+    public final StringPath createdAt = _super.createdAt;
+
+    //inherited
+    public final NumberPath<Long> id = _super.id;
+
+    public final ListPath<ItemCategoryEntity, QItemCategoryEntity> itemCategoryEntities = this.<ItemCategoryEntity, QItemCategoryEntity>createList("itemCategoryEntities", ItemCategoryEntity.class, QItemCategoryEntity.class, PathInits.DIRECT2);
 
     public final StringPath name = createString("name");
 
-    public final StringPath updatedAt = createString("updatedAt");
+    //inherited
+    public final StringPath updatedAt = _super.updatedAt;
 
     public QCategoryEntity(String variable) {
         super(CategoryEntity.class, forVariable(variable));

@@ -38,10 +38,7 @@
 </head>
 <body>
 	<header id="header">
-		<div class="content">
-			<tiles:insertAttribute name="top" />
-
-		</div>
+		<tiles:insertAttribute name="top" />
 	</header>
 
 	<div id="banner">
@@ -55,13 +52,13 @@
 
 
 	<div id="container">
-		<div class="contatiner-content">
+		<div class="container-content">
 			<div class="content-body">
-				<div class="left-content">
+				<div class="left-section">
 					<tiles:insertAttribute name="menu" />
 				</div>
 
-				<div class="right-content">
+				<div class="right-section">
 					<tiles:insertAttribute name="content" />
 				</div>
 			</div>
@@ -89,7 +86,7 @@
 				$('#banner').css({
 					display : 'none'
 				});
-				$('#left-menu').css({
+				$('#menu-list').css({
 					position : 'fixed'
 				});
 			} else {
@@ -100,7 +97,7 @@
 					$('#banner').css({
 						display : 'block'
 					});
-					$('#left-menu').css({
+					$('#menu-list').css({
 						position : 'relative'
 					});
 				}

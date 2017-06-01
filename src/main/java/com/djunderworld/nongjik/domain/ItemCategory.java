@@ -1,23 +1,21 @@
 package com.djunderworld.nongjik.domain;
 
-import java.util.ArrayList;
-import java.util.List;
+public class ItemCategory {
 
-public class Category {
 	private long id;
+	private Category category;
 	private String name;
 	private String createdAt;
 	private String updatedAt;
 
-	private List<ItemCategory> itemCategories = new ArrayList<ItemCategory>();
-
-	public Category() {
+	public ItemCategory() {
 		super();
 	}
 
-	public Category(long id, String name, String createdAt, String updatedAt) {
+	public ItemCategory(long id, Category category, String name, String createdAt, String updatedAt) {
 		super();
 		this.id = id;
+		this.category = category;
 		this.name = name;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
@@ -29,6 +27,14 @@ public class Category {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 
 	public String getName() {
@@ -53,14 +59,6 @@ public class Category {
 
 	public void setUpdatedAt(String updatedAt) {
 		this.updatedAt = updatedAt;
-	}
-
-	public List<ItemCategory> getItemCategories() {
-		return itemCategories;
-	}
-
-	public void setItemCategories(List<ItemCategory> itemCategories) {
-		this.itemCategories = itemCategories;
 	}
 
 }

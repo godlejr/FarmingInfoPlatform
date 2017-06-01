@@ -1,79 +1,83 @@
 package com.djunderworld.nongjik.entity;
 
-import javax.annotation.Generated;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.djunderworld.nongjik.domain.Category;
-import com.djunderworld.nongjik.domain.User;
+import com.djunderworld.nongjik.domain.ItemCategory;
 
 @Entity
 @Table(name = "categories")
-public class CategoryEntity {
-	
-	@Id
-	@GeneratedValue
-	private long id;
+public class CategoryEntity extends BaseEntity {
 	private String name;
-	private String createdAt;
-	private String updatedAt;
-	
-	
+
+	@OneToMany(mappedBy = "categoryEntity", fetch = FetchType.EAGER)
+	private List<ItemCategoryEntity> itemCategoryEntities = new ArrayList<ItemCategoryEntity>();
+
 	public CategoryEntity() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public CategoryEntity(long id, String name, String createdAt, String updatedAt) {
 		super();
-		this.id = id;
 		this.name = name;
-		this.createdAt = createdAt;
-		this.updatedAt = updatedAt;
 	}
-	
-	public long getId() {
-		return id;
-	}
-	public void setId(long id) {
-		this.id = id;
-	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getCreatedAt() {
-		return createdAt;
+
+	public List<ItemCategoryEntity> getItemCategoryEntities() {
+		return itemCategoryEntities;
 	}
-	public void setCreatedAt(String createdAt) {
-		this.createdAt = createdAt;
+
+	public void setItemCategoryEntities(List<ItemCategoryEntity> itemCategoryEntities) {
+		this.itemCategoryEntities = itemCategoryEntities;
 	}
-	public String getUpdatedAt() {
-		return updatedAt;
-	}
-	public void setUpdatedAt(String updatedAt) {
-		this.updatedAt = updatedAt;
-	}
-	
+
 	public Category buildDomain() {
 		Category category = new Category();
-		category.setId(id);
+		category.setId(super.getId());
 		category.setName(name);
-		category.setCreatedAt(createdAt);
-		category.setUpdatedAt(updatedAt);
+
+		List<ItemCategory> itemCategories = new ArrayList<ItemCategory>();
+
+		for (ItemCategoryEntity entity : itemCategoryEntities) {
+			ItemCategory itemCategory = entity.buildDomainForBackRef();
+			itemCategories.add(itemCategory);
+		}
+
+		category.setItemCategories(itemCategories);
+
+		category.setCreatedAt(super.getCreatedAt());
+		category.setUpdatedAt(super.getUpdatedAt());
 		return category;
 	}
 
-	public void buildEntity(Category category) { 
-		id = category.getId();
-		name = category.getName();
-		createdAt = category.getCreatedAt();
-		updatedAt = category.getUpdatedAt();
+	public void buildEntity(Category category) {
+		super.setId(category.getId());
+
+		List<ItemCategoryEntity> itemCategoryEntities = new ArrayList<ItemCategoryEntity>();
+		List<ItemCategory> itemCategories = category.getItemCategories();
+		
+		for (ItemCategory itemCategory : itemCategories) {
+			ItemCategoryEntity itemCategoryEntity = new ItemCategoryEntity();
+			itemCategoryEntity.buildEntityForBackRef(itemCategory);
+			itemCategoryEntities.add(itemCategoryEntity);
+		}
+		this.itemCategoryEntities = itemCategoryEntities;
+		this.name = category.getName();
+		super.setCreatedAt(category.getCreatedAt());
+		super.setUpdatedAt(category.getUpdatedAt());
 	}
-	
-	
+
 }

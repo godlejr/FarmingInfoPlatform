@@ -7,6 +7,7 @@ import com.mysema.query.types.path.*;
 import com.mysema.query.types.PathMetadata;
 import javax.annotation.Generated;
 import com.mysema.query.types.Path;
+import com.mysema.query.types.path.PathInits;
 
 
 /**
@@ -17,13 +18,21 @@ public class QUserEntity extends EntityPathBase<UserEntity> {
 
     private static final long serialVersionUID = 1318094492L;
 
+    private static final PathInits INITS = PathInits.DIRECT2;
+
     public static final QUserEntity userEntity = new QUserEntity("userEntity");
+
+    public final QBaseEntity _super = new QBaseEntity(this);
 
     public final StringPath avatar = createString("avatar");
 
-    public final StringPath createdAt = createString("createdAt");
+    //inherited
+    public final StringPath createdAt = _super.createdAt;
 
-    public final NumberPath<Long> id = createNumber("id", Long.class);
+    public final StringPath email = createString("email");
+
+    //inherited
+    public final NumberPath<Long> id = _super.id;
 
     public final NumberPath<Integer> level = createNumber("level", Integer.class);
 
@@ -31,18 +40,30 @@ public class QUserEntity extends EntityPathBase<UserEntity> {
 
     public final StringPath password = createString("password");
 
-    public final StringPath updatedAt = createString("updatedAt");
+    public final QProfessionalEntity professionalEntity;
+
+    //inherited
+    public final StringPath updatedAt = _super.updatedAt;
 
     public QUserEntity(String variable) {
-        super(UserEntity.class, forVariable(variable));
+        this(UserEntity.class, forVariable(variable), INITS);
     }
 
     public QUserEntity(Path<? extends UserEntity> path) {
-        super(path.getType(), path.getMetadata());
+        this(path.getType(), path.getMetadata(), path.getMetadata().isRoot() ? INITS : PathInits.DEFAULT);
     }
 
     public QUserEntity(PathMetadata<?> metadata) {
-        super(UserEntity.class, metadata);
+        this(metadata, metadata.isRoot() ? INITS : PathInits.DEFAULT);
+    }
+
+    public QUserEntity(PathMetadata<?> metadata, PathInits inits) {
+        this(UserEntity.class, metadata, inits);
+    }
+
+    public QUserEntity(Class<? extends UserEntity> type, PathMetadata<?> metadata, PathInits inits) {
+        super(type, metadata, inits);
+        this.professionalEntity = inits.isInitialized("professionalEntity") ? new QProfessionalEntity(forProperty("professionalEntity"), inits.get("professionalEntity")) : null;
     }
 
 }

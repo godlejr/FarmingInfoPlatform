@@ -106,7 +106,7 @@ ol, ul, li {
     height: 60px;
 }
 
-#header .content {
+#header .top-content {
 	padding: 0;
     margin: 0 auto;
     width: 100%;
@@ -140,7 +140,7 @@ ol, ul, li {
 	width: 100%;
 }
 
-#header .content .top-content {
+#header .top-content .content-body {
 	padding: 10px;
     width: 100%;
     max-width: 1080px;
@@ -300,7 +300,7 @@ ol, ul, li {
 	background: #e2e2e2;
 }
 
-.section-logo {
+#header .top-content .content-body .section-logo {
 	display: flex;
 	align-items: center;
 	float: left;
@@ -308,11 +308,11 @@ ol, ul, li {
 	cursor: pointer;
 }
 
-.header-logo {
+#header .top-content .content-body .section-logo  .header-logo {
 	margin: 0 auto;
 }
 
-.section-login {
+#header .top-content .content-body .section-login {
 	max-width: 250px;
 	width: 100%;
 	height: 40px;
@@ -324,23 +324,24 @@ ol, ul, li {
 	right: 5px;
 }
 
-.section-login div:hover {
+#header .top-content .content-body .section-login div:hover {
 	color: #31bfc2;
 	cursor: pointer;
 }
 
-.section-login .login-left {
+#header .top-content .content-body .section-login .login-left {
 	margin-right: 5px;
 }
 
-.section-login .login-left, .section-login .login-right {
+#header .top-content .content-body .section-login .login-left, 
+#header .top-content .content-body .section-login .login-right {
 	display: flex;
 	align-items: center;
 	width: 50%;
 	height: 100%;
 }
 
-.section-login .login-icon {
+#header .top-content .content-body .section-login .login-icon {
 	float: left;
 	height: 100%;
 	width: 35%;
@@ -349,12 +350,13 @@ ol, ul, li {
 	align-items: center
 }
 
-.section-login .login-icon i {
+ #header .top-content .content-body .section-login .login-icon i {
 	margin: 0 auto;
 	font-size: 25px;
 }
 
-.section-login .login-left .login-button, .section-login .login-right .join-button {
+#header .top-content .content-body .section-login .login-left .login-button, 
+#header .top-content .content-body .section-login .login-right .join-button {
 	float: left;
 	height: 100%;
 	margin-right: 5px;
@@ -363,25 +365,26 @@ ol, ul, li {
 	align-items: center;
 }
 
-.section-login .login-left .login-button span, .section-login .login-right .join-button span
+#header .top-content .content-body .section-login .login-left .login-button span, 
+#header .top-content .content-body .section-login .login-right .join-button span
 	{
 	display: table;
 }
 
-.section-terms {
+#footer .section-terms {
 	width: 100%;
 	display: flex;
 }
 
-.section-terms ul {
+#footer .section-terms ul {
 	margin: 0 auto;
 }
 
-.section-terms ul li {
+#footer .section-terms ul li {
 	float: left;
 }
 
-.section-terms .terms-item {
+#footer .section-terms .terms-item {
 	height: 100%;
 	color: #ffffff;
 	margin: 0px 10px;
@@ -395,36 +398,36 @@ ol, ul, li {
     height: auto;
 }
 
-#container .contatiner-content{
+#container .container-content{
 	height: inherit;
 }
 .banner{
 	position:relative;
 }
-.contatiner-content .content-body{
+.container-content .content-body{
     margin: 0 auto;
     max-width: 1080px;
     height: inherit;
     display: flex;
 }
 
-.contatiner-content .content-body .left-content {
+.container-content .content-body .left-section {
 	width: 13.33%;
 	float: left;
 }
 
-.contatiner-content .content-body .left-content .content{
+.container-content .content-body .left-section .menu-list{
 	padding-top:10px;
 }
 
-.contatiner-content .content-body .left-content .content ul{
+.container-content .content-body .left-section .menu-list ul{
 	padding: 12.5% 12px/*25px 30px*/;
 	list-style: none;
     width: 100%;
     font-size: 14px;
 }
 
-.contatiner-content .content-body .left-content .content ul li{
+.container-content .content-body .left-section .menu-list ul li{
 	list-style: none;
     margin-bottom: 15px;
     cursor: pointer;
@@ -432,10 +435,12 @@ ol, ul, li {
 }
 
 
-.contatiner-content .content-body .right-content {
+.container-content .content-body .right-section {
 	width: 86.67%;
 	float: left;
 	padding-left: 1.81%;
+    min-height: 780px;
+	
 }
 
 /******* footer ********/
@@ -453,3 +458,159 @@ ol, ul, li {
 }
 
 /********base*********/
+.bottom   { padding:0; margin:0 auto;
+          width:1080px; height:92px;   }
+          
+          
+
+/*******custom*********/
+
+.container-content .section-join,
+.container-content .section-login  {   
+  width: 100%;
+  max-width: 320px;
+  margin:180 auto;
+  display: block;
+}
+
+.section-login .login-header .header-logo,
+.section-join .join-header .header-logo {
+   display: flex;
+    margin:20 auto;
+   cursor:pointer;
+}
+
+.section-join .join-container,
+.section-login .login-container{
+  margin:0 auto;
+  background: #fff;
+  border-radius:5px;
+  padding:30px 20px;
+  height:auto;
+}
+
+
+.login-container .login-form .form-text,
+.join-container .join-form .form-text{
+     margin-top:10px;
+     height:36px;
+}
+
+
+.login-container .login-form .form-text .user-input,
+.join-container .join-form .form-text .user-input {
+     border: 1px solid #ccc;
+    height: 100%;
+    width: 100%;
+    padding: 0px 10px;
+    outline-color: #31bfc2;
+    color: #555;
+}
+
+.join-container .join-form .form-button input,
+.login-container .login-form .form-button input{
+  width: 100%;
+  height: 38px;
+  background: #555;
+  color: white;
+  border-width: 0;
+  border-radius: 25px;
+  font-size: 14px;
+  font-weight:700;
+  cursor:pointer;
+  outline:none;
+  margin-top:20px;
+}
+
+.join-container .join-form .form-radio {
+    height: 36px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.join-container .join-form .form-radio input{
+   padding: 5px;
+    height: 100%;
+    vertical-align: middle;
+}
+
+.join-container .join-form .form-radio .radio-text {
+   margin-left: 5px;
+    vertical-align: middle;
+    font-size: 15px;
+    height: 100%;
+}
+
+.join-container .join-form .form-radio .right-radio,
+.join-container .join-form .form-radio .left-radio{
+   float: left;
+    text-align: center;
+    width: 50%;
+    height: 100%;
+}
+
+.join-container .join-form .left-business{
+   width:75%;
+   float:left;
+}
+
+
+.join-container .join-form .right-business{
+   width:25%;
+   float:left;
+}
+
+.join-container .join-form .right-business .business-button{
+    background: #555;
+    border-radius: 5px;
+    border-width: 0;
+    text-align: center;
+    color: #fff;
+    width: 100%;
+    margin-left: 5px;
+    height: 100%;
+    line-height: 33px;
+    outline: none;
+    cursor:pointer;
+}
+
+
+.container-content .section-login .login-join {
+   border-top: 1px solid #bbb;
+    padding: 10px;
+   font-size:14px;
+   cursor:pointer;
+   float: inherit;
+   color:#bbb;
+   text-align:right;
+}
+
+.container-content .section-login .login-sns {
+   width:100%;
+   font-size: 14px;
+   text-align:center;
+    font-weight:700;
+}
+
+.container-content .section-login .login-sns .facebook-button{
+    color:#357ebd;
+    border-radius:5px;
+    border: 1px solid #ddd;
+    padding:10px;
+    cursor:pointer;
+    margin-top: 10px;
+}
+
+.container-content .section-login .login-header{
+   display:flex;
+}
+
+.join-container .join-form .error {
+   margin: 5px;
+    font-size: 14px;
+    color: red;
+    display: flex;
+}
+
+

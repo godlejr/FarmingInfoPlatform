@@ -1,0 +1,59 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+   pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<div class="container-content">
+   <div class="content-body">
+
+      <div class="section-login">
+         <div class="login-header">
+            <img src="<c:url value='/resources/static/img/main/logo.jpg' />"
+               class="header-logo">
+         </div>
+
+         <div class="login-container">
+            <form:form class="login-form" method="post" modelAttribute="user">
+               <div class="form-text">
+                  <form:input class="user-input" type="text" path="email"
+                     placeholder="email" />
+               </div>
+               <div class="form-text">
+                  <form:input class="user-input" type="password" path="password"
+                     placeholder="password" />
+               </div>
+
+               <div class="form-button">
+                  <input class="login-button" type="submit" value="로그인" />
+               </div>
+
+            </form:form>
+         </div>
+
+         <div class="login-join">
+            <span>회원가입</span>
+         </div>
+
+         <div class="login-sns">
+            <div class="facebook-button">
+               <span>페이스북으로 로그인</span>
+            </div>
+            <div class="facebook-button">
+               <span>페이스북으로 로그인</span>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+<script type="text/javascript">
+   $('.login-join').click(function() {
+      document.location.href = "${pageContext.request.contextPath}/join";
+   });
+
+   $('.login-join').hover(function() {
+      $(this).css("color", "#555");
+   }, function() {
+      $(this).css("color", "#bbb");
+   });
+</script>

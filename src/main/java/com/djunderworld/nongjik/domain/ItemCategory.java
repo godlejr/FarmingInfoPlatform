@@ -1,32 +1,48 @@
 package com.djunderworld.nongjik.domain;
 
-public class ItemCategory {
+public class ItemCategory extends Base {
 
-	private long id;
 	private Category category;
 	private String name;
-	private String createdAt;
-	private String updatedAt;
 
 	public ItemCategory() {
 		super();
 	}
 
-	public ItemCategory(long id, Category category, String name, String createdAt, String updatedAt) {
+	public ItemCategory(Category category, String name) {
 		super();
-		this.id = id;
 		this.category = category;
 		this.name = name;
-		this.createdAt = createdAt;
-		this.updatedAt = updatedAt;
 	}
 
+	@Override
 	public long getId() {
-		return id;
+		return super.getId();
 	}
 
+	@Override
 	public void setId(long id) {
-		this.id = id;
+		super.setId(id);
+	}
+
+	@Override
+	public String getCreatedAt() {
+		return super.getCreatedAt();
+	}
+
+	@Override
+	public void setCreatedAt(String createdAt) {
+		super.setCreatedAt(createdAt);
+	}
+
+	@Override
+	public String getUpdatedAt() {
+		return super.getUpdatedAt();
+	}
+
+	@Override
+	public void setUpdatedAt(String updatedAt) {
+		super.setUpdatedAt(updatedAt);
 	}
 
 	public Category getCategory() {
@@ -43,22 +59,6 @@ public class ItemCategory {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getCreatedAt() {
-		return createdAt;
-	}
-
-	public void setCreatedAt(String createdAt) {
-		this.createdAt = createdAt;
-	}
-
-	public String getUpdatedAt() {
-		return updatedAt;
-	}
-
-	public void setUpdatedAt(String updatedAt) {
-		this.updatedAt = updatedAt;
 	}
 
 }

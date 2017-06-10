@@ -3,11 +3,9 @@ package com.djunderworld.nongjik.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Category {
-	private long id;
+public class Category extends Base{
 	private String name;
-	private String createdAt;
-	private String updatedAt;
+
 
 	private List<ItemCategory> itemCategories = new ArrayList<ItemCategory>();
 
@@ -15,21 +13,57 @@ public class Category {
 		super();
 	}
 
-	public Category(long id, String name, String createdAt, String updatedAt) {
+	
+	
+	public Category(String name, List<ItemCategory> itemCategories) {
 		super();
-		this.id = id;
 		this.name = name;
-		this.createdAt = createdAt;
-		this.updatedAt = updatedAt;
+		this.itemCategories = itemCategories;
 	}
 
+
+
+	@Override
 	public long getId() {
-		return id;
+		return super.getId();
 	}
 
+
+
+	@Override
 	public void setId(long id) {
-		this.id = id;
+		super.setId(id);
 	}
+
+
+
+	@Override
+	public String getCreatedAt() {
+		return super.getCreatedAt();
+	}
+
+
+
+	@Override
+	public void setCreatedAt(String createdAt) {
+		super.setCreatedAt(createdAt);
+	}
+
+
+
+	@Override
+	public String getUpdatedAt() {
+		return super.getUpdatedAt();
+	}
+
+
+
+	@Override
+	public void setUpdatedAt(String updatedAt) {
+		super.setUpdatedAt(updatedAt);
+	}
+
+
 
 	public String getName() {
 		return name;
@@ -39,21 +73,7 @@ public class Category {
 		this.name = name;
 	}
 
-	public String getCreatedAt() {
-		return createdAt;
-	}
-
-	public void setCreatedAt(String createdAt) {
-		this.createdAt = createdAt;
-	}
-
-	public String getUpdatedAt() {
-		return updatedAt;
-	}
-
-	public void setUpdatedAt(String updatedAt) {
-		this.updatedAt = updatedAt;
-	}
+	
 
 	public List<ItemCategory> getItemCategories() {
 		return itemCategories;

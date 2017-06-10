@@ -2,34 +2,49 @@ package com.djunderworld.nongjik.model;
 
 import com.djunderworld.nongjik.domain.ItemCategory;
 
-public class ItemCategoryModel {
+public class ItemCategoryModel extends BaseModel {
 
-	private long id;
 	private CategoryModel categoryModel;
 	private String name;
-	private String createdAt;
-	private String updatedAt;
 
 	public ItemCategoryModel() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	public ItemCategoryModel(long id, CategoryModel categoryModel, String name, String createdAt, String updatedAt) {
+	public ItemCategoryModel(CategoryModel categoryModel, String name) {
 		super();
-		this.id = id;
 		this.categoryModel = categoryModel;
 		this.name = name;
-		this.createdAt = createdAt;
-		this.updatedAt = updatedAt;
 	}
 
+	@Override
 	public long getId() {
-		return id;
+		return super.getId();
 	}
 
+	@Override
 	public void setId(long id) {
-		this.id = id;
+		super.setId(id);
+	}
+
+	@Override
+	public String getUpdatedAt() {
+		return super.getUpdatedAt();
+	}
+
+	@Override
+	public void setUpdatedAt(String updatedAt) {
+		super.setUpdatedAt(updatedAt);
+	}
+
+	@Override
+	public String getCreatedAt() {
+		return super.getCreatedAt();
+	}
+
+	@Override
+	public void setCreatedAt(String createdAt) {
+		super.setCreatedAt(createdAt);
 	}
 
 	public CategoryModel getCategory() {
@@ -48,59 +63,41 @@ public class ItemCategoryModel {
 		this.name = name;
 	}
 
-	public String getCreatedAt() {
-		return createdAt;
-	}
-
-	public void setCreatedAt(String createdAt) {
-		this.createdAt = createdAt;
-	}
-
-	public String getUpdatedAt() {
-		return updatedAt;
-	}
-
-	public void setUpdatedAt(String updatedAt) {
-		this.updatedAt = updatedAt;
-	}
-
 	public ItemCategory buildDomainForBackRef() {
 		ItemCategory itemCategory = new ItemCategory();
-		itemCategory.setId(id);
+		itemCategory.setId(getId());
 		itemCategory.setName(name);
-		itemCategory.setCreatedAt(createdAt);
-		itemCategory.setUpdatedAt(updatedAt);
+		itemCategory.setCreatedAt(getCreatedAt());
+		itemCategory.setUpdatedAt(getUpdatedAt());
 		return itemCategory;
 	}
 
-	
 	public ItemCategory buildDomain() {
 		ItemCategory itemCategory = new ItemCategory();
-		
-		itemCategory.setId(id);
+
+		itemCategory.setId(getId());
 		itemCategory.setCategory(categoryModel.buildDomain());
 		itemCategory.setName(name);
-		itemCategory.setCreatedAt(createdAt);
-		itemCategory.setUpdatedAt(updatedAt);
+		itemCategory.setCreatedAt(getCreatedAt());
+		itemCategory.setUpdatedAt(getUpdatedAt());
 		return itemCategory;
 	}
 
-	public void buildModelForBackRef(ItemCategory itemCategory) { 
-		id = itemCategory.getId();
+	public void buildModelForBackRef(ItemCategory itemCategory) {
+		setId(itemCategory.getId());
 		name = itemCategory.getName();
-		createdAt = itemCategory.getCreatedAt();
-		updatedAt = itemCategory.getUpdatedAt();
+		setCreatedAt(itemCategory.getCreatedAt());
+		setUpdatedAt(itemCategory.getUpdatedAt());
 	}
-	
-	
-	public void buildModel(ItemCategory itemCategory) { 
-		id = itemCategory.getId();
+
+	public void buildModel(ItemCategory itemCategory) {
+		setId(itemCategory.getId());
 		CategoryModel category = new CategoryModel();
 		category.buildModel(itemCategory.getCategory());
 		categoryModel = category;
 		name = itemCategory.getName();
-		createdAt = itemCategory.getCreatedAt();
-		updatedAt = itemCategory.getUpdatedAt();
+		setCreatedAt(itemCategory.getCreatedAt());
+		setUpdatedAt(itemCategory.getUpdatedAt());
 	}
 
 }

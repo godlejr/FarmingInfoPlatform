@@ -6,33 +6,49 @@ import java.util.List;
 import com.djunderworld.nongjik.domain.Category;
 import com.djunderworld.nongjik.domain.ItemCategory;
 
-public class CategoryModel {
-	private long id;
+public class CategoryModel extends BaseModel {
 	private String name;
-	private String createdAt;
-	private String updatedAt;
-	
+
 	private List<ItemCategoryModel> itemCategoryModels = new ArrayList<ItemCategoryModel>();
-
-
-	public CategoryModel(long id, String name, String createdAt, String updatedAt) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.createdAt = createdAt;
-		this.updatedAt = updatedAt;
-	}
 
 	public CategoryModel() {
 		super();
 	}
 
-	public long getId() {
-		return id;
+	public CategoryModel(String name, List<ItemCategoryModel> itemCategoryModels) {
+		super();
+		this.name = name;
+		this.itemCategoryModels = itemCategoryModels;
 	}
 
+	@Override
+	public long getId() {
+		return super.getId();
+	}
+
+	@Override
 	public void setId(long id) {
-		this.id = id;
+		super.setId(id);
+	}
+
+	@Override
+	public String getUpdatedAt() {
+		return super.getUpdatedAt();
+	}
+
+	@Override
+	public void setUpdatedAt(String updatedAt) {
+		super.setUpdatedAt(updatedAt);
+	}
+
+	@Override
+	public String getCreatedAt() {
+		return super.getCreatedAt();
+	}
+
+	@Override
+	public void setCreatedAt(String createdAt) {
+		super.setCreatedAt(createdAt);
 	}
 
 	public String getName() {
@@ -43,22 +59,6 @@ public class CategoryModel {
 		this.name = name;
 	}
 
-	public String getCreatedAt() {
-		return createdAt;
-	}
-
-	public void setCreatedAt(String createdAt) {
-		this.createdAt = createdAt;
-	}
-
-	public String getUpdatedAt() {
-		return updatedAt;
-	}
-
-	public void setUpdatedAt(String updatedAt) {
-		this.updatedAt = updatedAt;
-	}
-
 	public List<ItemCategoryModel> getItemCategoryModels() {
 		return itemCategoryModels;
 	}
@@ -66,14 +66,14 @@ public class CategoryModel {
 	public void setItemCategoryModels(List<ItemCategoryModel> itemCategoryModels) {
 		this.itemCategoryModels = itemCategoryModels;
 	}
-	
+
 	public Category buildDomain() {
 		Category category = new Category();
-		category.setId(id);
+		category.setId(getId());
 		category.setName(name);
-		category.setCreatedAt(createdAt);
-		category.setUpdatedAt(updatedAt);
-		
+		category.setCreatedAt(getCreatedAt());
+		category.setUpdatedAt(getUpdatedAt());
+
 		List<ItemCategory> itemCategories = new ArrayList<ItemCategory>();
 
 		for (ItemCategoryModel model : itemCategoryModels) {
@@ -81,19 +81,19 @@ public class CategoryModel {
 			itemCategories.add(itemCategory);
 		}
 		category.setItemCategories(itemCategories);
-		
+
 		return category;
 	}
 
 	public void buildModel(Category category) {
-		id = category.getId();
+		setId(category.getId());
 		name = category.getName();
-		createdAt = category.getCreatedAt();
-		updatedAt = category.getUpdatedAt();
-		
+		setCreatedAt(category.getCreatedAt());
+		setUpdatedAt(category.getUpdatedAt());
+
 		List<ItemCategoryModel> itemCategoryModels = new ArrayList<ItemCategoryModel>();
 		List<ItemCategory> itemCategories = category.getItemCategories();
-		
+
 		for (ItemCategory itemCategory : itemCategories) {
 			ItemCategoryModel itemCategoryModel = new ItemCategoryModel();
 			itemCategoryModel.buildModelForBackRef(itemCategory);

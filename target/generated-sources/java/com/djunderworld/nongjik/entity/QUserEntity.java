@@ -26,6 +26,8 @@ public class QUserEntity extends EntityPathBase<UserEntity> {
 
     public final StringPath avatar = createString("avatar");
 
+    public final StringPath cover = createString("cover");
+
     //inherited
     public final StringPath createdAt = _super.createdAt;
 

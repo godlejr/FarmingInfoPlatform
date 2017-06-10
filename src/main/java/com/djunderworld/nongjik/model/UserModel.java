@@ -1,6 +1,5 @@
 package com.djunderworld.nongjik.model;
 
-
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Email;
@@ -8,46 +7,70 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import com.djunderworld.nongjik.domain.User;
 
+public class UserModel extends BaseModel {
 
-public class UserModel {
-	
-	
-	private long id;
-	
-	@NotEmpty (message="비밀번호 입력하세요.")
+	@NotEmpty(message = "비밀번호 입력하세요.")
 	private String password;
-	
-	@NotNull (message="비밀번호가 일치하지 않습니다.")
+
+	@NotNull(message = "비밀번호가 일치하지 않습니다.")
 	private String passwordConfirm;
-	
-	@NotEmpty (message="이름을 입력하세요.")
+
+	@NotEmpty(message = "이름을 입력하세요.")
 	private String name;
-	
-	@NotEmpty (message="이메일을 입력하세요.")
-	@Email(message="올바른 이메일형식이 아닙니다.")
+
+	@NotEmpty(message = "이메일을 입력하세요.")
+	@Email(message = "올바른 이메일형식이 아닙니다.")
 	private String email;
-	
+
 	private String avatar;
+	private String cover;
 	private int level;
-	private String createdAt;
-	private String updatedAt;
-	
-	
-	@NotEmpty (message="사업자 등록번호를 입력하세요.")
+
+	@NotEmpty(message = "사업자 등록번호를 입력하세요.")
 	private String businessNo;
 
-	public UserModel(long id, String password,String passwordConfirm, String name, String avatar,
-			int level, String createdAt, String updatedAt, String email) {
+	private ProfessionalModel professionalModel;
+
+	public UserModel(String password, String name, String email, String avatar, String cover, int level,
+			ProfessionalModel professionalModel) {
 		super();
-		this.id = id;
 		this.password = password;
-		this.passwordConfirm = passwordConfirm;
 		this.name = name;
-		this.avatar = avatar;
-		this.level = level;
-		this.createdAt = createdAt;
-		this.updatedAt = updatedAt;
 		this.email = email;
+		this.avatar = avatar;
+		this.cover = cover;
+		this.level = level;
+		this.professionalModel = professionalModel;
+	}
+
+	@Override
+	public long getId() {
+		return super.getId();
+	}
+
+	@Override
+	public void setId(long id) {
+		super.setId(id);
+	}
+
+	@Override
+	public String getUpdatedAt() {
+		return super.getUpdatedAt();
+	}
+
+	@Override
+	public void setUpdatedAt(String updatedAt) {
+		super.setUpdatedAt(updatedAt);
+	}
+
+	@Override
+	public String getCreatedAt() {
+		return super.getCreatedAt();
+	}
+
+	@Override
+	public void setCreatedAt(String createdAt) {
+		super.setCreatedAt(createdAt);
 	}
 
 	public String getEmail() {
@@ -60,14 +83,6 @@ public class UserModel {
 
 	public UserModel() {
 		super();
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
 	}
 
 	public String getPassword() {
@@ -102,22 +117,22 @@ public class UserModel {
 		this.level = level;
 	}
 
-	public String getCreatedAt() {
-		return createdAt;
+	public String getCover() {
+		return cover;
 	}
 
-	public void setCreatedAt(String createdAt) {
-		this.createdAt = createdAt;
+	public void setCover(String cover) {
+		this.cover = cover;
 	}
 
-	public String getUpdatedAt() {
-		return updatedAt;
+	public ProfessionalModel getProfessionalModel() {
+		return professionalModel;
 	}
 
-	public void setUpdatedAt(String updatedAt) {
-		this.updatedAt = updatedAt;
+	public void setProfessionalModel(ProfessionalModel professionalModel) {
+		this.professionalModel = professionalModel;
 	}
-	
+
 	public String getPasswordConfirm() {
 		return passwordConfirm;
 	}
@@ -126,38 +141,16 @@ public class UserModel {
 		this.passwordConfirm = passwordConfirm;
 		checkPassword();
 	}
-	
+
 	private void checkPassword() {
-	    if(this.password == null || this.passwordConfirm == null){
-	        return;
-	    }else if(!this.password.equals(passwordConfirm)){
-	        this.passwordConfirm = null;
-	        this.password = null;
-	    }
+		if (this.password == null || this.passwordConfirm == null) {
+			return;
+		} else if (!this.password.equals(passwordConfirm)) {
+			this.passwordConfirm = null;
+			this.password = null;
+		}
 	}
 	
-	public User buildDomain() {
-		User user = new User();
-		user.setId(id);
-		user.setName(name);
-		user.setAvatar(avatar);
-		user.setPassword(password);
-		user.setLevel(level);
-		user.setCreatedAt(createdAt);
-		user.setUpdatedAt(updatedAt);
-		return user;
-	}
-
-	public void buildModel(User user) { 
-		id = user.getId();
-		name = user.getName();
-		password = user.getPassword();
-		avatar = user.getAvatar();
-		level = user.getLevel();
-		createdAt = user.getCreatedAt();
-		updatedAt = user.getUpdatedAt();
-	}
-
 	public String getBusinessNo() {
 		return businessNo;
 	}
@@ -165,6 +158,31 @@ public class UserModel {
 	public void setBusinessNo(String businessNo) {
 		this.businessNo = businessNo;
 	}
+
+	public User buildDomain() {
+		User user = new User();
+		user.setId(getId());
+		user.setName(name);
+		user.setAvatar(avatar);
+		user.setCover(cover);
+		user.setPassword(password);
+		user.setLevel(level);
+		user.setCreatedAt(getCreatedAt());
+		user.setUpdatedAt(getUpdatedAt());
+		return user;
+	}
+
+	public void buildModel(User user) {
+		setId(user.getId());
+		name = user.getName();
+		password = user.getPassword();
+		avatar = user.getAvatar();
+		level = user.getLevel();
+		cover = user.getCover();
+		setCreatedAt(user.getCreatedAt());
+		setUpdatedAt(user.getUpdatedAt());
+	}
+
 
 
 }

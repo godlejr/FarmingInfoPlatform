@@ -1,40 +1,75 @@
 package com.djunderworld.nongjik.domain;
 
-public class User {
-	private long id;
+public class User extends Base {
 	private String email;
 	private String password;
 	private String name;
 	private String avatar;
+	private String cover;
 	private int level;
-	private String createdAt;
-	private String updatedAt;
 
-
-
-	public User(long id, String password, String name, String avatar, int level, String createdAt, String updatedAt) {
-		super();
-		this.id = id;
-		this.password = password;
-		this.name = name;
-		this.avatar = avatar;
-		this.level = level;
-		this.createdAt = createdAt;
-		this.updatedAt = updatedAt;
-		this.email = email;
-	}
+	private Professional professional;
 
 	public User() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
+	public User(String email, String password, String name, String avatar, String cover, int level,
+			Professional professional) {
+		super();
+		this.email = email;
+		this.password = password;
+		this.name = name;
+		this.avatar = avatar;
+		this.cover = cover;
+		this.level = level;
+		this.professional = professional;
+	}
+
+	@Override
 	public long getId() {
-		return id;
+		return super.getId();
 	}
 
+	@Override
 	public void setId(long id) {
-		this.id = id;
+		super.setId(id);
+	}
+
+	@Override
+	public String getCreatedAt() {
+		return super.getCreatedAt();
+	}
+
+	@Override
+	public void setCreatedAt(String createdAt) {
+		super.setCreatedAt(createdAt);
+	}
+
+	@Override
+	public String getUpdatedAt() {
+		return super.getUpdatedAt();
+	}
+
+	@Override
+	public void setUpdatedAt(String updatedAt) {
+		super.setUpdatedAt(updatedAt);
+	}
+
+	public void setCover(String cover) {
+		this.cover = cover;
+	}
+
+	public String getCover() {
+		return cover;
+	}
+
+	public Professional getProfessional() {
+		return professional;
+	}
+
+	public void setProfessional(Professional professional) {
+		this.professional = professional;
 	}
 
 	public String getPassword() {
@@ -68,22 +103,6 @@ public class User {
 	public void setLevel(int level) {
 		this.level = level;
 	}
-	
-	public String getCreatedAt() {
-		return createdAt;
-	}
-
-	public void setCreatedAt(String createdAt) {
-		this.createdAt = createdAt;
-	}
-
-	public String getUpdatedAt() {
-		return updatedAt;
-	}
-
-	public void setUpdatedAt(String updatedAt) {
-		this.updatedAt = updatedAt;
-	}
 
 	public String getEmail() {
 		return email;
@@ -93,5 +112,4 @@ public class User {
 		this.email = email;
 	}
 
-	
 }

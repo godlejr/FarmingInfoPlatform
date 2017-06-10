@@ -24,13 +24,33 @@ public class QProfessionalEntity extends EntityPathBase<ProfessionalEntity> {
 
     public final QBaseEntity _super = new QBaseEntity(this);
 
+    public final StringPath address = createString("address");
+
     public final StringPath businessNo = createString("businessNo");
 
     //inherited
     public final StringPath createdAt = _super.createdAt;
 
+    public final StringPath homepage = createString("homepage");
+
     //inherited
     public final NumberPath<Long> id = _super.id;
+
+    public final StringPath intro = createString("intro");
+
+    public final StringPath phone = createString("phone");
+
+    public final StringPath postCode = createString("postCode");
+
+    public final StringPath sido = createString("sido");
+
+    public final StringPath sidoCode = createString("sidoCode");
+
+    public final StringPath sigungu = createString("sigungu");
+
+    public final StringPath sigunguCode = createString("sigunguCode");
+
+    public final StringPath subAddress = createString("subAddress");
 
     //inherited
     public final StringPath updatedAt = _super.updatedAt;

@@ -15,12 +15,12 @@
 				<form:form class="join-form" method="post" modelAttribute="user">
 					<div class="form-radio">
 						<div class="left-radio">
-							<form:radiobutton id="basic" path="level" value="0"
+							<form:radiobutton id="basic" path="level" value="1"
 								checked="checked" />
 							<span class="radio-text">개인회원</span>
 						</div>
 						<div class="right-radio">
-							<form:radiobutton id="business" path="level" value="1" />
+							<form:radiobutton id="business" path="level" value="2" />
 							<span class="radio-text">기업회원</span>
 						</div>
 					</div>
@@ -74,14 +74,14 @@
 </div>
 
 <script type="text/javascript">
-	if ($('input:radio[name="level"]:radio:checked').val() == 1) {
+	if ($('input:radio[name="level"]:radio:checked').val() == 2) {
 		$('#business-no').show();
 	} else {
 		$('#business-no').hide();
 	}
 
 	$('input:radio[name="level"]').change(function() {
-		if ($(this).val() == 1) {
+		if ($(this).val() == 2) {
 			$('#business-no').show();
 
 		} else {

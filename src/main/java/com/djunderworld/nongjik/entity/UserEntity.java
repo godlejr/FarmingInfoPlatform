@@ -14,6 +14,7 @@ public class UserEntity extends BaseEntity {
 	private String password;
 	private String name;
 	private String avatar;
+	private String cover;
 	private int level;
 
 	@OneToOne(mappedBy = "userEntity")
@@ -23,13 +24,12 @@ public class UserEntity extends BaseEntity {
 		super();
 	}
 
-	public UserEntity(String email, String password, String name, String avatar, int level) {
-		super();
-		this.email = email;
-		this.password = password;
-		this.name = name;
-		this.avatar = avatar;
-		this.level = level;
+	public String getCover() {
+		return cover;
+	}
+
+	public void setCover(String cover) {
+		this.cover = cover;
 	}
 
 	public String getEmail() {
@@ -85,6 +85,7 @@ public class UserEntity extends BaseEntity {
 		user.setId(super.getId());
 		user.setName(name);
 		user.setAvatar(avatar);
+		user.setCover(cover);
 		user.setPassword(password);
 		user.setLevel(level);
 		user.setCreatedAt(super.getCreatedAt());
@@ -97,6 +98,7 @@ public class UserEntity extends BaseEntity {
 		name = user.getName();
 		password = user.getPassword();
 		avatar = user.getAvatar();
+		cover = user.getCover();
 		level = user.getLevel();
 		super.setCreatedAt(user.getCreatedAt());
 		super.setUpdatedAt(user.getUpdatedAt());

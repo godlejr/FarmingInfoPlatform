@@ -82,6 +82,10 @@ public class UserEntity extends BaseEntity {
 
 	public User buildDomain() {
 		User user = new User();
+
+		if (professionalEntity != null) {
+			user.setProfessional(professionalEntity.buildDomainForBackRef());
+		}
 		user.setId(super.getId());
 		user.setName(name);
 		user.setAvatar(avatar);
@@ -95,6 +99,13 @@ public class UserEntity extends BaseEntity {
 
 	public void buildEntity(User user) {
 		super.setId(user.getId());
+
+		if (user.getProfessional() != null) {
+			ProfessionalEntity professional = new ProfessionalEntity();
+			professional.buildEntityForBackRef(user.getProfessional());
+			professionalEntity = professional;
+		}
+		email = user.getEmail();
 		name = user.getName();
 		password = user.getPassword();
 		avatar = user.getAvatar();

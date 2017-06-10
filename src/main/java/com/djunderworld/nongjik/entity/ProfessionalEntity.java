@@ -10,6 +10,8 @@ import com.djunderworld.nongjik.domain.Professional;
 @Entity
 @Table(name = "professionals")
 public class ProfessionalEntity extends BaseEntity {
+	
+	
 	@OneToOne
 	@JoinColumn(name = "user_id")
 	private UserEntity userEntity;
@@ -122,6 +124,28 @@ public class ProfessionalEntity extends BaseEntity {
 		this.sigungu = sigungu;
 	}
 
+	
+	public Professional buildDomainForBackRef() {
+		Professional professional = new Professional();
+		professional.setId(super.getId());
+		professional.setBusinessNo(businessNo);
+		professional.setPhone(phone);
+		professional.setHomepage(homepage);
+		professional.setAddress(address);
+		professional.setSubAddress(subAddress);
+		professional.setIntro(intro);
+		professional.setPostCode(postCode);
+		professional.setSidoCode(sidoCode);
+		professional.setSigunguCode(sigunguCode);
+		professional.setSido(sido);
+		professional.setSigungu(sigungu);
+		professional.setCreatedAt(super.getCreatedAt());
+		professional.setUpdatedAt(super.getUpdatedAt());
+
+		return professional;
+	}
+
+	
 	public Professional buildDomain() {
 		Professional professional = new Professional();
 		professional.setId(super.getId());
@@ -141,6 +165,24 @@ public class ProfessionalEntity extends BaseEntity {
 		professional.setUpdatedAt(super.getUpdatedAt());
 
 		return professional;
+	}
+	
+	public void buildEntityForBackRef(Professional professional) {
+		super.setId(professional.getId());
+		businessNo = professional.getBusinessNo();
+		phone = professional.getPhone();
+		homepage = professional.getHomepage();
+		address = professional.getAddress();
+		subAddress = professional.getSubAddress();
+		intro = professional.getIntro();
+		postCode = professional.getPostCode();
+		sidoCode = professional.getSidoCode();
+		sigunguCode= professional.getSigunguCode();
+		sido = professional.getSido();
+		sigungu = professional.getSigungu();
+
+		super.setCreatedAt(professional.getCreatedAt());
+		super.setUpdatedAt(professional.getUpdatedAt());
 	}
 
 	public void buildEntity(Professional professional) {

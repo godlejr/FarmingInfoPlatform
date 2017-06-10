@@ -154,7 +154,7 @@ public class UserModel extends BaseModel {
 			this.password = null;
 		}
 	}
-	
+
 	public String getBusinessNo() {
 		return businessNo;
 	}
@@ -166,11 +166,16 @@ public class UserModel extends BaseModel {
 	public User buildDomain() {
 		User user = new User();
 		user.setId(getId());
+		user.setEmail(email);
 		user.setName(name);
 		user.setAvatar(avatar);
 		user.setCover(cover);
 		user.setPassword(password);
 		user.setLevel(level);
+		if (professionalModel != null) {
+			user.setProfessional(professionalModel.buildDomainForBackRef());
+		}
+		user.setBusinessNo(businessNo);
 		user.setCreatedAt(getCreatedAt());
 		user.setUpdatedAt(getUpdatedAt());
 		return user;
@@ -183,10 +188,13 @@ public class UserModel extends BaseModel {
 		avatar = user.getAvatar();
 		level = user.getLevel();
 		cover = user.getCover();
+
+		ProfessionalModel professional = new ProfessionalModel();
+		professional.buildModel(user.getProfessional());
+
+		professionalModel = professional;
 		setCreatedAt(user.getCreatedAt());
 		setUpdatedAt(user.getUpdatedAt());
 	}
-
-
 
 }

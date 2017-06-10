@@ -6,5 +6,6 @@ import com.djunderworld.nongjik.entity.UserEntity;
 
 public interface UserRepository extends JpaRepository<UserEntity, Long>, CustomUserRepository {
 
-	UserEntity findById(long id);
+	UserEntity findById(long id) throws Exception;
+
 }

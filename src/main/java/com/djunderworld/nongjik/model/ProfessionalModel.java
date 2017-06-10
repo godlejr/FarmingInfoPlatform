@@ -164,6 +164,25 @@ public class ProfessionalModel extends BaseModel {
 		this.sigungu = sigungu;
 	}
 
+	public Professional buildDomainForBackRef() {
+		Professional professional = new Professional();
+		professional.setId(getId());
+		professional.setBusinessNo(businessNo);
+		professional.setPhone(phone);
+		professional.setHomepage(homepage);
+		professional.setAddress(address);
+		professional.setSubAddress(subAddress);
+		professional.setIntro(intro);
+		professional.setPostCode(postCode);
+		professional.setSidoCode(sidoCode);
+		professional.setSigunguCode(sigunguCode);
+		professional.setSido(sido);
+		professional.setSigungu(sigungu);
+		professional.setCreatedAt(getCreatedAt());
+		professional.setUpdatedAt(getUpdatedAt());
+		return professional;
+	}
+	
 	public Professional buildDomain() {
 		Professional professional = new Professional();
 		professional.setId(getId());
@@ -184,6 +203,24 @@ public class ProfessionalModel extends BaseModel {
 		return professional;
 	}
 
+	
+	public void buildModelForBackRef(Professional professional) {
+		setId(professional.getId());
+		businessNo = professional.getBusinessNo();
+		phone = professional.getPhone();
+		homepage = professional.getHomepage();
+		address = professional.getAddress();
+		subAddress = professional.getSubAddress();
+		intro = professional.getIntro();
+		postCode = professional.getPostCode();
+		sidoCode = professional.getSidoCode();
+		sigunguCode = professional.getSigunguCode();
+		sido = professional.getSido();
+		sigungu = professional.getSigungu();
+		setCreatedAt(professional.getCreatedAt());
+		setUpdatedAt(professional.getUpdatedAt());
+	}
+	
 	public void buildModel(Professional professional) {
 		setId(professional.getId());
 		UserModel user = new UserModel();

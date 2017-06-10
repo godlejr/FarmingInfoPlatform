@@ -17,7 +17,10 @@
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
 
+	<context:component-scan base-package="com.djunderworld.nongjik" />
 	<context:annotation-config />
+	<aop:aspectj-autoproxy />
+
 	<beans:bean
 		class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration">
 		<beans:property name="maxInactiveIntervalInSeconds"
@@ -33,7 +36,10 @@
 
 	</beans:bean>
 
-	<jpa:repositories base-package="com.djunderworld.nongjik.repository"></jpa:repositories>
+	<jpa:repositories base-package="com.djunderworld.nongjik.repository"
+		entity-manager-factory-ref="entityManagerFactory"
+		transaction-manager-ref="jpaTransactionManager" />
+
 
 	<beans:bean name="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -43,30 +49,6 @@
 		<beans:property name="username" value="root"></beans:property>
 		<beans:property name="password" value="djunderworld12"></beans:property>
 	</beans:bean>
-
-	<!-- transaction -->
-	<beans:bean id="transactionManager"
-		class="org.springframework.orm.jpa.JpaTransactionManager">
-		<beans:property name="entityManagerFactory" ref="entityManagerFactory" />
-		<beans:property name="dataSource" ref="dataSource"></beans:property>
-	</beans:bean>
-
-	<aop:config proxy-target-class="true">
-		<aop:pointcut id="serviceImpls"
-			expression="within(@org.springframework.stereotype.Service *)" />
-		<aop:advisor id="transactionAdvisor" pointcut-ref="serviceImpls"
-			advice-ref="txAdvice" />
-	</aop:config>
-
-	<tx:advice id="txAdvice" transaction-manager="transactionManager">
-		<tx:attributes>
-			<tx:method name="insert*" rollback-for="Exception" />
-			<tx:method name="update*" rollback-for="Exception" />
-			<tx:method name="select*" rollback-for="Exception" />
-			<tx:method name="delete*" rollback-for="Exception" />
-		</tx:attributes>
-	</tx:advice>
-
 
 	<beans:bean
 		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"></beans:bean>
@@ -86,15 +68,24 @@
 
 		<beans:property name="jpaProperties">
 			<beans:props>
-				<beans:prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect
+				<beans:prop key="hibernate.dialect">org.hibernate.dialect.MySQLInnoDBDialect
 				</beans:prop>
 				<beans:prop key="hibernate.show_sql">true</beans:prop>
 				<beans:prop key="hibernate.format_sql">true</beans:prop>
 				<beans:prop key="hibernate.use_sql_comments">true</beans:prop>
-				<beans:prop key="hibernate.id.new_generator_mappings">true</beans:prop>
+				<beans:prop key="hibernate.id.new_generator_mappings">false</beans:prop>
 				<beans:prop key="hibernate.physical_naming_strategy">com.djunderworld.nongjik.common.config.PhysicalNamingStrategyImpl
 				</beans:prop>
 			</beans:props>
 		</beans:property>
 	</beans:bean>
+
+	<!-- transaction -->
+	<beans:bean id="jpaTransactionManager"
+		class="org.springframework.orm.jpa.JpaTransactionManager">
+		<beans:property name="entityManagerFactory" ref="entityManagerFactory" />
+		<beans:property name="dataSource" ref="dataSource" />
+	</beans:bean>
+
+
 </beans:beans>

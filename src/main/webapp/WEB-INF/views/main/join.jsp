@@ -26,18 +26,10 @@
 					</div>
 
 					<div class="form-text" id="business-no" hidden="hidden">
-						<div class="left-business">
-							<form:input class="user-input" type="text" path="businessNo"
-								placeholder="사업자 등록번호" />
-							<form:errors path="businessNo" class="error" />
-								
-						</div>
-						<div class="right-business">
-							<div class="business-button">
-								<span>인증</span>
-							</div>
-						</div>
+						<form:input class="user-input" type="text" path="businessNo"
+							placeholder="사업자 등록번호('-' 없이 입력)" />
 					</div>
+					<form:errors path="businessNo" class="error" />
 
 					<div class="form-text">
 						<form:input class="user-input" type="text" path="email"
@@ -63,8 +55,6 @@
 					</div>
 					<form:errors path="passwordConfirm" class="error" />
 
-
-
 					<div class="form-button">
 						<input class="join-button" type="submit" value="회원가입" />
 					</div>
@@ -83,6 +73,7 @@
 	}
 
 	$('input:radio[name="level"]').change(function() {
+		$('.error').hide();
 		if ($(this).val() == 2) {
 			$('#business-no').show();
 

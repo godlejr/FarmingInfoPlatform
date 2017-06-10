@@ -4,10 +4,13 @@
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd">
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
@@ -43,6 +46,26 @@
 		</beans:property>
 	</beans:bean>
 	
+	<aop:config >
+		<aop:pointcut id="serviceImpls"
+			expression="execution(!@org.springframework.transaction.annotation.Transactional * *(..)) 
+			and @within(org.springframework.stereotype.Service) 
+			and (!@within(org.springframework.transaction.annotation.Transactional))" />
+		<aop:advisor id="transactionAdvisor" pointcut-ref="serviceImpls"
+			advice-ref="txAdvice" />
+	</aop:config>
+
+	<tx:advice id="txAdvice" transaction-manager="jpaTransactionManager">
+		<tx:attributes>
+			<tx:method name="save*"  rollback-for="Exception" />
+			<tx:method name="insert*" rollback-for="Exception" />
+
+			<tx:method name="update*" rollback-for="Exception" />
+			<tx:method name="select*" rollback-for="Exception" />
+			<tx:method name="delete*" rollback-for="Exception" />
+			<tx:method name="*" propagation="REQUIRED" />
+		</tx:attributes>
+	</tx:advice>
 	
 
 	

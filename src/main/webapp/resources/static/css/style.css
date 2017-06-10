@@ -567,31 +567,6 @@ ol, ul, li {
     height: 100%;
 }
 
-.join-container .join-form .left-business{
-   width:75%;
-   float:left;
-}
-
-
-.join-container .join-form .right-business{
-   width:25%;
-   float:left;
-}
-
-.join-container .join-form .right-business .business-button{
-    background: #555;
-    border-radius: 5px;
-    border-width: 0;
-    text-align: center;
-    color: #fff;
-    width: 100%;
-    margin-left: 5px;
-    height: 100%;
-    line-height: 33px;
-    outline: none;
-    cursor:pointer;
-}
-
 
 .container-content .section-login .login-join {
    border-top: 1px solid #bbb;

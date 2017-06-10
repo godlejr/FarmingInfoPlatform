@@ -10,6 +10,9 @@ public class User extends Base {
 
 	private Professional professional;
 
+	//for the join
+	private String businessNo;
+	
 	public User() {
 		super();
 	}
@@ -110,6 +113,14 @@ public class User extends Base {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getBusinessNo() {
+		return businessNo;
+	}
+
+	public void setBusinessNo(String businessNo) {
+		this.businessNo = businessNo;
 	}
 
 }

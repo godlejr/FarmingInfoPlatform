@@ -1,4 +1,4 @@
-package com.djunderworld.nongjik.config;
+package com.djunderworld.nongjik.common.config;
 
 import org.hibernate.boot.model.naming.Identifier;
 import org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl;

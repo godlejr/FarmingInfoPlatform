@@ -27,8 +27,10 @@
 
 					<div class="form-text" id="business-no" hidden="hidden">
 						<div class="left-business">
-							<form:input class="user-input" type="text" path="avatar"
+							<form:input class="user-input" type="text" path="businessNo"
 								placeholder="사업자 등록번호" />
+							<form:errors path="businessNo" class="error" />
+								
 						</div>
 						<div class="right-business">
 							<div class="business-button">

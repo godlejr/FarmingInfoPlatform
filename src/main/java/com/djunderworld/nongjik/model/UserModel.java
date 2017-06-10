@@ -5,10 +5,13 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.djunderworld.nongjik.common.annotation.BusinessNumber;
+import com.djunderworld.nongjik.common.annotation.Password;
 import com.djunderworld.nongjik.domain.User;
 
 public class UserModel extends BaseModel {
 
+	@Password
 	@NotEmpty(message = "비밀번호 입력하세요.")
 	private String password;
 
@@ -26,6 +29,7 @@ public class UserModel extends BaseModel {
 	private String cover;
 	private int level;
 
+	@BusinessNumber
 	@NotEmpty(message = "사업자 등록번호를 입력하세요.")
 	private String businessNo;
 

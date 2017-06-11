@@ -1,5 +1,7 @@
 package com.djunderworld.nongjik.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -9,7 +11,7 @@ import com.djunderworld.nongjik.domain.Professional;
 
 @Entity
 @Table(name = "professionals")
-public class ProfessionalEntity extends BaseEntity {
+public class ProfessionalEntity extends BaseEntity implements Serializable{
 	
 	
 	@OneToOne

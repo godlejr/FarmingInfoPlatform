@@ -10,7 +10,7 @@ import com.djunderworld.nongjik.common.annotation.EmailConfirm;
 import com.djunderworld.nongjik.common.annotation.Password;
 import com.djunderworld.nongjik.domain.User;
 
-public class UserModel extends BaseModel {
+public class UserModel extends BaseModel  {
 
 	
 
@@ -33,7 +33,6 @@ public class UserModel extends BaseModel {
 	private int level;
 
 	@BusinessNumber
-	@NotEmpty(message = "사업자 등록번호를 입력하세요.")
 	private String businessNo;
 
 	private ProfessionalModel professionalModel;

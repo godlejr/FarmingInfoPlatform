@@ -3,9 +3,12 @@ package com.djunderworld.nongjik.main.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 
 import com.djunderworld.nongjik.common.flag.UserLevelFlag;
 import com.djunderworld.nongjik.domain.Category;
@@ -59,6 +62,24 @@ public class MainServiceImpl implements MainService {
 			professionalRepository.saveAndFlush(professionalEntity);
 		}
 
+	}
+
+	@Override
+	public String selectLogin(User user, Model model, HttpSession session) throws Exception {
+		String email = user.getEmail();
+		String password = user.getPassword();
+		String page = "main/login";
+		
+		UserEntity userEntity = userRepository.findByEmailAndPassword(email, password);
+		
+		if(userEntity == null){
+			model.addAttribute("message","이메일과 비밀번호를 확인해주세요.");
+		}else{
+			session.setAttribute("user", userEntity);
+			page = "redirect:/";
+		}
+		
+		return page;
 	}
 
 }

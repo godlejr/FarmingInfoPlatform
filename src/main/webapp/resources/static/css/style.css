@@ -595,7 +595,6 @@ ol, ul, li {
 }
 
 .container-content .section-login .login-header{
-   display:flex;
 }
 
 .join-container .join-form .error {
@@ -606,3 +605,16 @@ ol, ul, li {
 }
 
 
+/******* message ********/
+.login-message{
+	width: 100%;
+    font-size: 14px;
+    color: #d45353;
+    text-align: center;
+    padding: 10px;
+    font-weight: bold;
+}
+
+.login-message.join{
+    color: #41d027;
+}

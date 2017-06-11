@@ -1,5 +1,7 @@
 package com.djunderworld.nongjik.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -8,7 +10,7 @@ import com.djunderworld.nongjik.domain.User;
 
 @Entity
 @Table(name = "users")
-public class UserEntity extends BaseEntity {
+public class UserEntity extends BaseEntity implements Serializable{
 
 	private String email;
 	private String password;

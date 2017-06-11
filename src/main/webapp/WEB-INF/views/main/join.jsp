@@ -7,8 +7,9 @@
 	<div class="content-body">
 		<div class="section-join">
 			<div class="join-header">
-				<img src="<c:url value='/resources/static/img/main/logo.jpg' />"
-					class="header-logo">
+				<a href="${pageContext.request.contextPath}/"><img
+					src="<c:url value='/resources/static/img/main/logo.jpg' />"
+					class="header-logo"></a>
 			</div>
 
 			<div class="join-container">
@@ -29,7 +30,7 @@
 						<form:input class="user-input" type="text" path="businessNo"
 							placeholder="사업자 등록번호('-' 없이 입력)" />
 					</div>
-					<form:errors path="businessNo" class="error" />
+					<form:errors id="business-no-error" path="businessNo" class="error" />
 
 					<div class="form-text">
 						<form:input class="user-input" type="text" path="email"
@@ -70,6 +71,7 @@
 		$('#business-no').show();
 	} else {
 		$('#business-no').hide();
+		$('#business-no-error').hide();
 	}
 
 	$('input:radio[name="level"]').change(function() {
@@ -82,4 +84,6 @@
 
 		}
 	});
+	
+	
 </script>

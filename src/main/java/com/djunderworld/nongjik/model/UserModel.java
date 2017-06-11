@@ -6,25 +6,28 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.djunderworld.nongjik.common.annotation.BusinessNumber;
+import com.djunderworld.nongjik.common.annotation.EmailConfirm;
 import com.djunderworld.nongjik.common.annotation.Password;
 import com.djunderworld.nongjik.domain.User;
 
 public class UserModel extends BaseModel {
 
-	@Password
-	@NotEmpty(message = "비밀번호 입력하세요.")
-	private String password;
-
-	@NotNull(message = "비밀번호가 일치하지 않습니다.")
-	private String passwordConfirm;
+	
 
 	@NotEmpty(message = "이름을 입력하세요.")
 	private String name;
 
 	@NotEmpty(message = "이메일을 입력하세요.")
 	@Email(message = "올바른 이메일형식이 아닙니다.")
+	@EmailConfirm
 	private String email;
+	
+	@Password
+	@NotEmpty(message = "비밀번호 입력하세요.")
+	private String password;
 
+	@NotNull(message = "비밀번호가 일치하지 않습니다.")
+	private String passwordConfirm;
 	private String avatar;
 	private String cover;
 	private int level;

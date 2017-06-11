@@ -8,4 +8,5 @@ public interface UserRepository extends JpaRepository<UserEntity, Long>, CustomU
 
 	UserEntity findById(long id) throws Exception;
 
+	UserEntity findByEmail(String email);
 }

@@ -74,11 +74,10 @@ public class MainController {
 			return "main/join";
 		}
 
-		System.out.println(userModel.getEmail());
 		mainService.insertUser(userModel.buildDomain());
 		redirectAttributes.addAttribute("message",  "회원가입이 완료되었습니다.");
 
-		return "redirect:/main/login";
+		return "redirect:/login";
 	}
 
 	private List<CategoryModel> convert(List<Category> categories) throws Exception {

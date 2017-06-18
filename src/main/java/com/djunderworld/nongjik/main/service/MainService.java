@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.ui.Model;
 
 import com.djunderworld.nongjik.domain.Category;
+import com.djunderworld.nongjik.domain.Story;
 import com.djunderworld.nongjik.domain.User;
 
 public interface MainService {
@@ -15,4 +16,7 @@ public interface MainService {
 	void insertUser(User user) throws Exception;
 
 	String selectLogin(User user, Model model, HttpSession session) throws Exception;
+
+	List<Story> selectStoriesWithPageRequest(int firstPageNo, int limit);
+
 }

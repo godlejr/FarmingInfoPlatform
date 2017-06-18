@@ -1,5 +1,8 @@
 package com.djunderworld.nongjik.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class User extends Base {
 	private String email;
 	private String password;
@@ -10,6 +13,7 @@ public class User extends Base {
 
 	private Professional professional;
 
+	private List<Story> stories = new ArrayList<Story>();
 	//for the join
 	private String businessNo;
 	
@@ -121,6 +125,14 @@ public class User extends Base {
 
 	public void setBusinessNo(String businessNo) {
 		this.businessNo = businessNo;
+	}
+
+	public List<Story> getStories() {
+		return stories;
+	}
+
+	public void setStories(List<Story> stories) {
+		this.stories = stories;
 	}
 
 }

@@ -21,8 +21,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.djunderworld.nongjik.common.flag.UserLevelFlag;
 import com.djunderworld.nongjik.domain.Category;
+import com.djunderworld.nongjik.domain.Story;
 import com.djunderworld.nongjik.main.service.MainService;
 import com.djunderworld.nongjik.model.CategoryModel;
+import com.djunderworld.nongjik.model.StoryModel;
 import com.djunderworld.nongjik.model.UserModel;
 
 @Controller
@@ -34,9 +36,13 @@ public class MainController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) throws Exception {
 		List<Category> categories = mainService.selectCategories();
-		List<CategoryModel> categoryModels = convert(categories);
+		List<CategoryModel> categoryModels = convertForCategoryModel(categories);
 
+		List<Story> stories = mainService.selectStoriesWithPageRequest(0, 6);
+		List<StoryModel> storyModels = convertForStoryModel(stories);
+		
 		model.addAttribute("categories", categoryModels);
+		model.addAttribute("stories",storyModels);
 		return "main/index";
 	}
 
@@ -73,7 +79,7 @@ public class MainController {
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
 	public String join(@ModelAttribute("user") @Valid UserModel userModel, BindingResult bindingResult,
 			RedirectAttributes redirectAttributes, Model model) throws Exception {
-		
+
 		if (bindingResult.hasErrors()) {
 			boolean isValid = false;
 
@@ -84,11 +90,11 @@ public class MainController {
 					FieldError fieldError = (FieldError) errors.get(0);
 					if (fieldError.getField().equals("businessNo")) {
 						isValid = true;
-					} 
+					}
 				}
 			}
-			
-			if(!isValid){
+
+			if (!isValid) {
 				return "main/join";
 			}
 		}
@@ -99,7 +105,7 @@ public class MainController {
 		return "redirect:/login";
 	}
 
-	private List<CategoryModel> convert(List<Category> categories) throws Exception {
+	private List<CategoryModel> convertForCategoryModel(List<Category> categories) throws Exception {
 		List<CategoryModel> categoryModels = new ArrayList<CategoryModel>();
 		for (Category category : categories) {
 			CategoryModel categoryModel = new CategoryModel();
@@ -107,6 +113,16 @@ public class MainController {
 			categoryModels.add(categoryModel);
 		}
 		return categoryModels;
+	}
+
+	private List<StoryModel> convertForStoryModel(List<Story> stories) throws Exception {
+		List<StoryModel> storyModels = new ArrayList<StoryModel>();
+		for (Story story : stories) {
+			StoryModel storyModel = new StoryModel();
+			storyModel.buildModel(story);
+			storyModels.add(storyModel);
+		}
+		return storyModels;
 	}
 
 }

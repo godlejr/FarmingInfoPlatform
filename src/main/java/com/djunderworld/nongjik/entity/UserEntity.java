@@ -1,8 +1,12 @@
 package com.djunderworld.nongjik.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -18,10 +22,13 @@ public class UserEntity extends BaseEntity implements Serializable{
 	private String avatar;
 	private String cover;
 	private int level;
-
+	
 	@OneToOne(mappedBy = "userEntity")
 	private ProfessionalEntity professionalEntity;
-
+	
+	@OneToMany(mappedBy = "userEntity", fetch = FetchType.LAZY)
+	private List<StoryEntity> storyEntities = new ArrayList<StoryEntity>();
+	
 	public UserEntity() {
 		super();
 	}
@@ -80,6 +87,15 @@ public class UserEntity extends BaseEntity implements Serializable{
 
 	public void setProfessionalEntity(ProfessionalEntity professionalEntity) {
 		this.professionalEntity = professionalEntity;
+	}
+	
+
+	public List<StoryEntity> getStoryEntities() {
+		return storyEntities;
+	}
+
+	public void setStoryEntities(List<StoryEntity> storyEntities) {
+		this.storyEntities = storyEntities;
 	}
 
 	public User buildDomain() {

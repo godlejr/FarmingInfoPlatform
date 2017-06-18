@@ -34,6 +34,8 @@ public class QItemCategoryEntity extends EntityPathBase<ItemCategoryEntity> {
 
     public final StringPath name = createString("name");
 
+    public final ListPath<StoryEntity, QStoryEntity> storyEntities = this.<StoryEntity, QStoryEntity>createList("storyEntities", StoryEntity.class, QStoryEntity.class, PathInits.DIRECT2);
+
     //inherited
     public final StringPath updatedAt = _super.updatedAt;
 

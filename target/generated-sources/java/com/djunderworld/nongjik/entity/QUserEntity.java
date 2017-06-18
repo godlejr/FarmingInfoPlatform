@@ -44,6 +44,8 @@ public class QUserEntity extends EntityPathBase<UserEntity> {
 
     public final QProfessionalEntity professionalEntity;
 
+    public final ListPath<StoryEntity, QStoryEntity> storyEntities = this.<StoryEntity, QStoryEntity>createList("storyEntities", StoryEntity.class, QStoryEntity.class, PathInits.DIRECT2);
+
     //inherited
     public final StringPath updatedAt = _super.updatedAt;
 

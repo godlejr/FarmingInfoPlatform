@@ -4,7 +4,17 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page session="false"%>
 
-<div>
-	
+<c:set var="contextPath" value="<%= request.getContextPath()%>"></c:set>
+<c:set var="cloudFrontUserAvatarPath" value="http://d3fmxlpcykzndk.cloudfront.net/nongjik/images/users/avatars/"></c:set>    
+<c:set var="cloudFrontStoryImagePath" value="http://d3fmxlpcykzndk.cloudfront.net/nongjik/images/stories/"></c:set>    
 
+
+<div class="content-list">
+	<div class="story-list">
+		<c:forEach var="story" items="${stories}">
+			${story.fileModels[0].name}
+			${story.fileModels[0].ext}
+			${story.title}
+		</c:forEach>
+	</div>
 </div>

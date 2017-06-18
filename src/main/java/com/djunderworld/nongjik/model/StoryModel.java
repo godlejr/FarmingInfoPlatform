@@ -137,7 +137,7 @@ public class StoryModel extends BaseModel {
 
 		List<FileModel> fileModels = new ArrayList<FileModel>();
 
-		List<File> files = new ArrayList<File>();
+		List<File> files = story.getFiles();
 		
 		for (File file : files) {
 			FileModel fileModel = new FileModel();

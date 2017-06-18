@@ -9,6 +9,7 @@ import com.djunderworld.nongjik.common.annotation.BusinessNumber;
 import com.djunderworld.nongjik.common.annotation.EmailConfirm;
 import com.djunderworld.nongjik.common.annotation.Password;
 import com.djunderworld.nongjik.domain.User;
+import com.djunderworld.nongjik.entity.ProfessionalEntity;
 
 public class UserModel extends BaseModel  {
 
@@ -191,10 +192,12 @@ public class UserModel extends BaseModel  {
 		level = user.getLevel();
 		cover = user.getCover();
 
-		ProfessionalModel professional = new ProfessionalModel();
-		professional.buildModel(user.getProfessional());
+		if (user.getProfessional() != null) {
+			ProfessionalModel professional = new ProfessionalModel();
+			professional.buildModelForBackRef(user.getProfessional());
+			professionalModel = professional;
+		}
 
-		professionalModel = professional;
 		setCreatedAt(user.getCreatedAt());
 		setUpdatedAt(user.getUpdatedAt());
 	}

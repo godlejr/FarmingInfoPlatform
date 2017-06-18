@@ -2,6 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<c:set var="contextPath" value="<%= request.getContextPath()%>"></c:set>
+<c:set var="cloudFrontUserAvatarPath" value="http://d3fmxlpcykzndk.cloudfront.net/nongjik/images/users/avatars/"></c:set>    
+
 <div class="top-content">
 	<div class="content-body">
 		<div class="section-logo">
@@ -13,7 +16,7 @@
 			<c:when test="${sessionScope.user != null}">
 				<div class="section-session">
 					<div class="session-info">
-						<img class="session-avatar" src="http://d3fmxlpcykzndk.cloudfront.net/nongjik/images/users/avatars/${sessionScope.user.avatar}" />
+						<img class="session-avatar" src="${cloudFrontUserAvatarPath}${sessionScope.user.avatar}" />
 						<div class="session-content">
 							<span>${sessionScope.user.name}님</span>
 						</div>

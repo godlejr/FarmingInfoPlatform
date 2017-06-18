@@ -155,8 +155,7 @@ public class StoryEntity extends BaseEntity implements Serializable{
 		itemCategory.buildEntity(story.getItemCategory());
 
 		List<FileEntity> fileEntities = new ArrayList<FileEntity>();
-
-		List<File> files = new ArrayList<File>();
+		List<File> files = story.getFiles();
 		
 		for (File file : files) {
 			FileEntity fileEntity = new FileEntity();

@@ -4,10 +4,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.djunderworld.nongjik.entity.StoryEntity;
+import com.djunderworld.nongjik.entity.Story;
 
-public interface StoryRepository extends JpaRepository<StoryEntity, Long>{
+public interface StoryRepository extends JpaRepository<Story, Long>{
 	
-	Page<StoryEntity> findAll(Pageable pageable);
+	Page<Story> findAll(Pageable pageable);
 
 }

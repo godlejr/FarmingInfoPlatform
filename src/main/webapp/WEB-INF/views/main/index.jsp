@@ -12,8 +12,8 @@
 <div class="content-list">
 	<div class="story-list">
 		<c:forEach var="story" items="${stories}">
-			${story.fileModels[0].name}
-			${story.fileModels[0].ext}
+			${story.files[0].name}
+			${story.files[0].ext}
 			${story.title}
 		</c:forEach>
 	</div>

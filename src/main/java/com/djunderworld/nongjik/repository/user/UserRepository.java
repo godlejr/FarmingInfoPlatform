@@ -2,13 +2,13 @@ package com.djunderworld.nongjik.repository.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.djunderworld.nongjik.entity.UserEntity;
+import com.djunderworld.nongjik.entity.User;
 
-public interface UserRepository extends JpaRepository<UserEntity, Long>, CustomUserRepository {
+public interface UserRepository extends JpaRepository<User, Long>, CustomUserRepository {
 
-	UserEntity findById(long id) throws Exception;
+	User findById(long id);
 
-	UserEntity findByEmail(String email);
+	User findByEmail(String email);
 	
-	UserEntity findByEmailAndPassword(String email, String password);
+	User findByEmailAndPassword(String email, String password);
 }

@@ -11,7 +11,7 @@
 				<div class="item-category-list" hidden="hidden">
 					<ul>
 						<c:forEach var="itemCategory"
-							items="${category.itemCategoryModels}">
+							items="${category.itemCategories}">
 							<li id="${itemCategory.id}">${itemCategory.name}</li>
 						</c:forEach>
 					</ul>

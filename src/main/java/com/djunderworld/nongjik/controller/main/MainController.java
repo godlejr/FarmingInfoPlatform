@@ -54,6 +54,11 @@ public class MainController {
 
 		model.addAttribute("categories", categories);
 		model.addAttribute("stories", stories);
+		model.addAttribute("categoryId", categoryId);
+		model.addAttribute("itemCategoryId", itemCategoryId);
+		model.addAttribute("orderId", orderId);
+		model.addAttribute("userLevel", userLevel);
+
 		return "main/index";
 	}
 

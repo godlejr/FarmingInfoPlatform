@@ -12,7 +12,7 @@
 	value="http://d3fmxlpcykzndk.cloudfront.net/nongjik/images/stories/"></c:set>
 
 
-<div class="content-list">
+<div class="content-list" id="content-list">
 	<div class="story-list" >
 		<c:forEach var="story" items="${stories}">
 			<div class="section-story" data-id="${story.id}">
@@ -73,8 +73,8 @@
 		
 	$(document).scroll(function() {
 		
-		var categoryId = "${category.id}";
-		var itemCategoryId = "${itemCategory.id}";
+		var categoryId = "${categoryId}";
+		var itemCategoryId = "${itemCategoryId}";
 		var orderId = "${orderId}";
 		var userLevel  = "${userLevel}";
 		var storyList = $('.section-story:last');

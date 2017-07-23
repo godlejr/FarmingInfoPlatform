@@ -496,12 +496,12 @@ ol, ul, li {
 	transition: all 0.2s;
 }
 
-.container-content .content-body .left-section .menu-list  .category-list
+.container-content .content-body .left-section .menu-list  .category
 	{
 	position: relative;
 }
 
-.container-content .content-body .left-section .menu-list .item-category-list
+/* .container-content .content-body .left-section .menu-list .item-category-list
 	{
 	position: absolute;
 	left: 100px;
@@ -514,12 +514,12 @@ ol, ul, li {
 	z-index: 100;
 	height: auto;
 }
-
+ */
 .container-content .content-body .right-section {
 	width: 86.67%;
 	float: left;
 	padding-left: 1.81%;
-	min-height: 100vh;
+	min-height: 110vh;
 }
 
 /******* footer ********/

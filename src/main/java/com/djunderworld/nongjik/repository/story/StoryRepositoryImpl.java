@@ -8,7 +8,9 @@ import org.springframework.data.jpa.repository.support.QueryDslRepositorySupport
 
 import com.djunderworld.nongjik.entity.QStory;
 import com.djunderworld.nongjik.entity.Story;
+import com.mysema.query.BooleanBuilder;
 import com.mysema.query.SearchResults;
+import com.mysema.query.types.OrderSpecifier;
 
 public class StoryRepositoryImpl extends QueryDslRepositorySupport implements CustomStoryRepository {
 
@@ -17,16 +19,43 @@ public class StoryRepositoryImpl extends QueryDslRepositorySupport implements Cu
 	}
 
 	@Override
-	public List<Story> findAllByPageRequest(PageRequest pageRequest) {
+	public List<Story> findAllByPageRequest(long categoryId, long itemCategoryId, int orderId, int userLevel,
+			PageRequest pageRequest) {
 		int size = pageRequest.getPageSize();
 		int offset = pageRequest.getOffset();
-		
+	
 		
 		QStory story = QStory.story;
-		SearchResults<Story> searchResults = from(story).orderBy(story.updatedAt.desc()).offset(offset).limit(size).
-				listResults(story);
+		@SuppressWarnings("rawtypes")
+		OrderSpecifier orderSpecifier = story.updatedAt.desc();
 		
-		List<Story> stories = searchResults.getTotal() > offset  ? searchResults.getResults() : Collections.<Story> emptyList();
+		BooleanBuilder booleanBuilder = new BooleanBuilder();
+
+		if (categoryId > 0) {
+			booleanBuilder.and(story.itemCategory.category.id.eq(categoryId));
+		}
+
+		if (itemCategoryId > 0) {
+			booleanBuilder.and(story.itemCategory.id.eq(itemCategoryId));
+		}
+
+		if (userLevel > 0) {
+			booleanBuilder.and(story.user.level.eq(userLevel));
+		}
+
+		if (orderId == 1) {
+			orderSpecifier = story.storyLikes.size().desc();
+		}
+
+		if (orderId == 2) {
+			orderSpecifier = story.hits.desc();
+		}
+
+		SearchResults<Story> searchResults = from(story).where(booleanBuilder).orderBy(orderSpecifier).offset(offset).limit(size)
+				.listResults(story);
+
+		List<Story> stories = searchResults.getTotal() > offset ? searchResults.getResults()
+				: Collections.<Story>emptyList();
 		return stories;
 	}
 

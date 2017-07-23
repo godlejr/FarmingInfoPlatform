@@ -8,6 +8,6 @@ import com.djunderworld.nongjik.entity.Story;
 
 public interface CustomStoryRepository {
 
-	List<Story> findAllByPageRequest(PageRequest pageRequest);
+	List<Story> findAllByPageRequest(long categoryId, long itemCategoryId, int orderId, int userLevel,PageRequest pageRequest);
 
 }

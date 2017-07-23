@@ -78,6 +78,7 @@
 		var init = function() {
 			$(window).on('scroll', scroll);
 			scroll();
+			
 		}, scroll = function() {
 			var currentScrollTop = $(this).scrollTop();
 
@@ -91,8 +92,11 @@
 				$('#menu-list').css({
 					position : 'fixed'
 				});
+				$('#content-list').css({
+					marginTop : '370px'
+				});
 			} else {
-				if (currentScrollTop <= 130) {
+				if (currentScrollTop <= 250) {
 					$('.navi-content').css({
 						position : 'relative'
 					});
@@ -101,6 +105,9 @@
 					});
 					$('#menu-list').css({
 						position : 'relative'
+					});
+					$('#content-list').css({
+						marginTop : '0px'
 					});
 				}
 

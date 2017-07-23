@@ -11,16 +11,21 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "stories")
 public class Story extends Base implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "user_id")
+	@JsonManagedReference
 	private User user;
 
 	@ManyToOne
 	@JoinColumn(name = "item_category_id")
+	@JsonManagedReference
 	private ItemCategory itemCategory;
 
 	private String title;
@@ -28,15 +33,19 @@ public class Story extends Base implements Serializable {
 	private int hits;
 
 	@OneToMany(mappedBy = "story", fetch = FetchType.LAZY)
+	@JsonBackReference
 	private List<StoryLike> storyLikes = new ArrayList<StoryLike>();
 
 	@OneToMany(mappedBy = "story", fetch = FetchType.LAZY)
+	@JsonBackReference
 	private List<StoryScrap> storyScraps = new ArrayList<StoryScrap>();
 
 	@OneToMany(mappedBy = "story", fetch = FetchType.LAZY)
+	@JsonBackReference
 	private List<StoryComment> storyComments = new ArrayList<StoryComment>();
 
 	@OneToMany(mappedBy = "story", fetch = FetchType.LAZY)
+	@JsonBackReference
 	private List<File> files = new ArrayList<File>();
 
 	public User getUser() {

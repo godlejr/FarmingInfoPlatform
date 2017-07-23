@@ -5,12 +5,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "files")
 public class File extends Base {
 
 	@ManyToOne
 	@JoinColumn(name = "story_id")
+	@JsonManagedReference
 	private Story story;
 
 	private int type;

@@ -20,6 +20,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 import com.djunderworld.nongjik.common.annotation.BusinessNumber;
 import com.djunderworld.nongjik.common.annotation.EmailConfirm;
 import com.djunderworld.nongjik.common.annotation.Password;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "users")
@@ -51,18 +53,23 @@ public class User extends Base implements Serializable {
 	private String businessNo;
 
 	@OneToOne(mappedBy = "user")
+	@JsonBackReference
 	private Professional professional;
 
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+	@JsonBackReference
 	private List<Story> stories = new ArrayList<Story>();
 
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+	@JsonBackReference
 	private List<StoryLike> storyLikes = new ArrayList<StoryLike>();
 
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+	@JsonBackReference
 	private List<StoryScrap> storyScraps = new ArrayList<StoryScrap>();
 
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+	@JsonBackReference
 	private List<StoryComment> storyComments = new ArrayList<StoryComment>();
 
 	public User() {

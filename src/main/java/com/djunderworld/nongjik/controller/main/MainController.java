@@ -1,7 +1,6 @@
 package com.djunderworld.nongjik.controller.main;
 
 import java.util.List;
-import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -16,9 +15,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.djunderworld.nongjik.common.flag.PaginationFlag;
 import com.djunderworld.nongjik.common.flag.UserLevelFlag;
+import com.djunderworld.nongjik.dto.StoryDto;
 import com.djunderworld.nongjik.entity.Category;
 import com.djunderworld.nongjik.entity.Story;
 import com.djunderworld.nongjik.entity.User;
@@ -29,25 +31,45 @@ import com.djunderworld.nongjik.service.user.UserService;
 @Controller
 public class MainController {
 
-
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private CategoryService categoryService;
-	
+
 	@Autowired
 	private StoryService storyService;
-	
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) throws Exception {
+	public String index(@RequestParam(name = "categoryId", required = false, defaultValue = "0") long categoryId,
+			@RequestParam(name = "itemCategoryId", required = false, defaultValue = "0") long itemCategoryId,
+			@RequestParam(name = "orderId", required = false, defaultValue = "0") int orderId,
+			@RequestParam(name = "userLevel", required = false, defaultValue = "0") int userLevel, Model model)
+			throws Exception {
+
 		List<Category> categories = categoryService.getCategories();
-		List<Story> stories = storyService.getStoriesWithPageRequest(0, 6);
-		
+
+		List<Story> stories = storyService.getStoriesWithPageRequest(categoryId, itemCategoryId, orderId, userLevel, 0,
+				PaginationFlag.STORY_MAX_LIMIT);
+
 		model.addAttribute("categories", categories);
-		model.addAttribute("stories",stories);
+		model.addAttribute("stories", stories);
 		return "main/index";
+	}
+
+	@RequestMapping(value = "/infiniteScrollDown", method = RequestMethod.POST)
+	@ResponseBody
+	public List<StoryDto> getStoriesForInfiniteScrollDown(
+			@RequestParam(name = "categoryId", required = false, defaultValue = "0") long categoryId,
+			@RequestParam(name = "itemCategoryId", required = false, defaultValue = "0") long itemCategoryId,
+			@RequestParam(name = "orderId", required = false, defaultValue = "0") int orderId,
+			@RequestParam(name = "userLevel", required = false, defaultValue = "0") int userLevel,
+			@RequestParam(name = "page", required = false, defaultValue = "0") int page) throws Exception {
+
+		List<StoryDto> storyDtos = storyService.getStoryDtosWithPageRequest(categoryId, itemCategoryId, orderId,
+				userLevel, page, PaginationFlag.STORY_MAX_LIMIT);
+
+		return storyDtos;
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -70,12 +92,12 @@ public class MainController {
 		String email = user.getEmail();
 		String password = user.getPassword();
 		String page = "main/login";
-		
+
 		user = userService.getUserByEmailAndPassword(email, password);
-		
-		if(user == null){
-			model.addAttribute("message","이메일과 비밀번호를 확인해주세요.");
-		}else{
+
+		if (user == null) {
+			model.addAttribute("message", "이메일과 비밀번호를 확인해주세요.");
+		} else {
 			session.setAttribute("user", user);
 			page = "redirect:/";
 		}
@@ -118,6 +140,5 @@ public class MainController {
 
 		return "redirect:/login";
 	}
-
 
 }

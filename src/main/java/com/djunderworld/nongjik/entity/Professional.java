@@ -7,6 +7,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "professionals")
 public class Professional extends Base implements Serializable{
@@ -14,6 +16,7 @@ public class Professional extends Base implements Serializable{
 	
 	@OneToOne
 	@JoinColumn(name = "user_id")
+	@JsonManagedReference
 	private User user;
 
 	private String businessNo;

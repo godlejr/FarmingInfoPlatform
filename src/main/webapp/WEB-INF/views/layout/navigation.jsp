@@ -7,7 +7,7 @@
 		<div class="section-sort">
 			<div class="sort-button">
 				<div class="sort-title">
-					<span class="sort-id">하이라이트</span>
+					<span class="sort-id">최신순</span>
 				</div>
 				<div class="filter-icon">
 					<i class="fa fa-chevron-down" aria-hidden="true"></i>
@@ -16,9 +16,6 @@
 			<div class="filter-menu">
 				<div class="filter-items">
 					<ul>
-						<li class="filter-item"><div class="sort" id="0">
-								<span>하이라이트</span>
-							</div></li>
 						<li class="filter-item">
 							<div class="sort" id="1">
 								<span>최신순</span>
@@ -55,12 +52,12 @@
 							</div></li>
 						<li class="filter-item">
 							<div class="price" id="1">
-								<span>저가</span>
+								<span>일반회원</span>
 							</div>
 						</li>
 						<li class="filter-item">
 							<div class="price" id="2">
-								<span>고가순</span>
+								<span>기업회원</span>
 							</div>
 						</li>
 

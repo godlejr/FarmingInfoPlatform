@@ -100,6 +100,10 @@ ol, ul, li {
 	width: 1080px;
 }
 
+.none-display {
+	display: none;
+}
+
 /******* header ********/
 #header {
 	width: 100%;
@@ -670,6 +674,19 @@ ol, ul, li {
 	position: relative;
 }
 
+.content-list .section-loader {
+	width: 100%;
+}
+
+.content-list .section-loader img {
+	
+	display: flex;
+    align-items: center;
+	width: 20px;
+	height: 20px;
+	margin: 0 auto;
+}
+
 .content-list .story-list .section-story {
 	background: #f6f6f6;
 	float: left;
@@ -695,8 +712,6 @@ ol, ul, li {
 	max-height: 230px;
 	height: 100%;
 }
-
-
 
 .content-list .story-list .section-story .story-avatar .story-value {
 	display: flex;

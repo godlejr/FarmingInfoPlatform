@@ -5,18 +5,22 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
-@Table(name="story_likes")
+@Table(name = "story_likes")
 public class StoryLike extends Base {
 
 	@ManyToOne
 	@JoinColumn(name = "story_id")
+	@JsonManagedReference
 	private Story story;
 
 	@ManyToOne
 	@JoinColumn(name = "user_id")
-	private User user;
+	@JsonManagedReference
 
+	private User user;
 
 	public Story getStory() {
 		return story;
@@ -74,6 +78,4 @@ public class StoryLike extends Base {
 		super.setUpdatedAt(updatedAt);
 	}
 
-	
-	
 }

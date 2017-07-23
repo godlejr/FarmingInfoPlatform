@@ -5,16 +5,20 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "story_scraps")
 public class StoryScrap extends Base {
 
 	@ManyToOne
 	@JoinColumn(name = "story_id")
+	@JsonManagedReference
 	private Story story;
 
 	@ManyToOne
 	@JoinColumn(name = "user_id")
+	@JsonManagedReference
 	private User user;
 
 	public Story getStory() {

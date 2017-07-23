@@ -8,12 +8,15 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "categories")
 public class Category extends Base {
 	private String name;
 
 	@OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
+	@JsonBackReference
 	private List<ItemCategory> itemCategories = new ArrayList<ItemCategory>();
 
 	public Category() {

@@ -1,13 +1,17 @@
 package com.djunderworld.nongjik.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
+import org.codehaus.jackson.map.ser.std.SerializableWithTypeSerializer;
+
 @MappedSuperclass
-public abstract class Base {
+public abstract class Base implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;	

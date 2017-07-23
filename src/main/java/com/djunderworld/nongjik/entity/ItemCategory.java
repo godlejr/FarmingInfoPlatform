@@ -10,16 +10,21 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "item_categories")
 public class ItemCategory extends Base {
 
 	@ManyToOne
 	@JoinColumn(name = "category_id")
+	@JsonManagedReference
 	private Category category;
 	private String name;
 
 	@OneToMany(mappedBy = "itemCategory", fetch = FetchType.LAZY)
+	@JsonBackReference
 	private List<Story> stories = new ArrayList<Story>();
 
 	public Category getCategory() {

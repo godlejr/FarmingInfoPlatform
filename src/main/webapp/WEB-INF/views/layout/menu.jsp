@@ -22,8 +22,22 @@
 </div>
 <script type="text/javascript">
 	$('.category').click(function() {
+		var orderId = ${orderId};
+		var userLevel = ${userLevel};
 		var categoryId = $(this).attr('data-id');
-		location.href = "${contextPath}/?categoryId=" + categoryId;
+		
+		var orderIdQuery = "";
+		var userLevelQuery = "";
+		
+	 	if(orderId > 0 ){
+	 		orderIdQuery =  "&orderId=" + orderId;
+	 	}
+	 	
+	 	if(userLevel > 0 ){
+	 		userLevelQuery = "&userLevel=" + userLevel;
+	 	}
+		
+		location.href = "${contextPath}/?categoryId=" + categoryId + orderIdQuery + userLevelQuery; 
 	});
 	
 	$('.category').mouseover(function() {

@@ -49,7 +49,7 @@
 			</div>
 		</c:forEach>
 	</div>
-	<div class="section-loader">
+	<div class="section-loader" >
 		<img class="loader-image" src="<c:url value='/resources/static/img/main/loader.gif' />">
 	</div>
 </div>
@@ -82,7 +82,7 @@
 		
 		if ($(window).scrollTop() == ($(document).height() - $(window).height()) ){
 			if(!isEndOfStories){
-	            $('.section-loader').show();
+	            $('.section-loader').css("display", "inherit");
 				$.ajax({
 					type : "POST",
 					url : "${contextPath}/infiniteScrollDown",
@@ -115,7 +115,7 @@
 							});
 				            ++page;
 						}
-			            $('.section-loader').hide();
+			            $('.section-loader').css("display", "none");
 			        }
 				});
 			}

@@ -664,6 +664,7 @@ ol, ul, li {
 }
 
 .content-list {
+	width:100%;
 	padding: 30px;
 	display: inline-block;
 	position: relative;
@@ -675,6 +676,7 @@ ol, ul, li {
 }
 
 .content-list .section-loader {
+	display: inherit;
 	width: 100%;
 }
 

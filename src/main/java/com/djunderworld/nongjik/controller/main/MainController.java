@@ -44,13 +44,13 @@ public class MainController {
 	public String index(@RequestParam(name = "categoryId", required = false, defaultValue = "0") long categoryId,
 			@RequestParam(name = "itemCategoryId", required = false, defaultValue = "0") long itemCategoryId,
 			@RequestParam(name = "orderId", required = false, defaultValue = "0") int orderId,
-			@RequestParam(name = "userLevel", required = false, defaultValue = "0") int userLevel, Model model)
-			throws Exception {
+			@RequestParam(name = "userLevel", required = false, defaultValue = "0") int userLevel,
+			@RequestParam(name = "search", required = false) String search, Model model) throws Exception {
 
 		List<Category> categories = categoryService.getCategories();
 
-		List<Story> stories = storyService.getStoriesWithPageRequest(categoryId, itemCategoryId, orderId, userLevel, 0,
-				PaginationFlag.STORY_MAX_LIMIT);
+		List<Story> stories = storyService.getStoriesByPageRequests(categoryId, itemCategoryId, orderId, userLevel,
+				search, 0, PaginationFlag.STORY_MAX_LIMIT);
 
 		model.addAttribute("categories", categories);
 		model.addAttribute("stories", stories);
@@ -58,6 +58,7 @@ public class MainController {
 		model.addAttribute("itemCategoryId", itemCategoryId);
 		model.addAttribute("orderId", orderId);
 		model.addAttribute("userLevel", userLevel);
+		model.addAttribute("search", search);
 
 		return "main/index";
 	}
@@ -69,10 +70,11 @@ public class MainController {
 			@RequestParam(name = "itemCategoryId", required = false, defaultValue = "0") long itemCategoryId,
 			@RequestParam(name = "orderId", required = false, defaultValue = "0") int orderId,
 			@RequestParam(name = "userLevel", required = false, defaultValue = "0") int userLevel,
+			@RequestParam(name = "search", required = false) String search,
 			@RequestParam(name = "page", required = false, defaultValue = "0") int page) throws Exception {
 
-		List<StoryDto> storyDtos = storyService.getStoryDtosWithPageRequest(categoryId, itemCategoryId, orderId,
-				userLevel, page, PaginationFlag.STORY_MAX_LIMIT);
+		List<StoryDto> storyDtos = storyService.getStoryDtosByPageRequests(categoryId, itemCategoryId, orderId,
+				userLevel, search, page, PaginationFlag.STORY_MAX_LIMIT);
 
 		return storyDtos;
 	}

@@ -20,15 +20,14 @@ public class StoryRepositoryImpl extends QueryDslRepositorySupport implements Cu
 
 	@Override
 	public List<Story> findAllByPageRequest(long categoryId, long itemCategoryId, int orderId, int userLevel,
-			PageRequest pageRequest) {
+			String search, PageRequest pageRequest) {
 		int size = pageRequest.getPageSize();
 		int offset = pageRequest.getOffset();
-	
-		
+
 		QStory story = QStory.story;
 		@SuppressWarnings("rawtypes")
 		OrderSpecifier orderSpecifier = story.updatedAt.desc();
-		
+
 		BooleanBuilder booleanBuilder = new BooleanBuilder();
 
 		if (categoryId > 0) {
@@ -43,6 +42,10 @@ public class StoryRepositoryImpl extends QueryDslRepositorySupport implements Cu
 			booleanBuilder.and(story.user.level.eq(userLevel));
 		}
 
+		if (search != null) {
+			booleanBuilder.and((story.title.like("%" + search + "%")).or(story.content.like("%" + search + "%")));
+		}
+
 		if (orderId == 1) {
 			orderSpecifier = story.storyLikes.size().desc();
 		}
@@ -51,8 +54,8 @@ public class StoryRepositoryImpl extends QueryDslRepositorySupport implements Cu
 			orderSpecifier = story.hits.desc();
 		}
 
-		SearchResults<Story> searchResults = from(story).where(booleanBuilder).orderBy(orderSpecifier).offset(offset).limit(size)
-				.listResults(story);
+		SearchResults<Story> searchResults = from(story).where(booleanBuilder).orderBy(orderSpecifier).offset(offset)
+				.limit(size).listResults(story);
 
 		List<Story> stories = searchResults.getTotal() > offset ? searchResults.getResults()
 				: Collections.<Story>emptyList();

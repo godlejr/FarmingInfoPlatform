@@ -23,21 +23,21 @@ public class StoryServiceImpl implements StoryService {
 	private StoryRepository storyRepository;
 
 	@Override
-	public List<Story> getStoriesWithPageRequest(long categoryId, long itemCategoryId, int orderId, int userLevel,
-			int page, int limit) throws Exception {
+	public List<Story> getStoriesByPageRequests(long categoryId, long itemCategoryId, int orderId, int userLevel,
+			String search, int page, int limit) throws Exception {
 		PageRequest pageRequest = new PageRequest(page, limit);
 		List<Story> stories = storyRepository.findAllByPageRequest(categoryId, itemCategoryId, orderId, userLevel,
-				pageRequest);
+				search, pageRequest);
 
 		return stories;
 	}
 
 	@Override
-	public List<StoryDto> getStoryDtosWithPageRequest(long categoryId, long itemCategoryId, int orderId, int userLevel,
-			int page, int limit) throws Exception {
+	public List<StoryDto> getStoryDtosByPageRequests(long categoryId, long itemCategoryId, int orderId, int userLevel,
+			String search, int page, int limit) throws Exception {
 		PageRequest pageRequest = new PageRequest(page, limit);
 		List<Story> stories = storyRepository.findAllByPageRequest(categoryId, itemCategoryId, orderId, userLevel,
-				pageRequest);
+				search, pageRequest);
 
 		List<StoryDto> storyDtos = new ArrayList<StoryDto>();
 

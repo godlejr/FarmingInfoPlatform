@@ -2,12 +2,23 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<c:set var="contextPath" value="<%= request.getContextPath()%>"></c:set>
 <div class="navi-content">
 	<div class="content-body">
 		<div class="section-sort">
 			<div class="sort-button">
 				<div class="sort-title">
-					<span class="sort-id">최신순</span>
+					<c:choose>
+						<c:when test="${orderId == 1 }">
+							<span class="sort-id">인기순</span>
+						</c:when>
+						<c:when test="${orderId == 2 }">
+							<span class="sort-id">조회순</span>
+						</c:when>
+						<c:otherwise>
+							<span class="sort-id">최신순</span>
+						</c:otherwise>
+					</c:choose>
 				</div>
 				<div class="filter-icon">
 					<i class="fa fa-chevron-down" aria-hidden="true"></i>
@@ -17,17 +28,17 @@
 				<div class="filter-items">
 					<ul>
 						<li class="filter-item">
-							<div class="sort" id="1">
+							<div class="sort" data-id="0">
 								<span>최신순</span>
 							</div>
 						</li>
 						<li class="filter-item">
-							<div class="sort" id="2">
+							<div class="sort" data-id="1">
 								<span>인기순</span>
 							</div>
 						</li>
 						<li class="filter-item">
-							<div class="sort" id="3">
+							<div class="sort" data-id="2">
 								<span>조회순</span>
 							</div>
 						</li>
@@ -35,10 +46,20 @@
 				</div>
 			</div>
 		</div>
-		<div class="section-price">
-			<div class="price-button">
-				<div class="price-title">
-					<span class="price-id">전체</span>
+		<div class="section-level">
+			<div class="level-button">
+				<div class="level-title">
+					<c:choose>
+						<c:when test="${userLevel == 1 }">
+							<span class="level-id">일반회원</span>
+						</c:when>
+						<c:when test="${userLevel == 2 }">
+							<span class="level-id">기업회원</span>
+						</c:when>
+						<c:otherwise>
+							<span class="level-id">전체</span>
+						</c:otherwise>
+					</c:choose>
 				</div>
 				<div class="filter-icon">
 					<i class="fa fa-chevron-down" aria-hidden="true"></i>
@@ -47,16 +68,18 @@
 			<div class="filter-menu">
 				<div class="filter-items">
 					<ul>
-						<li class="filter-item"><div class="price" id="0">
-								<span>전체</span>
-							</div></li>
 						<li class="filter-item">
-							<div class="price" id="1">
+							<div class="level" data-id="0">
+								<span>전체</span>
+							</div>
+						</li>
+						<li class="filter-item">
+							<div class="level" data-id="1">
 								<span>일반회원</span>
 							</div>
 						</li>
 						<li class="filter-item">
-							<div class="price" id="2">
+							<div class="level" data-id="2">
 								<span>기업회원</span>
 							</div>
 						</li>
@@ -67,14 +90,14 @@
 		</div>
 
 		<div class="section-search">
-			<form class="search-box" action="" method="post">
+			<div class="search-box" action="" method="post">
 				<div class="search-content">
 					<div class="search-left">
-						<input class="search-input" name="search" type="text"
-							placeholder="검색어를 입력하세요." />
+						<input class="search-input" id="search-text" type="search" name="search" type="text" onKeyDown="onKeyDown()"
+							value="${search}" placeholder="검색어를 입력하세요." />
 					</div>
 					<div class="search-right">
-						<input type="submit"
+						<input id="search-submit" type="submit"
 							style="background-image:url(<c:url value='/resources/static/img/main/search-icon.png' />)"
 							value="" class="search-icon" />
 					</div>
@@ -92,10 +115,98 @@
 
 	});
 
-	$('.price-button').click(function() {
+	$('.level-button').click(function() {
 		var self = this;
-		var filter = $('.section-price').find('.filter-menu');
+		var filter = $('.section-level').find('.filter-menu');
 		filter.slideToggle();
 
 	});
+
+	$('.sort').click(function() {
+		var orderId = $(this).attr('data-id');
+		var userLevel = ${userLevel};
+		var categoryId = ${categoryId};
+		var search = "${search}";
+
+		
+		var categoryIdQuery = "";
+		var userLevelQuery = "";
+		var searchQuery ="";
+	 	
+	 	if(categoryId > 0 ){
+	 		categoryIdQuery =  "&categoryId=" + categoryId;
+	 	}
+	 	
+	 	if(userLevel > 0 ){
+	 		userLevelQuery = "&userLevel=" + userLevel;
+	 	}
+	 	
+	 	if(search != ""){
+	 		searchQuery = "&search=" + search;
+	 	}
+		
+		location.href = "${contextPath}/?orderId=" + orderId + categoryIdQuery + userLevelQuery + searchQuery; 	
+	});
+
+	$('.level').click(function() {
+		var userLevel = $(this).attr('data-id');
+		var orderId = ${orderId};
+		var categoryId = ${categoryId};
+		var search = "${search}";
+		
+		var categoryIdQuery = "";
+		var orderIdQuery = "";
+		var searchQuery ="";
+		
+	 	if(categoryId > 0 ){
+	 		categoryIdQuery =  "&categoryId=" + categoryId;
+	 	}
+	 	
+	 	if(orderId > 0 ){
+	 		orderIdQuery = "&orderId=" + orderId;
+	 	}
+	 	
+	 	if(search != ""){
+	 		searchQuery = "&search=" + search;
+	 	}
+		
+		location.href = "${contextPath}/?userLevel=" + userLevel + categoryIdQuery + orderIdQuery + searchQuery; 
+	});
+	
+	$('#search-submit').click(function(){
+		search();
+	});
+	
+	function onKeyDown(){
+		if(event.keyCode == 13){
+			search();
+		}
+	}
+	
+	function search(){
+		var search = $(document.getElementById('search-text')).val();
+		var userLevel = ${userLevel};
+		var orderId = ${orderId};
+		var categoryId = ${categoryId};
+		
+		var categoryIdQuery = "";
+		var orderIdQuery = "";
+		var userLevelQuery ="";
+		
+	 	if(categoryId > 0 ){
+	 		categoryIdQuery =  "&categoryId=" + categoryId;
+	 	}
+	 	
+	 	if(orderId > 0 ){
+	 		orderIdQuery = "&orderId=" + orderId;
+	 	}
+	 	
+	 	if(userLevel > 0 ){
+	 		userLevelQuery = "&userLevel=" + userLevel;
+	 	}
+		
+		location.href = "${contextPath}/?search=" + search + categoryIdQuery + orderIdQuery + userLevelQuery; 
+	}
+	
+
 </script>

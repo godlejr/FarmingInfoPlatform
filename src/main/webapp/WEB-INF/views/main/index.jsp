@@ -70,56 +70,69 @@
 
 	var page = 1;
 	var isEndOfStories = false;
+	var isSync = true;
 		
-	$(document).scroll(function() {
-		
+	function infiniteScrollDown(){
+		isSync = false;
+
 		var categoryId = "${categoryId}";
 		var itemCategoryId = "${itemCategoryId}";
 		var orderId = "${orderId}";
 		var userLevel  = "${userLevel}";
+		var search = "${search}";
 		var storyList = $('.section-story:last');
-
+		var loader = $('.section-loader');
 		
+		$.ajax({
+			type : "POST",
+			url : "${contextPath}/infiniteScrollDown",
+			data:{
+				categoryId: (categoryId!="")? categoryId : 0,
+				itemCategoryId: (itemCategoryId!="")? itemCategoryId : 0,
+				orderId: (orderId!="")? orderId : 0,
+				userLevel: (userLevel!="")? userLevel : 0,
+				search: search,
+				page: page
+	        },
+	        success:function(data){
+	        	if(data.length == 0){
+					isEndOfStories = true;
+				}else{
+					$(data).each(function(){
+						var storyTemplate = '<div class="section-story" data-id="' + this.id + '">' +
+							'<div class="story-avatar" style="background-image:url(http://d3fmxlpcykzndk.cloudfront.net/nongjik/images/stories/' + this.fileAvatar + ')">' +
+							'<div class="story-value"> <div class="value-count">' +
+							'<div class="count-check"><i class="fa fa-eye" aria-hidden="true"></i><span>' + this.hits + '</span></div>'+
+							'<div class="count-like"><i class="fa fa-heart-o" aria-hidden="true"></i><span>' + this.storyLikeCount + '</span></div>'+
+							'<div class="count-comment"><i class="fa fa-commenting-o" aria-hidden="true"></i><span>' + this.storyCommentCount + '</span></div>'+
+							'</div></div></div>'+
+							'<div class="story-info"><div class="info-content">'+
+							'<div class="content-title"><span>' + this.title + '</span></div>'+
+							'<div class="content-user"><img class="user-avatar" data-id="' + this.user.id + '" alt=""src="http://d3fmxlpcykzndk.cloudfront.net/nongjik/images/users/avatars/' + this.user.avatar + '">'+ 
+							'<span class="user-name" data-id="' + this.user.id + '">' + this.user.name + '</span></div></div></div></div>';
+							
+						storyList.after(storyTemplate);
+					});
+		            ++page;
+				}
+	        	setTimeout(function(){isSync = true;},500) 
+	        },
+	        beforeSend:function(){
+	        	loader.css('display','inline-block');
+	        },
+	        complete: function(){
+	        	loader.css('display','none');
+	        }
+		});
+	}
+		
+	$(document).scroll(function() {
 		if ($(window).scrollTop() == ($(document).height() - $(window).height()) ){
 			if(!isEndOfStories){
-	            $('.section-loader').css("display", "inherit");
-				$.ajax({
-					type : "POST",
-					url : "${contextPath}/infiniteScrollDown",
-					async: false,
-					data:{
-						categoryId: (categoryId!="")? categoryId : 0,
-						itemCategoryId: (itemCategoryId!="")? itemCategoryId : 0,
-						orderId: (orderId!="")? orderId : 0,
-						userLevel: (userLevel!="")? userLevel : 0,
-						page: page
-			        },
-			        success:function(data){
-			        	if(data.length == 0){
-							isEndOfStories = true;
-						}else{
-							$(data).each(function(){
-								var storyTemplate = '<div class="section-story" data-id="' + this.id + '">' +
-									'<div class="story-avatar" style="background-image:url(http://d3fmxlpcykzndk.cloudfront.net/nongjik/images/stories/' + this.fileAvatar + ')">' +
-									'<div class="story-value"> <div class="value-count">' +
-									'<div class="count-check"><i class="fa fa-eye" aria-hidden="true"></i><span>' + this.hits + '</span></div>'+
-									'<div class="count-like"><i class="fa fa-heart-o" aria-hidden="true"></i><span>' + this.storyLikeCount + '</span></div>'+
-									'<div class="count-comment"><i class="fa fa-commenting-o" aria-hidden="true"></i><span>' + this.storyCommentCount + '</span></div>'+
-									'</div></div></div>'+
-									'<div class="story-info"><div class="info-content">'+
-									'<div class="content-title"><span>' + this.title + '</span></div>'+
-									'<div class="content-user"><img class="user-avatar" data-id="' + this.user.id + '" alt=""src="http://d3fmxlpcykzndk.cloudfront.net/nongjik/images/users/avatars/' + this.user.avatar + '">'+ 
-									'<span class="user-name" data-id="' + this.user.id + '">' + this.user.name + '</span></div></div></div></div>';
-									
-								storyList.after(storyTemplate);
-							});
-				            ++page;
-						}
-			            $('.section-loader').css("display", "none");
-			        }
-				});
+				if(isSync){
+					infiniteScrollDown();
+				}
 			}
 		}
-		
 	});
 </script>

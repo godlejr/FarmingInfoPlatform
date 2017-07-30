@@ -22,9 +22,11 @@ import com.djunderworld.nongjik.common.flag.PaginationFlag;
 import com.djunderworld.nongjik.common.flag.UserLevelFlag;
 import com.djunderworld.nongjik.dto.StoryDto;
 import com.djunderworld.nongjik.entity.Category;
+import com.djunderworld.nongjik.entity.ItemCategory;
 import com.djunderworld.nongjik.entity.Story;
 import com.djunderworld.nongjik.entity.User;
 import com.djunderworld.nongjik.service.category.CategoryService;
+import com.djunderworld.nongjik.service.itemcategory.ItemCategoryService;
 import com.djunderworld.nongjik.service.story.StoryService;
 import com.djunderworld.nongjik.service.user.UserService;
 
@@ -39,6 +41,9 @@ public class MainController {
 
 	@Autowired
 	private StoryService storyService;
+	
+	@Autowired
+	private ItemCategoryService itemCategoryService;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(@RequestParam(name = "categoryId", required = false, defaultValue = "0") long categoryId,
@@ -48,12 +53,19 @@ public class MainController {
 			@RequestParam(name = "search", required = false) String search, Model model) throws Exception {
 
 		List<Category> categories = categoryService.getCategories();
-
+		List<ItemCategory> itemCategories = null;
+		
+		if(categoryId > 0 ){
+			itemCategories = itemCategoryService.getItemCategoriesByCategoryId(categoryId);
+		}
+		
 		List<Story> stories = storyService.getStoriesByPageRequests(categoryId, itemCategoryId, orderId, userLevel,
 				search, 0, PaginationFlag.STORY_MAX_LIMIT);
 
 		model.addAttribute("categories", categories);
+		model.addAttribute("itemCategories", itemCategories);
 		model.addAttribute("stories", stories);
+		
 		model.addAttribute("categoryId", categoryId);
 		model.addAttribute("itemCategoryId", itemCategoryId);
 		model.addAttribute("orderId", orderId);

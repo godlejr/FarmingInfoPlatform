@@ -51,8 +51,6 @@
 		<tiles:insertAttribute name="navigation" />
 	</nav>
 
-
-
 	<div id="container">
 		<div class="container-content">
 			<div class="content-body">
@@ -78,7 +76,7 @@
 		var init = function() {
 			$(window).on('scroll', scroll);
 			scroll();
-			
+
 		}, scroll = function() {
 			var currentScrollTop = $(this).scrollTop();
 

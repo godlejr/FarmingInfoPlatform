@@ -126,51 +126,20 @@
 		var orderId = $(this).attr('data-id');
 		var userLevel = ${userLevel};
 		var categoryId = ${categoryId};
+		var itemCategoryId = ${itemCategoryId};
 		var search = "${search}";
 
-		
-		var categoryIdQuery = "";
-		var userLevelQuery = "";
-		var searchQuery ="";
-	 	
-	 	if(categoryId > 0 ){
-	 		categoryIdQuery =  "&categoryId=" + categoryId;
-	 	}
-	 	
-	 	if(userLevel > 0 ){
-	 		userLevelQuery = "&userLevel=" + userLevel;
-	 	}
-	 	
-	 	if(search != ""){
-	 		searchQuery = "&search=" + search;
-	 	}
-		
-		location.href = "${contextPath}/?orderId=" + orderId + categoryIdQuery + userLevelQuery + searchQuery; 	
+		navigateToLocationByRequestParams(categoryId, itemCategoryId, orderId, userLevel, search) 	
 	});
 
 	$('.level').click(function() {
 		var userLevel = $(this).attr('data-id');
 		var orderId = ${orderId};
 		var categoryId = ${categoryId};
+		var itemCategoryId = ${itemCategoryId};
 		var search = "${search}";
 		
-		var categoryIdQuery = "";
-		var orderIdQuery = "";
-		var searchQuery ="";
-		
-	 	if(categoryId > 0 ){
-	 		categoryIdQuery =  "&categoryId=" + categoryId;
-	 	}
-	 	
-	 	if(orderId > 0 ){
-	 		orderIdQuery = "&orderId=" + orderId;
-	 	}
-	 	
-	 	if(search != ""){
-	 		searchQuery = "&search=" + search;
-	 	}
-		
-		location.href = "${contextPath}/?userLevel=" + userLevel + categoryIdQuery + orderIdQuery + searchQuery; 
+		navigateToLocationByRequestParams(categoryId, itemCategoryId, orderId, userLevel, search);
 	});
 	
 	$('#search-submit').click(function(){
@@ -188,24 +157,9 @@
 		var userLevel = ${userLevel};
 		var orderId = ${orderId};
 		var categoryId = ${categoryId};
+		var itemCategoryId = ${itemCategoryId};
 		
-		var categoryIdQuery = "";
-		var orderIdQuery = "";
-		var userLevelQuery ="";
-		
-	 	if(categoryId > 0 ){
-	 		categoryIdQuery =  "&categoryId=" + categoryId;
-	 	}
-	 	
-	 	if(orderId > 0 ){
-	 		orderIdQuery = "&orderId=" + orderId;
-	 	}
-	 	
-	 	if(userLevel > 0 ){
-	 		userLevelQuery = "&userLevel=" + userLevel;
-	 	}
-		
-		location.href = "${contextPath}/?search=" + search + categoryIdQuery + orderIdQuery + userLevelQuery; 
+		navigateToLocationByRequestParams(categoryId, itemCategoryId, orderId, userLevel, search);
 	}
 	
 

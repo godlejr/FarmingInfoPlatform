@@ -550,6 +550,11 @@ ol, ul, li {
 	max-width: 320px;
 	margin: 180 auto;
 	display: block;
+	background: #fff;
+	padding: 15px;
+	border: 1px solid #eaeaea;
+	border-radius: 2%;
+	z-index: 900;
 }
 
 .section-login .login-header .header-logo, .section-join .join-header .header-logo
@@ -664,10 +669,40 @@ ol, ul, li {
 }
 
 .content-list {
-	width: 100%; padding : 30px;
+	width: 100%;
+	padding: 30px;
 	display: inline-block;
 	position: relative;
 	padding: 30px;
+}
+
+.content-list .item-category-list {
+	width: 100%;
+	height: auto;
+	margin-bottom: 20px;
+	display: inline-block;
+}
+
+.content-list .item-category-list ul {
+	font-size: 13px;
+	white-space: nowrap;
+}
+
+.content-list .item-category-list ul li {
+	display: inline-block;
+	float: left;
+	padding: 0 13px 5px 16px;
+	background: url(../img/main/item_category_right_bar.gif) no-repeat right
+		2px;
+	cursor: pointer;
+}
+
+.content-list .item-category-list .section-item-category {
+	
+}
+
+.content-list .item-category-list .section-item-category.last {
+	background: none;
 }
 
 .content-list .story-list {

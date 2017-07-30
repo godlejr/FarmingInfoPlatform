@@ -13,14 +13,30 @@
 </div>
 <script type="text/javascript">
 	$('.category').click(function() {
+		var categoryId = $(this).attr('data-id');
+		var itemCategoryId = 0;
 		var orderId = ${orderId};
 		var userLevel = ${userLevel};
 		var search = "${search}";
-		var categoryId = $(this).attr('data-id');
 		
+		navigateToLocationByRequestParams(categoryId, itemCategoryId, orderId, userLevel, search);
+	});
+	
+	
+	function navigateToLocationByRequestParams(categoryId, itemCategoryId, orderId, userLevel, search){
+		var categoryIdQeury = "";
 		var orderIdQuery = "";
 		var userLevelQuery = "";
 		var searchQuery ="";
+		var itemCategoryQuery = "";
+		
+		if(categoryId > 0 ){
+	 		categoryIdQuery =  "&categoryId=" + categoryId;
+	 	}
+
+		if(itemCategoryId > 0){
+	 		itemCategoryQuery = "&itemCategoryId=" + itemCategoryId;
+	 	}
 		
 	 	if(orderId > 0 ){
 	 		orderIdQuery =  "&orderId=" + orderId;
@@ -34,8 +50,8 @@
 	 		searchQuery = "&search=" + search;
 	 	}
 		
-		location.href = "${contextPath}/?categoryId=" + categoryId + orderIdQuery + userLevelQuery + searchQuery; 
-	});
+		location.href = "${contextPath}/?categoryId=" + categoryId + orderIdQuery + userLevelQuery + searchQuery + itemCategoryQuery; 
+	}
 	
 	$('.category').mouseover(function() {
 		$(this).css("color", "#672");
@@ -48,10 +64,10 @@
 		}
 	});
 	
-	function updateMenu(){
+	function updateMenuView(){
 		var categoryId = ${categoryId};
 		$('.category[data-id="'+ categoryId +'"]').addClass('curr');
 	}
 	
-	updateMenu();
+	updateMenuView();
 </script>

@@ -13,6 +13,30 @@
 
 
 <div class="content-list" id="content-list">
+	<c:if test="${itemCategories != null }">
+		<div class="item-category-list">
+			<ul>
+				<li class="section-item-category" data-id="0">
+						<span>전체보기</span>
+				</li>	
+				<c:forEach var="itemCategory" items="${itemCategories}"  varStatus="status" >
+					<c:choose>
+						<c:when test="${!status.last}">
+							<li class="section-item-category" data-id="${itemCategory.id}">
+								<span>${itemCategory.name}</span>
+							</li>		
+						</c:when>
+						<c:otherwise>
+							<li class="section-item-category last" data-id="${itemCategory.id}">
+								<span>${itemCategory.name}</span>
+							</li>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+			</ul>
+		</div>
+	</c:if>
+
 	<div class="story-list" >
 		<c:forEach var="story" items="${stories}">
 			<div class="section-story" data-id="${story.id}">
@@ -55,6 +79,23 @@
 </div>
 
 <script type="text/javascript">
+	function updateItemCategoryView(){
+		var itemCategoryId = ${itemCategoryId};
+		$('.section-item-category[data-id="'+ itemCategoryId +'"]').addClass('curr');
+	}
+	
+	updateItemCategoryView();
+	
+	$('.section-item-category').click(function(){
+		var itemCategoryId = $(this).attr('data-id');
+		var orderId = ${orderId};
+		var categoryId = ${categoryId};
+		var userLevel = ${userLevel};
+		var search = "${search}";
+		
+		navigateToLocationByRequestParams(categoryId, itemCategoryId, orderId, userLevel, search);
+	
+	});
 	
 	$(".story-list").delegate(".section-story", "mouseover mouseout", function ( event ) {
 	    if (event.type == "mouseover") {

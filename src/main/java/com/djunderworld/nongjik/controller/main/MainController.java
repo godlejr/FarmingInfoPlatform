@@ -41,7 +41,7 @@ public class MainController {
 
 	@Autowired
 	private StoryService storyService;
-	
+
 	@Autowired
 	private ItemCategoryService itemCategoryService;
 
@@ -50,27 +50,28 @@ public class MainController {
 			@RequestParam(name = "itemCategoryId", required = false, defaultValue = "0") long itemCategoryId,
 			@RequestParam(name = "orderId", required = false, defaultValue = "0") int orderId,
 			@RequestParam(name = "userLevel", required = false, defaultValue = "0") int userLevel,
-			@RequestParam(name = "search", required = false) String search, Model model) throws Exception {
+			@RequestParam(name = "search", required = false) String search,
+			@RequestParam(name = "columnSize", required = false, defaultValue = "3") int columnSize, Model model) throws Exception {
 
 		List<Category> categories = categoryService.getCategories();
 		List<ItemCategory> itemCategories = null;
-		
-		if(categoryId > 0 ){
+
+		if (categoryId > 0) {
 			itemCategories = itemCategoryService.getItemCategoriesByCategoryId(categoryId);
 		}
-		
+
 		List<Story> stories = storyService.getStoriesByPageRequests(categoryId, itemCategoryId, orderId, userLevel,
 				search, 0, PaginationFlag.STORY_MAX_LIMIT);
 
 		model.addAttribute("categories", categories);
 		model.addAttribute("itemCategories", itemCategories);
 		model.addAttribute("stories", stories);
-		
 		model.addAttribute("categoryId", categoryId);
 		model.addAttribute("itemCategoryId", itemCategoryId);
 		model.addAttribute("orderId", orderId);
 		model.addAttribute("userLevel", userLevel);
 		model.addAttribute("search", search);
+		model.addAttribute("columnSize", columnSize);
 
 		return "main/index";
 	}

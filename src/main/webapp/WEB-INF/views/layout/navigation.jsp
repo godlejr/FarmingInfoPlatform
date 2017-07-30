@@ -98,11 +98,11 @@
 					</div>
 					<div class="search-right">
 						<input id="search-submit" type="submit"
-							style="background-image:url(<c:url value='/resources/static/img/main/search-icon.png' />)"
+							style="background-image:url(<c:url value='/resources/static/img/main/search_icon.png' />)"
 							value="" class="search-icon" />
 					</div>
 				</div>
-			</form>
+			</div>
 		</div>
 	</div>
 </div>
@@ -128,8 +128,9 @@
 		var categoryId = ${categoryId};
 		var itemCategoryId = ${itemCategoryId};
 		var search = "${search}";
-
-		navigateToLocationByRequestParams(categoryId, itemCategoryId, orderId, userLevel, search) 	
+		var columnSize = ${columnSize};
+		
+		navigateToLocationByRequestParams(categoryId, itemCategoryId, orderId, userLevel, search, columnSize);
 	});
 
 	$('.level').click(function() {
@@ -138,8 +139,9 @@
 		var categoryId = ${categoryId};
 		var itemCategoryId = ${itemCategoryId};
 		var search = "${search}";
+		var columnSize = ${columnSize};
 		
-		navigateToLocationByRequestParams(categoryId, itemCategoryId, orderId, userLevel, search);
+		navigateToLocationByRequestParams(categoryId, itemCategoryId, orderId, userLevel, search, columnSize);
 	});
 	
 	$('#search-submit').click(function(){
@@ -158,8 +160,9 @@
 		var orderId = ${orderId};
 		var categoryId = ${categoryId};
 		var itemCategoryId = ${itemCategoryId};
+		var columnSize = ${columnSize};
 		
-		navigateToLocationByRequestParams(categoryId, itemCategoryId, orderId, userLevel, search);
+		navigateToLocationByRequestParams(categoryId, itemCategoryId, orderId, userLevel, search, columnSize);
 	}
 	
 

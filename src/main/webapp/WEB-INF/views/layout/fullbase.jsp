@@ -8,7 +8,7 @@
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-	<title><tiles:insertAttribute name="title"  /></title>
+<title><tiles:insertAttribute name="title" /></title>
 <meta
 	content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'
 	name='viewport' />
@@ -36,14 +36,18 @@
 
 </head>
 <body>
-
-	<div id="container">
+	<div id="container"
+		style="background-image:url(<c:url value='/resources/static/img/main/full_bg.jpg' />); height: 100vh; background-repeat: no-repeat;
+    background-size: cover;">
 		<tiles:insertAttribute name="content" />
+
+		<footer id="footer">
+			<div class="footer-content" style="position:absolute;">
+				<tiles:insertAttribute name="footer" />
+			</div>
+		</footer>
 	</div>
-	
-	<footer id="footer">
-		<tiles:insertAttribute name="footer" />
-	</footer>
+
 
 </body>
 </html>

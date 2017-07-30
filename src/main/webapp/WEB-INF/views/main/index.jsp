@@ -11,6 +11,15 @@
 <c:set var="cloudFrontStoryImagePath"
 	value="http://d3fmxlpcykzndk.cloudfront.net/nongjik/images/stories/"></c:set>
 
+<c:choose>
+	<c:when test="${columnSize == 3}">
+			<c:set var="columSizeView" value="4" />
+	</c:when>
+	<c:otherwise>
+			<c:set var="columSizeView" value="3" />
+	</c:otherwise>
+	
+</c:choose>
 
 <div class="content-list" id="content-list">
 	<c:if test="${itemCategories != null }">
@@ -36,10 +45,20 @@
 			</ul>
 		</div>
 	</c:if>
+	
+	<div class="option-list">
+		<div class="section-view-option">
+			<div class="view-col">
+				<img src="<c:url value='/resources/static/img/main/col_${columSizeView}.png' />" />
+				<span>${columSizeView}줄 보기</span>
+			</div>
+			<span></span>
+		</div>
+	</div>
 
 	<div class="story-list" >
 		<c:forEach var="story" items="${stories}">
-			<div class="section-story" data-id="${story.id}">
+			<div class="section-story col-${columnSize}" data-id="${story.id}">
 				<div class="story-avatar"
 					style="background-image:url(${cloudFrontStoryImagePath}${story.files[0].name}.${story.files[0].ext})">
 
@@ -86,14 +105,33 @@
 	
 	updateItemCategoryView();
 	
+	$('.view-col').click(function(){
+		var itemCategoryId = ${itemCategoryId};
+		var orderId = ${orderId};
+		var categoryId = ${categoryId};
+		var userLevel = ${userLevel};
+		var search = "${search}";
+		var columnSize;
+		
+		if(${columSizeView} == 3){
+			columnSize = 3;
+		}else{
+			columnSize = 4;
+		}
+		
+		navigateToLocationByRequestParams(categoryId, itemCategoryId, orderId, userLevel, search, columnSize);
+	
+	});
+	
 	$('.section-item-category').click(function(){
 		var itemCategoryId = $(this).attr('data-id');
 		var orderId = ${orderId};
 		var categoryId = ${categoryId};
 		var userLevel = ${userLevel};
 		var search = "${search}";
+		var columnSize = ${columnSize};
 		
-		navigateToLocationByRequestParams(categoryId, itemCategoryId, orderId, userLevel, search);
+		navigateToLocationByRequestParams(categoryId, itemCategoryId, orderId, userLevel, search, columnSize);
 	
 	});
 	
@@ -140,7 +178,7 @@
 					isEndOfStories = true;
 				}else{
 					$(data).each(function(){
-						var storyTemplate = '<div class="section-story" data-id="' + this.id + '">' +
+						var storyTemplate = '<div class="section-story col-'+ ${columnSize} +'" data-id="' + this.id + '">' +
 							'<div class="story-avatar" style="background-image:url(http://d3fmxlpcykzndk.cloudfront.net/nongjik/images/stories/' + this.fileAvatar + ')">' +
 							'<div class="story-value"> <div class="value-count">' +
 							'<div class="count-check"><i class="fa fa-eye" aria-hidden="true"></i><span>' + this.hits + '</span></div>'+

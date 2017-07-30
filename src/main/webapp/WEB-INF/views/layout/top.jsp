@@ -8,8 +8,8 @@
 <div class="top-content">
 	<div class="content-body">
 		<div class="section-logo">
-			<img src="<c:url value='/resources/static/img/main/logo.jpg' />"
-				class="header-logo">
+			<a href="${contextPath}/"><img src="<c:url value='/resources/static/img/main/logo.jpg' />"
+				class="header-logo"></a>
 		</div>
 
 		<c:choose>

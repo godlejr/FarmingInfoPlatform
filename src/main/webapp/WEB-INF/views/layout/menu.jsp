@@ -18,17 +18,19 @@
 		var orderId = ${orderId};
 		var userLevel = ${userLevel};
 		var search = "${search}";
+		var columnSize = ${columnSize};
 		
-		navigateToLocationByRequestParams(categoryId, itemCategoryId, orderId, userLevel, search);
+		navigateToLocationByRequestParams(categoryId, itemCategoryId, orderId, userLevel, search, columnSize);
 	});
 	
 	
-	function navigateToLocationByRequestParams(categoryId, itemCategoryId, orderId, userLevel, search){
-		var categoryIdQeury = "";
+	function navigateToLocationByRequestParams(categoryId, itemCategoryId, orderId, userLevel, search, columnSize){
+		var categoryIdQuery = "";
 		var orderIdQuery = "";
 		var userLevelQuery = "";
 		var searchQuery ="";
 		var itemCategoryQuery = "";
+		var columnSizeQuery ="";
 		
 		if(categoryId > 0 ){
 	 		categoryIdQuery =  "&categoryId=" + categoryId;
@@ -49,8 +51,12 @@
 	 	if(search != ""){
 	 		searchQuery = "&search=" + search;
 	 	}
+	 	
+	 	if(columnSize > 3){
+	 		columnSizeQuery = "&columnSize=" + columnSize;
+	 	}
 		
-		location.href = "${contextPath}/?categoryId=" + categoryId + orderIdQuery + userLevelQuery + searchQuery + itemCategoryQuery; 
+		location.href = "${contextPath}/?" + categoryIdQuery + orderIdQuery + userLevelQuery + searchQuery + itemCategoryQuery + columnSizeQuery; 
 	}
 	
 	$('.category').mouseover(function() {

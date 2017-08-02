@@ -48,7 +48,7 @@
 	
 	<div class="option-list">
 		<div class="section-view-option">
-			<div class="view-col">
+			<div class="view-col-${columSizeView}">
 				<img src="<c:url value='/resources/static/img/main/col_${columSizeView}.png' />" />
 				<span>${columSizeView}줄 보기</span>
 			</div>
@@ -105,7 +105,7 @@
 	
 	updateItemCategoryView();
 	
-	$('.view-col').click(function(){
+	$('.view-col-${columSizeView}').click(function(){
 		var itemCategoryId = ${itemCategoryId};
 		var orderId = ${orderId};
 		var categoryId = ${categoryId};

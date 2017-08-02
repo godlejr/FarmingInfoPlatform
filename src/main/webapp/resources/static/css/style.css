@@ -197,6 +197,55 @@ ol, ul, li {
 	background-color: #ffffff;
 }
 
+.banner-content {
+	width: 100%;
+	height: inherit;
+}
+
+.banner-content .content-header {
+	width: 100%;
+	height: 58px;
+	z-index: 900;
+	position: fixed;
+	background: linear-gradient(to right, rgb(67, 179, 70) 0%,
+		rgb(162, 143, 92) 41%, #529fa0 72%, rgba(251, 223, 147, 1) 100%);
+	display: flex;
+	align-items: center;
+	position: fixed;
+	align-items: center;
+}
+
+.banner-content .content-header span {
+	margin: 0 auto;
+	font-weight: 500;
+	font-size: 18px;
+	text-align: center;
+	color: #fff;
+}
+
+.banner-content .content-body {
+	width: 100%;
+	height: inherit;
+	margin: 0 auto;
+	max-width: 1080px;
+}
+
+.banner-content .content-body .rolling-section {
+	width: 100%;
+	height: 100%;
+	position: relative;
+	margin: 0 auto;
+}
+
+.banner-content .content-body .rolling-section .banner-item {
+	margin-left: auto;
+	margin-right: auto;
+	background-size: 1080px 370px;
+	background-repeat: no-repeat;
+	background-position: center;
+	height: 100%;
+}
+
 .gnb {
 	width: 100%;
 }
@@ -690,7 +739,7 @@ ol, ul, li {
 	font-size: 13px;
 }
 
-.option-list .section-view-option .view-col {
+.option-list .section-view-option .view-col-4 {
 	display: flex;
 	align-items: center;
 	float: right;
@@ -699,7 +748,17 @@ ol, ul, li {
 	cursor: pointer;
 }
 
-.option-list .section-view-option .view-col span {
+.option-list .section-view-option .view-col-3 {
+	display: flex;
+	align-items: center;
+	float: right;
+	margin-right: 1%;
+	color: #585f3b;
+	cursor: pointer;
+}
+
+.option-list .section-view-option .view-col-3 span, .option-list .section-view-option .view-col-4 span
+	{
 	margin-left: 5px;
 }
 

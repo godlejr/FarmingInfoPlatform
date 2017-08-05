@@ -97,6 +97,10 @@
 	</div>
 </div>
 
+<div id="story-detail-container">
+	
+</div>
+
 <script type="text/javascript">
 	function updateItemCategoryView(){
 		var itemCategoryId = ${itemCategoryId};
@@ -146,6 +150,42 @@
 	    }
 	});
 	
+	$(".story-list").delegate(".section-story", "mouseover mouseout", function ( event ) {
+	    if (event.type == "mouseover") {
+	    	$(this).find('.story-avatar').css({
+				"opacity" : "0.6",
+				"transition" : "all 0.3s"
+			});
+	    } else {
+			$(this).find('.story-avatar').css("opacity", "1");
+	    }
+	});
+	
+	$('.story-list').delegate('.story-avatar', 'click', function() {
+		var storyId = $(this).parent().attr('data-id');
+		
+		var url = "${contextPath}/stories/" + storyId;
+		 
+		history.pushState(null, null, url);
+		navigateToStoryDetail(url, storyId);
+	});
+
+	function navigateToStoryDetail(url, storyId){
+		$.ajax({
+			url: url,
+			type: "GET",
+			dataType: "html",
+			success: function(response){
+				var storyDetailPart = $(response).find('#container-content');
+				$('#story-detail-container').html(storyDetailPart).fadeIn(300, 'easeOutQuad');
+				$('html').css({'overflow-y':'hidden'});
+				setTimeout(function(){
+					$('#story-detail-container').scrollTop(0);	
+				}, 100);
+			}
+		});
+	}
+
 
 	var page = 1;
 	var isEndOfStories = false;
@@ -194,7 +234,7 @@
 					});
 		            ++page;
 				}
-	        	setTimeout(function(){isSync = true;},500) 
+	        	setTimeout(function(){isSync = true;},200) 
 	        },
 	        beforeSend:function(){
 	        	loader.css('display','inline-block');

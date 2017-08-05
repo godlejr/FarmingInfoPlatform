@@ -2,7 +2,8 @@
 <!DOCTYPE tiles-definitions PUBLIC  "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"  "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 
 <tiles-definitions>
-	<definition name="base" template="/WEB-INF/views/layout/base.jsp">
+	<definition name="baseWithAllLayout"
+		template="/WEB-INF/views/layout/baseWithAllLayout.jsp">
 		<put-attribute name="title" value="" />
 		<put-attribute name="top" value="/WEB-INF/views/layout/top.jsp" />
 		<put-attribute name="navigation"
@@ -13,27 +14,39 @@
 		<put-attribute name="footer" value="/WEB-INF/views/layout/footer.jsp" />
 	</definition>
 
-	<definition name="fullbase" template="/WEB-INF/views/layout/fullbase.jsp">
+	<definition name="baseWithFooter" template="/WEB-INF/views/layout/baseWithFooter.jsp">
 		<put-attribute name="title" value="" />
 		<put-attribute name="content" value="" />
 		<put-attribute name="footer" value="/WEB-INF/views/layout/footer.jsp" />
 	</definition>
 
+	<definition name="baseWithTop" template="/WEB-INF/views/layout/baseWithTop.jsp">
+		<put-attribute name="title" value="" />
+		<put-attribute name="top" value="/WEB-INF/views/layout/top.jsp" />
+		<put-attribute name="content" value="" />
+	</definition>
 
-	<definition name="main/index" extends="base">
+	<!-- 메인페이지(메인, 로그인, 회원가입) -->
+	<definition name="main/index" extends="baseWithAllLayout">
 		<put-attribute name="title" value="main"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/views/main/index.jsp"></put-attribute>
 	</definition>
 
-	<definition name="main/login" extends="fullbase">
+	<definition name="main/login" extends="baseWithFooter">
 		<put-attribute name="title" value="login"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/views/main/login.jsp"></put-attribute>
 	</definition>
 
-	<definition name="main/join" extends="fullbase">
+	<definition name="main/join" extends="baseWithFooter">
 		<put-attribute name="title" value="join"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/views/main/join.jsp"></put-attribute>
 	</definition>
 
+	<!-- 스토리페이지 -->
+	
+	<definition name="story/detail" extends="baseWithTop">
+		<put-attribute name="title" value="스토리"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/views/story/detail.jsp"></put-attribute>
+	</definition>
 
 </tiles-definitions>

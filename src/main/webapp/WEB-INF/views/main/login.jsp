@@ -6,7 +6,6 @@
 
 <div class="container-content">
 	<div class="content-body">
-
 		<div class="section-login">
 			<div class="login-header">
 				<a href="${contextPath}/"><img

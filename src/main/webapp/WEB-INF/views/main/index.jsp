@@ -102,6 +102,11 @@
 </div>
 
 <script type="text/javascript">
+	var page = 1;
+	var isEndOfStories = false;
+	var isSync = true;
+	var isStoryDetailShow = false;
+	
 	function updateItemCategoryView(){
 		var itemCategoryId = ${itemCategoryId};
 		$('.section-item-category[data-id="'+ itemCategoryId +'"]').addClass('curr');
@@ -163,9 +168,7 @@
 	
 	$('.story-list').delegate('.story-avatar', 'click', function() {
 		var storyId = $(this).parent().attr('data-id');
-		
 		var url = "${contextPath}/stories/" + storyId;
-		 
 		history.pushState(null, null, url);
 		navigateToStoryDetail(url, storyId);
 	});
@@ -176,9 +179,13 @@
 			type: "GET",
 			dataType: "html",
 			success: function(response){
+				isStoryDetailShow = true;
 				var storyDetailPart = $(response).find('#container-content');
+
+				$('#story-detail-container').show();
 				$('#story-detail-container').html(storyDetailPart).fadeIn(300, 'easeOutQuad');
 				$('html').css({'overflow-y':'hidden'});
+				
 				setTimeout(function(){
 					$('#story-detail-container').scrollTop(0);	
 				}, 100);
@@ -186,11 +193,26 @@
 		});
 	}
 
-
-	var page = 1;
-	var isEndOfStories = false;
-	var isSync = true;
+	$('#story-detail-container').click(function(event){
+		if($(event.target).attr('id') == 'container-content'){
+			console.log("ss");
+		}else{
+			navigateToBackFromStoryDetail();
+		}
+	});
+	
+	function navigateToBackFromStoryDetail(){
+		if(isStoryDetailShow){
+			$('#story-detail-container').find('#container-content').remove(); 
+			$('#story-detail-container').hide();
+			$('html').css({'overflow-y':'auto'});
+			isStoryShow = false;
+			var url = "${contextPath}/";
+			history.pushState(null, null, url);
+		}
+	}
 		
+	
 	function infiniteScrollDown(){
 		isSync = false;
 

@@ -720,6 +720,18 @@ ol, ul, li {
 	display: flex;
 }
 
+#story-detail-container{
+	width: 100%;
+    height: 100%;
+    position: fixed;
+    background: rgba(0,0,0,0.8);
+    top: 0;
+    left: 0;
+    display: none;
+    z-index: 1000;
+    overflow-y: scroll;
+}
+
 .content-list {
 	width: 100%;
 	padding: 30px;

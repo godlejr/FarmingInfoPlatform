@@ -13,4 +13,5 @@ public interface StoryService {
 	List<StoryDto> getStoryDtosByPageRequests(long categoryId, long itemCategoryId, int orderId, int userLevel,
 			String search, int page, int limit) throws Exception;
 
+	Story getStoryById(long id) throws Exception;
 }

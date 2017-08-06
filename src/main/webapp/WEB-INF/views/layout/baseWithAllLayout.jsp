@@ -41,6 +41,11 @@
 	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/i18n/jquery-ui-i18n.min.js"></script>
 <script src="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"
 	type="text/javascript"></script>
+
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r79/three.min.js"></script>
+<script src="<c:url value='/resources/static/js/carousel.js' />"></script>
+
 </head>
 <body>
 	<header id="header">

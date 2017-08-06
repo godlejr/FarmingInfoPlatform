@@ -180,7 +180,7 @@
 			dataType: "html",
 			success: function(response){
 				isStoryDetailShow = true;
-				var storyDetailPart = $(response).find('#container-content');
+				var storyDetailPart = $(response).find('.container-content');
 
 				$('#story-detail-container').show();
 				$('#story-detail-container').html(storyDetailPart).fadeIn(300, 'easeOutQuad');
@@ -194,16 +194,16 @@
 	}
 
 	$('#story-detail-container').click(function(event){
-		if($(event.target).attr('id') == 'container-content'){
-			console.log("ss");
-		}else{
+		var targetClass = $(event.target).attr('class');
+		
+		if(targetClass == 'story-detail-container' || targetClass == 'container-content' || targetClass == 'content-body' || targetClass == 'section-story-detail' || targetClass == 'story-right' || targetClass== 'story-left' ){
 			navigateToBackFromStoryDetail();
 		}
 	});
 	
 	function navigateToBackFromStoryDetail(){
 		if(isStoryDetailShow){
-			$('#story-detail-container').find('#container-content').remove(); 
+			$('#story-detail-container').find('.container-content').remove(); 
 			$('#story-detail-container').hide();
 			$('html').css({'overflow-y':'auto'});
 			isStoryShow = false;

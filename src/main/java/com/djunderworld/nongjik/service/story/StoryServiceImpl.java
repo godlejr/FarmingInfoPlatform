@@ -50,4 +50,9 @@ public class StoryServiceImpl implements StoryService {
 		return storyDtos;
 	}
 
+	@Override
+	public Story getStoryById(long id) throws Exception {
+		return storyRepository.findOne(id);
+	}
+
 }

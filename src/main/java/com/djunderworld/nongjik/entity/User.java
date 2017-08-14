@@ -72,6 +72,14 @@ public class User extends Base implements Serializable {
 	@JsonBackReference
 	private List<StoryComment> storyComments = new ArrayList<StoryComment>();
 
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+	@JsonBackReference
+	private List<UserFollower> userFollowers = new ArrayList<UserFollower>();
+	
+	@OneToMany(mappedBy = "follower", fetch = FetchType.LAZY)
+	@JsonBackReference
+	private List<UserFollower> followerUsers = new ArrayList<UserFollower>();
+	
 	public User() {
 		super();
 	}
@@ -204,5 +212,22 @@ public class User extends Base implements Serializable {
 	public void setProfessional(Professional professional) {
 		this.professional = professional;
 	}
+
+	public List<UserFollower> getUserFollowers() {
+		return userFollowers;
+	}
+
+	public void setUserFollowers(List<UserFollower> userFollowers) {
+		this.userFollowers = userFollowers;
+	}
+
+	public List<UserFollower> getFollowerUsers() {
+		return followerUsers;
+	}
+
+	public void setFollowerUsers(List<UserFollower> followerUsers) {
+		this.followerUsers = followerUsers;
+	}
+
 
 }

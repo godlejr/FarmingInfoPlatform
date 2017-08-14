@@ -33,6 +33,8 @@ public class QUser extends EntityPathBase<User> {
 
     public final StringPath email = createString("email");
 
+    public final ListPath<UserFollower, QUserFollower> followerUsers = this.<UserFollower, QUserFollower>createList("followerUsers", UserFollower.class, QUserFollower.class, PathInits.DIRECT2);
+
     //inherited
     public final NumberPath<Long> id = _super.id;
 
@@ -54,6 +56,8 @@ public class QUser extends EntityPathBase<User> {
 
     //inherited
     public final StringPath updatedAt = _super.updatedAt;
+
+    public final ListPath<UserFollower, QUserFollower> userFollowers = this.<UserFollower, QUserFollower>createList("userFollowers", UserFollower.class, QUserFollower.class, PathInits.DIRECT2);
 
     public QUser(String variable) {
         this(User.class, forVariable(variable), INITS);

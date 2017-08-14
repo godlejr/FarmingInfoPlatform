@@ -41,4 +41,13 @@
 		</beans:property>
 	</beans:bean>
 
+	<interceptors>
+		<interceptor>
+			<mvc:mapping path="/**" />
+			<exclude-mapping path="/login" />
+			<exclude-mapping path="/resources/static/**" />
+			<beans:bean class="com.djunderworld.nongjik.common.config.LoginInterceptor" />
+		</interceptor>
+	</interceptors>
+
 </beans:beans>

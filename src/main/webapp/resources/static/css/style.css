@@ -118,7 +118,7 @@ ol, ul, li {
 	height: inherit;
 	display: inherit;
 	position: fixed;
-	z-index: 900;
+	z-index: 1200;
 	background-color: #ffffff;
 }
 
@@ -728,7 +728,7 @@ ol, ul, li {
 	top: 0;
 	left: 0;
 	display: none;
-	z-index: 1000;
+	z-index: 1300;
 	overflow-y: scroll;
 }
 
@@ -960,13 +960,13 @@ ol, ul, li {
 }
 
 .container-content .content-body .section-story-detail .story-left {
-	width: 70%;
+	width: 75%;
 	float: left;
 	padding: 10px;
 }
 
 .container-content .content-body .section-story-detail .story-right {
-	width: 30%;
+	width: 24%;
 	float: left;
 	padding: 10px;
 }
@@ -991,6 +991,16 @@ ol, ul, li {
 	display: inherit;
 }
 
+.section-story-detail .story-left .story-info .info-body .story-content
+	{
+	max-width: 100%;
+	padding: 20px 30px 30px 30px;
+	white-space: pre-line;
+	line-height: 1.5em;
+	border: 0;
+	margin: 0;
+}
+
 .section-story-detail .story-left .story-info .info-body .file-list {
 	list-style: none;
 	padding: 0;
@@ -1011,19 +1021,17 @@ ol, ul, li {
 }
 
 .section-story-detail .story-left .story-info .info-body .file-list .story-file .video-file
-{   
+	{
 	max-width: 95%;
-    margin: 0 auto;
+	margin: 0 auto;
 }
-
 
 .section-story-detail .story-left .story-info .info-body .file-list .story-file #vr360-file
-{   
+	{
 	width: 95%;
 	height: 300px;
-    margin: 0 auto;
+	margin: 0 auto;
 }
-
 
 .section-story-detail .story-left .story-info .info-header .header-left
 	{
@@ -1037,11 +1045,13 @@ ol, ul, li {
 	float: left;
 }
 
-.container-content .content-body .section-story-detail .story-right .user-info
+.container-content .content-body .section-story-detail .story-right .description-info
 	{
-	width: 100%;
 	border-radius: 5px;
 	border: 1px solid #e2e2e2;
+	max-width: 230px;
+	background: #fff;
+	position: fixed;
 }
 
 .section-story-detail .story-left .story-info .info-header .header-left .left-content,
@@ -1053,8 +1063,8 @@ ol, ul, li {
 .section-story-detail .story-left .story-info .info-header .header-left .left-content .story-title
 	{
 	font-size: 22px;
-	font-weight: 400;
-	color: #666;
+	font-weight: bold;
+	color: #444444;
 	padding-bottom: 10px;
 }
 
@@ -1080,6 +1090,169 @@ ol, ul, li {
 	{
 	padding-bottom: 10px;
 	font-size: 22px;
+}
+
+.section-story-detail .story-right .description-info .info-header {
+	position: relative;
+}
+
+.section-story-detail .story-right .description-info .info-header .user-cover
+	{
+	width: 100%;
+	height: 220px;
+	position: relative;
+	padding-top: 20px;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	border-top-right-radius: 5px;
+	border-top-left-radius: 5px;
+}
+
+.section-story-detail .story-right .description-info .info-header .user-cover .user-avatar
+	{
+	width: 95px;
+	height: 95px;
+	margin: 0 auto;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	border-radius: 50%;
+	background-repeat: no-repeat;
+}
+
+.section-story-detail .story-right .description-info .info-header .user-cover .user-name
+	{
+	text-align: center;
+	font-size: 22px;
+	padding-top: 15px;
+	font-weight: 500;
+	color: #fff;
+}
+
+.section-story-detail .story-right .description-info .info-header .user-cover .user-follow
+	{
+	text-align: center;
+	padding-top: 13px;
+}
+
+.section-story-detail .story-right .description-info .info-header .user-cover .user-follow span
+	{
+	text-decoration: none;
+	border-radius: 2em;
+	background: #fff;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 180%;
+	width: 48%;
+	color: #672;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-right: 25px;
+	padding-left: 25px;
+	cursor: pointer;
+}
+
+.section-story-detail .story-right .description-info .info-body {
+	position: relative;
+}
+
+.section-story-detail .story-right .description-info .info-bottom {
+	position: relative;
+}
+
+.section-story-detail .story-right .description-info .info-body .story-title,
+	.section-story-detail .story-right .description-info .info-body .share-title
+	{
+	font-size: 15px;
+	font-weight: bold;
+	color: #444444;
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-top: 10px;
+}
+
+.section-story-detail .story-right .description-info .info-body .story-description
+	{
+	font-size: 12px;
+	color: #999;
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border-bottom: #eaeaea 1px solid;
+}
+
+.section-story-detail .story-right .description-info .info-bottom .story-activity
+	{
+	font-size: 15px;
+	color: rgb(102, 119, 34);
+	display: flex;
+	align-items: center;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+
+.section-story-detail .story-right .description-info .info-bottom .story-activity .activity-like
+	{
+	border-right: 1px solid #e2e2e2;
+}
+
+.section-story-detail .story-right .description-info .info-bottom .story-activity .activity-like,
+	.section-story-detail .story-right .description-info .info-bottom .story-activity .activity-scrap
+	{
+	float: left;
+	width: 50%;
+	text-align: center;
+	cursor: pointer;
+	padding-right: 10px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 10px
+}
+
+.section-story-detail .story-right .description-info .info-bottom .story-activity .activity-like i,
+	.section-story-detail .story-right .description-info .info-bottom .story-activity .activity-scrap i
+	{
+	font-size: 17px;
+	margin-right: 5px;
+}
+
+.section-story-detail .story-right .description-info .info-body .share-description
+	{
+	font-size: 20px;
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border-bottom: #eaeaea 1px solid;
+}
+
+.section-story-detail .story-right .description-info .info-body .share-description span
+	{
+	margin-right: 10px;
+}
+
+.section-story-detail .story-right .description-info .info-body .share-description .facebook-icon
+	{
+	color: #102ec7;
+	cursor: pointer;
+}
+
+.section-story-detail .story-right .description-info .info-body .share-description .twitter-icon
+	{
+	color: #3abcdc;
+	cursor: pointer;
+}
+
+.section-story-detail .story-right .description-info .info-body .share-description .facebook-icon a:visited
+	{
+	color: #102ec7;
+}
+
+.section-story-detail .story-right .description-info .info-body .share-description .twitter-icon a:visited
+	{
+	color: #3abcdc;
 }
 
 /******* message ********/

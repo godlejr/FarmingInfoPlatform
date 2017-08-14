@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.djunderworld.nongjik.common.annotation.LoginRequired;
 import com.djunderworld.nongjik.entity.Story;
 import com.djunderworld.nongjik.service.story.StoryService;
 

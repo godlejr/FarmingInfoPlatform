@@ -986,6 +986,118 @@ ol, ul, li {
 	border-bottom: #e2e2e2 1px solid;
 }
 
+.section-story-detail .story-left .story-info .info-bottom {
+	width: 100%;
+	display: inherit;
+}
+
+.section-story-detail .story-left .story-info .info-bottom .comment-list
+	{
+	list-style: none;
+	padding: 0;
+}
+
+.section-story-detail .story-left .story-info .info-bottom .comment-list .story-comment
+	{
+	width: 100%;
+	padding: 15px;
+	display: flex;
+	align-items: center;
+	border-top: #e2e2e2 1px solid;
+}
+
+.section-story-detail .story-left .story-info .info-bottom .comment-list .story-comment .comment-left
+	{
+	float: left;
+	display: flex;
+	align-items: center;
+}
+
+.section-story-detail .story-left .story-info .info-bottom .comment-list .story-comment .comment-right
+	{
+	width: 100%;
+	padding-left: 10px;
+}
+
+.section-story-detail .story-left .story-info .info-bottom .comment-list .story-comment .comment-right .comment-description
+	{
+	display: flex;
+	align-items: center;
+}
+
+.section-story-detail .story-left .story-info .info-bottom .comment-list .story-comment .comment-right .comment-content
+	{
+	padding-top: 5px;
+	font-size: 14px;
+	color: #444;
+}
+
+.section-story-detail .story-left .story-info .info-bottom .comment-list .story-comment .comment-right .comment-description .user-name
+	{
+	font-weight: bold;
+	font-size: 14px;
+	color: #444;
+	font-size: 14px;
+	cursor:pointer;	
+}
+
+.section-story-detail .story-left .story-info .info-bottom .comment-list .story-comment .comment-right .comment-description .comment-date,
+	.section-story-detail .story-left .story-info .info-bottom .comment-list .story-comment .comment-right .comment-description #comment-edit-button,
+	.section-story-detail .story-left .story-info .info-bottom .comment-list .story-comment .comment-right .comment-description #comment-reply-button
+	{
+	padding-left: 5px;
+	font-size: 12px;
+	color: #aaa;
+}
+
+.section-story-detail .story-left .story-info .info-bottom .comment-list .story-comment .comment-right .comment-description #comment-edit-button,
+	.section-story-detail .story-left .story-info .info-bottom .comment-list .story-comment .comment-right .comment-description #comment-reply-button
+	{
+	cursor:pointer;	
+}
+
+.section-story-detail .story-left .story-info .info-bottom .comment-list .story-comment .comment-left .user-avatar
+	{
+	width: 50px;
+	height: 50px;
+	position: relative;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	border-radius: 50%;
+	cursor:pointer;	
+}
+
+.section-story-detail .story-left .story-info .info-bottom .comment-list .story-comment.reply
+	{
+	padding-left: 40px;
+}
+
+.section-story-detail .story-left .story-info .info-bottom #comment-more-button
+	{
+	width: 100%;
+	padding: 10px;
+	display: flex;
+	align-items: center;
+	border-top: #e2e2e2 1px solid;
+	text-align: center;
+	font-size: 16px;
+	cursor: pointer;
+	color: #672;
+	background: #fff;
+}
+
+.section-story-detail .story-left .story-info .info-bottom #comment-more-button:hover
+	{
+	color: #fff;
+	background: #672;
+}
+
+.section-story-detail .story-left .story-info .info-bottom #comment-more-button span
+	{
+	margin: 0 auto;
+}
+
 .section-story-detail .story-left .story-info .info-body {
 	width: 100%;
 	display: inherit;
@@ -1149,7 +1261,8 @@ ol, ul, li {
 	background: #672;
 }
 
-.section-story-detail .story-right .description-info .info-header .user-cover .user-follow .activity-follow.active{
+.section-story-detail .story-right .description-info .info-header .user-cover .user-follow .activity-follow.active
+	{
 	color: #fff;
 	background: #672;
 }

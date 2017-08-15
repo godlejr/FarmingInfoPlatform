@@ -1,5 +1,7 @@
 package com.djunderworld.nongjik.controller.story;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,19 +13,28 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.djunderworld.nongjik.common.flag.PaginationFlag;
 import com.djunderworld.nongjik.entity.Story;
+import com.djunderworld.nongjik.entity.StoryComment;
 import com.djunderworld.nongjik.entity.User;
 import com.djunderworld.nongjik.service.story.StoryService;
+import com.djunderworld.nongjik.service.storycomment.StoryCommentService;
 
 @Controller
 @RequestMapping("/stories")
 public class StoryController {
 	@Autowired
 	private StoryService storyService;
+	
+	@Autowired
+	private StoryCommentService storyCommentService;
+	
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public String detail(@PathVariable long id, Model model, HttpSession session) throws Exception {
 		Story story = storyService.getStoryById(id);
+		List<StoryComment> storyComments = storyCommentService.getStoryCommentsByStoryIdAndPageRequests(id, 0, PaginationFlag.STORY_COMMENT_MAX_LIMIT);
+		
 		User user = (User) session.getAttribute("user");
 
 		boolean isLiked = false;
@@ -39,6 +50,7 @@ public class StoryController {
 		}
 
 		model.addAttribute("story", story);
+		model.addAttribute("storyComments", storyComments);
 		model.addAttribute("isLiked", isLiked);
 		model.addAttribute("isScraped", isScraped);
 		model.addAttribute("isFollowed", isFollowed);

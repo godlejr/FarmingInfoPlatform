@@ -29,8 +29,6 @@ public class QStoryComment extends EntityPathBase<StoryComment> {
     //inherited
     public final StringPath createdAt = _super.createdAt;
 
-    public final NumberPath<Integer> deleted = createNumber("deleted", Integer.class);
-
     public final NumberPath<Long> depth = createNumber("depth", Long.class);
 
     public final NumberPath<Long> groupId = createNumber("groupId", Long.class);

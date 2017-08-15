@@ -118,7 +118,43 @@
 						<div class="story-content">${story.content}</div>
 					</div>
 
-					<div class="info-bottom"></div>
+					<div class="info-bottom">
+						<div id="comment-more-button">
+							<span>댓글 더 보기 +</span>
+						</div>
+					
+						<ul class="comment-list">
+							<c:forEach var="comment" items="${storyComments}">
+								<c:choose>
+									<c:when test="${comment.depth == 0}">
+										<c:set value="story-comment" var="commentCssClass"></c:set>
+									</c:when>
+									<c:otherwise>
+										<c:set value="story-comment reply" var="commentCssClass"></c:set>
+									</c:otherwise>
+								</c:choose>
+								
+								<li>
+									<div class="${commentCssClass}">
+										<div class="comment-left">
+											<img class="user-avatar" alt="" src="${cloudFrontUserAvatarPath}${comment.user.avatar}">	
+										</div>
+										<div class="comment-right">
+											<div class="comment-description">
+												<span class="user-name">${comment.user.name}</span>
+												<span class="comment-date">${comment.getCustomCreatedAt()}</span>
+												<span id="comment-edit-button">수정</span>
+												<span id="comment-reply-button">답변</span>
+											</div>
+											<div class="comment-content">
+												${comment.content}
+											</div>
+										</div>
+									</div>
+								</li>
+							</c:forEach>
+						</ul>
+					</div>
 				</div>
 			</div>
 			<div class="story-right">
@@ -173,6 +209,20 @@
 	</div>
 
 	<script>
+		var storyCommentTotalCount = ${fn:length(story.storyComments)};
+		var storyCommentCount = ${fn:length(storyComments)};
+		var commentMoreButtom = $('#comment-more-button');
+		
+		if(storyCommentCount == storyCommentTotalCount){
+			commentMoreButtom.hide();
+		}
+		
+		$('#comment-more-button').click(function(){
+			
+			
+		});
+	
+	
 		$('.activity-like').click(function(){
 			var userId = "${sessionScope.user.id}";
 			if(userId != ""){

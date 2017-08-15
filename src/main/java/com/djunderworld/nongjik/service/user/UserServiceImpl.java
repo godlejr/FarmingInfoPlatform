@@ -6,9 +6,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.djunderworld.nongjik.common.flag.UserLevelFlag;
 import com.djunderworld.nongjik.entity.Professional;
+import com.djunderworld.nongjik.entity.Story;
+import com.djunderworld.nongjik.entity.StoryScrap;
 import com.djunderworld.nongjik.entity.User;
+import com.djunderworld.nongjik.entity.UserFollower;
 import com.djunderworld.nongjik.repository.professional.ProfessionalRepository;
 import com.djunderworld.nongjik.repository.user.UserRepository;
+import com.djunderworld.nongjik.repository.userfollower.UserFollowerRepository;
 
 @Service
 @Transactional
@@ -19,6 +23,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private ProfessionalRepository professionalRepository;
+	
+	@Autowired
+	private UserFollowerRepository userFollowerRepository;
 
 	@Override
 	public User getUserByEmailAndPassword(String email, String password) throws Exception {
@@ -44,6 +51,28 @@ public class UserServiceImpl implements UserService {
 	public User getUserByEmail(String email) throws NullPointerException {
 		return userRepository.findByEmail(email);
 
+	}
+
+	@Override
+	public void saveOrDeleteUserFollowerByIdAndUserId(long id, long userId) throws Exception {
+		UserFollower userFollower = userFollowerRepository.findOneByUserIdAndFollowerId(id, userId);
+
+		if (userFollower != null) {
+			long userFollowerId = userFollower.getId();
+			userFollowerRepository.delete(userFollowerId);
+
+		} else {
+			userFollower = new UserFollower();
+			User user = new User();
+			User follower = new User();
+
+			user.setId(id);
+			follower.setId(userId);
+			userFollower.setUser(user);
+			userFollower.setFollower(follower);
+
+			userFollowerRepository.save(userFollower);
+		}
 	}
 
 }

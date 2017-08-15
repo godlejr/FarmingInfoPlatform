@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@ page session="false"%>
 
 <c:set var="contextPath" value="<%=request.getContextPath()%>"></c:set>
 <c:set var="cloudFrontUserAvatarPath"
@@ -15,6 +14,36 @@
 	value="http://d3fmxlpcykzndk.cloudfront.net/nongjik/videos/stories/"></c:set>
 <c:set var="cloudFrontStoryVr360Path"
 	value="https://s3.ap-northeast-2.amazonaws.com/djunderworld/nongjik/vr360/stories/"></c:set>
+
+
+<c:choose>
+	<c:when test='${isLiked}'> 
+		<c:set value="activity-like active" var="likeCssClass"></c:set>
+	</c:when> 
+	<c:otherwise>
+		<c:set value="activity-like" var="likeCssClass"></c:set>
+	</c:otherwise>
+</c:choose>
+
+<c:choose>
+	<c:when test='${isScraped}'> 
+  		<c:set value="activity-scrap active" var="scrapCssClass"></c:set>
+	</c:when> 
+	<c:otherwise>
+		<c:set value="activity-scrap" var="scrapCssClass"></c:set>
+	</c:otherwise>
+</c:choose>
+
+<c:choose>
+	<c:when test='${isFollowed}'> 
+  		<c:set value="activity-follow active" var="followCssClass"></c:set>
+	</c:when> 
+	<c:otherwise>
+		<c:set value="activity-follow" var="followCssClass"></c:set>
+	</c:otherwise>
+</c:choose>
+
+
 
 <div class="container-content">
 	<div class="content-body">
@@ -39,7 +68,7 @@
 									<i class="fa fa-eye" aria-hidden="true"></i><br> <span>${story.hits}</span>
 								</div>
 								<div class="story-like-count">
-									<i class="fa fa-heart-o" aria-hidden="true"></i><br> <span>${fn:length(story.storyLikes)}</span>
+									<i class="fa fa-heart-o" aria-hidden="true"></i><br> <span id="story-like-count">${fn:length(story.storyLikes)}</span>
 								</div>
 								<div class="story-comment-count">
 									<i class="fa fa-commenting-o" aria-hidden="true"></i><br>
@@ -73,13 +102,11 @@
 											<c:when test="${file.type == 3}">
 												<div id="vr360-file"></div>
 												<script>
-													new Carousel()
-															.viewer(
-																	"vr360-file",
-																	{
-																		action : true,
-																		panorama : "${cloudFrontStoryVr360Path}${file.name}.${file.ext}"
-																	});
+													new Carousel().viewer("vr360-file",
+															{
+																action : true,
+																panorama : "${cloudFrontStoryVr360Path}${file.name}.${file.ext}"
+															});
 												</script>
 											</c:when>
 										</c:choose>
@@ -105,7 +132,7 @@
 								<span>${story.user.name}</span>
 							</div>
 							<div class="user-follow">
-								<span id="follow-user" data-id="${story.user.id}">Follow
+								<span class="${followCssClass}" data-id="${story.user.id}">Follow
 									+</span>
 							</div>
 						</div>
@@ -132,10 +159,10 @@
 					</div>
 					<div class="info-bottom">
 						<div class="story-activity">
-							<div class="activity-like">
+							<div class="${likeCssClass}">
 								<i class="fa fa-heart-o" aria-hidden="true"></i><span>좋아요</span>
 							</div>
-							<div class="activity-scrap">
+							<div class="${scrapCssClass}">
 								<i class="fa fa-share-square-o" aria-hidden="true"></i><span>스크랩</span>
 							</div>
 						</div>
@@ -146,44 +173,90 @@
 	</div>
 
 	<script>
-		$('#follow-user').mouseover(function() {
-			$(this).css({
-				"color" : "#fff",
-				"background" : "#672"
-			});
-
-		}).mouseout(function() {
-			$(this).css({
-				"color" : "#672",
-				"background" : "#fff"
-			});
+		$('.activity-like').click(function(){
+			var userId = "${sessionScope.user.id}";
+			if(userId != ""){
+				var self = this;
+				var storyId = "${story.id}";
+				
+				$.ajax({
+					type : "POST",
+					url : "${contextPath}/stories/" + storyId + "/like",
+					data:{
+						userId: userId
+				   	},
+			      	success:function(data){
+				      	var preCount = parseInt($('#story-like-count').text());
+				      	$('#story-like-count').text(preCount + data);
+			      	},
+			      	beforeSend:function(){
+			      		$(self).toggleClass('active');
+			      	},
+			      	error:function(request, status, error){
+			      		$(self).toggleClass('active');
+			      	}
+				});
+			}else{
+				navigateToLogin();
+			}
 		});
 		
-		
-		$('.activity-like').mouseover(function() {
-			$(this).css({
-				"color" : "#fff",
-				"background" : "#672"
-			});
-
-		}).mouseout(function() {
-			$(this).css({
-				"color" : "#672",
-				"background" : "#fff"
-			});
+		$('.activity-scrap').click(function(){
+			var userId = "${sessionScope.user.id}";
+			if(userId != ""){
+				var self = this;
+				var storyId = "${story.id}";
+				
+				$.ajax({
+					type : "POST",
+					url : "${contextPath}/stories/" + storyId + "/scrap",
+					data:{
+						userId: userId
+				   	},
+			      	success:function(data){
+				      	//not yet
+			      	},
+			      	beforeSend:function(){
+			      		$(self).toggleClass('active');
+			      	},
+			      	error:function(request, status, error){
+			      		$(self).toggleClass('active');
+			      	}
+				});
+			}else{
+				navigateToLogin();
+			}
 		});
 		
-		$('.activity-scrap').mouseover(function() {
-			$(this).css({
-				"color" : "#fff",
-				"background" : "#672"
-			});
-
-		}).mouseout(function() {
-			$(this).css({
-				"color" : "#672",
-				"background" : "#fff"
-			});
+		$('.activity-follow').click(function(){
+			var userId = "${sessionScope.user.id}";
+			if(userId != ""){
+				var self = this;
+				var storyUserId = "${story.user.id}";
+				
+				$.ajax({
+					type : "POST",
+					url : "${contextPath}/users/" + storyUserId + "/follow",
+					data:{
+						userId: userId
+				   	},
+			      	success:function(data){
+				      	//not yet
+			      	},
+			      	beforeSend:function(){
+			      		$(self).toggleClass('active');
+			      	},
+			      	error:function(request, status, error){
+			      		$(self).toggleClass('active');
+			      	}
+				});
+			}else{
+				navigateToLogin();
+			}
 		});
+		
+		function navigateToLogin(){
+			location.href = "${contextPath}/login"; 
+		}
 	</script>
 </div>

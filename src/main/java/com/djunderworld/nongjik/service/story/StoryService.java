@@ -14,4 +14,15 @@ public interface StoryService {
 			String search, int page, int limit) throws Exception;
 
 	Story getStoryById(long id) throws Exception;
+
+	Boolean isLikedByIdAndUserId(long id, long userId) throws Exception;
+
+	Boolean isScrapedByIdAndUserId(long id, long userId) throws Exception;
+
+	Boolean isFollowedByStoryUserIdAndUserId(long storyUserId, long userId) throws Exception;
+
+	int getLikeCountSavedOrDeletedByIdAndUserId(long id, long userId) throws Exception;
+
+	void saveOrDeleteStoryScrapByIdAndUserId(long id, long userId) throws Exception;
+
 }

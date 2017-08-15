@@ -12,7 +12,7 @@ import com.mysema.query.BooleanBuilder;
 import com.mysema.query.SearchResults;
 import com.mysema.query.types.OrderSpecifier;
 
-public class StoryRepositoryImpl extends QueryDslRepositorySupport implements CustomStoryRepository {
+public class StoryRepositoryImpl extends QueryDslRepositorySupport implements StoryRepositoryCustom {
 
 	public StoryRepositoryImpl() {
 		super(Story.class);
@@ -59,6 +59,7 @@ public class StoryRepositoryImpl extends QueryDslRepositorySupport implements Cu
 
 		List<Story> stories = searchResults.getTotal() > offset ? searchResults.getResults()
 				: Collections.<Story>emptyList();
+		
 		return stories;
 	}
 

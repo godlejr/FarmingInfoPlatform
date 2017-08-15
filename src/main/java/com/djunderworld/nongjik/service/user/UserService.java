@@ -10,4 +10,6 @@ public interface UserService {
 
 	User getUserByEmail(String email) throws NullPointerException;
 
+	void saveOrDeleteUserFollowerByIdAndUserId(long id, long userId) throws Exception;
+
 }

@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.djunderworld.nongjik.entity.Story;
 
-public interface StoryRepository extends JpaRepository<Story, Long>, CustomStoryRepository{
+public interface StoryRepository extends JpaRepository<Story, Long>, StoryRepositoryCustom{
 	
 	Page<Story> findAll(Pageable pageable);
 

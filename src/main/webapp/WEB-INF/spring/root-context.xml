@@ -92,5 +92,4 @@
 	<beans:bean
 		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"></beans:bean>
 
-
 </beans:beans>

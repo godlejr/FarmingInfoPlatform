@@ -1050,6 +1050,7 @@ ol, ul, li {
 	border-radius: 5px;
 	border: 1px solid #e2e2e2;
 	max-width: 230px;
+	min-width: 230px;
 	background: #fff;
 	position: fixed;
 }
@@ -1136,6 +1137,23 @@ ol, ul, li {
 	padding-top: 13px;
 }
 
+.section-story-detail .story-right .description-info .info-header .user-cover .user-follow .activity-follow
+	{
+	color: #672;
+	background: #fff;
+}
+
+.section-story-detail .story-right .description-info .info-header .user-cover .user-follow .activity-follow:hover
+	{
+	color: #fff;
+	background: #672;
+}
+
+.section-story-detail .story-right .description-info .info-header .user-cover .user-follow .activity-follow.active{
+	color: #fff;
+	background: #672;
+}
+
 .section-story-detail .story-right .description-info .info-header .user-cover .user-follow span
 	{
 	text-decoration: none;
@@ -1208,7 +1226,33 @@ ol, ul, li {
 	padding-right: 10px;
 	padding-top: 10px;
 	padding-bottom: 10px;
-	padding-left: 10px
+	padding-left: 10px;
+	color: #672;
+	background: #fff;
+}
+
+.section-story-detail .story-right .description-info .info-bottom .story-activity .activity-like
+	{
+	border-bottom-left-radius: 5px;
+}
+
+.section-story-detail .story-right .description-info .info-bottom .story-activity .activity-scrap
+	{
+	border-bottom-right-radius: 5px;
+}
+
+.section-story-detail .story-right .description-info .info-bottom .story-activity .activity-like:hover,
+	.section-story-detail .story-right .description-info .info-bottom .story-activity .activity-scrap:hover
+	{
+	color: #fff;
+	background: #672;
+}
+
+.section-story-detail .story-right .description-info .info-bottom .story-activity .activity-like.active,
+	.section-story-detail .story-right .description-info .info-bottom .story-activity .activity-scrap.active
+	{
+	color: #fff;
+	background: #672;
 }
 
 .section-story-detail .story-right .description-info .info-bottom .story-activity .activity-like i,

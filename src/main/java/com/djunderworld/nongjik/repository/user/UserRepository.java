@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.djunderworld.nongjik.entity.User;
 
-public interface UserRepository extends JpaRepository<User, Long>, CustomUserRepository {
+public interface UserRepository extends JpaRepository<User, Long>, UserRepositoryCustom {
 
 	User findById(long id);
 

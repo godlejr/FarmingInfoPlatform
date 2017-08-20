@@ -76,21 +76,6 @@ public class MainController {
 		return "main/index";
 	}
 
-	@RequestMapping(value = "/infiniteScrollDown", method = RequestMethod.POST)
-	@ResponseBody
-	public List<StoryDto> getStoriesForInfiniteScrollDown(
-			@RequestParam(name = "categoryId", required = false, defaultValue = "0") long categoryId,
-			@RequestParam(name = "itemCategoryId", required = false, defaultValue = "0") long itemCategoryId,
-			@RequestParam(name = "orderId", required = false, defaultValue = "0") int orderId,
-			@RequestParam(name = "userLevel", required = false, defaultValue = "0") int userLevel,
-			@RequestParam(name = "search", required = false) String search,
-			@RequestParam(name = "page", required = false, defaultValue = "0") int page) throws Exception {
-
-		List<StoryDto> storyDtos = storyService.getStoryDtosByPageRequests(categoryId, itemCategoryId, orderId,
-				userLevel, search, page, PaginationFlag.STORY_MAX_LIMIT);
-
-		return storyDtos;
-	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(Model model, HttpSession session, @RequestParam(required = false) boolean isJoined)
@@ -159,6 +144,20 @@ public class MainController {
 		redirectAttributes.addAttribute("isJoined", true);
 
 		return "redirect:/login";
+	}
+	
+	@RequestMapping(value = "stories.json", method = RequestMethod.GET)
+	@ResponseBody
+	public List<StoryDto> storyDtos(
+			@RequestParam(name = "categoryId", required = false, defaultValue = "0") long categoryId,
+			@RequestParam(name = "itemCategoryId", required = false, defaultValue = "0") long itemCategoryId,
+			@RequestParam(name = "orderId", required = false, defaultValue = "0") int orderId,
+			@RequestParam(name = "userLevel", required = false, defaultValue = "0") int userLevel,
+			@RequestParam(name = "search", required = false) String search,
+			@RequestParam(name = "page", required = false, defaultValue = "0") int page) throws Exception {
+
+		return storyService.getStoryDtosByPageRequests(categoryId, itemCategoryId, orderId,
+				userLevel, search, page, PaginationFlag.STORY_MAX_LIMIT);
 	}
 
 }

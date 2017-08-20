@@ -1,55 +1,39 @@
-package com.djunderworld.nongjik.entity;
+package com.djunderworld.nongjik.dto;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import com.djunderworld.nongjik.entity.Story;
+import com.djunderworld.nongjik.entity.StoryComment;
+import com.djunderworld.nongjik.entity.User;
 
-import org.hibernate.annotations.Formula;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.djunderworld.nongjik.repository.storycomment.StoryCommentRepository;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
-@Entity
-@Table(name = "story_comments")
-public class StoryComment extends Base {
-	
-
-	@ManyToOne
-	@JoinColumn(name = "story_id")
-	@JsonManagedReference
+public class StoryCommentDto extends BaseDto {
 	private Story story;
-
-	@ManyToOne
-	@JoinColumn(name = "user_id")
-	@JsonManagedReference
 	private User user;
 
 	private long groupId;
 	private long depth;
 	private long position;
 	private String content;
-	
-	@Formula("(select count(sc.group_id) from story_comments sc where sc.group_id = group_id)")
+	private String customCreatedAt;
+
 	private long groupIdCount;
+
+	public StoryCommentDto() {
+		super();
+	}
+
+	public StoryCommentDto(long id, String createdAt, String updatedAt) {
+		super(id, createdAt, updatedAt);
+	}
 
 	public Story getStory() {
 		return story;
 	}
 
 	public void setStory(Story story) {
-		if (this.story != null) {
-			this.story.getStoryComments().remove(this);
-		}
-
 		this.story = story;
-		this.story.getStoryComments().add(this);
 	}
 
 	public User getUser() {
@@ -57,12 +41,7 @@ public class StoryComment extends Base {
 	}
 
 	public void setUser(User user) {
-		if (this.user != null) {
-			this.user.getStoryComments().remove(this);
-		}
-
 		this.user = user;
-		this.user.getStoryComments().add(this);
 	}
 
 	public long getGroupId() {
@@ -97,6 +76,13 @@ public class StoryComment extends Base {
 		this.content = content;
 	}
 
+	public void setCustomCreatedAt(String customCreatedAt) {
+		this.customCreatedAt = customCreatedAt;
+	}
+
+	public String getCustomCreatedAt() {
+		return customCreatedAt;
+	}
 
 	public long getGroupIdCount() {
 		return groupIdCount;
@@ -135,9 +121,22 @@ public class StoryComment extends Base {
 	public void setUpdatedAt(String updatedAt) {
 		super.setUpdatedAt(updatedAt);
 	}
-	
-	public String getCustomCreatedAt() {
-		return calculateDate(this.getCreatedAt());
+
+	public void buildDto(StoryComment storyComment) {
+		setId(storyComment.getId());
+		setCreatedAt(storyComment.getCreatedAt());
+		setUpdatedAt(storyComment.getUpdatedAt());
+
+		this.story = storyComment.getStory();
+		this.user = storyComment.getUser();
+		this.content = storyComment.getContent();
+
+		this.groupId = storyComment.getGroupId();
+		this.depth = storyComment.getDepth();
+		this.position = storyComment.getPosition();
+		this.customCreatedAt = calculateDate(storyComment.getCreatedAt());
+
+		this.groupIdCount = storyComment.getGroupIdCount();
 	}
 
 	public String calculateDate(String dateTime) {

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.djunderworld.nongjik.common.flag.PaginationFlag;
+import com.djunderworld.nongjik.dto.StoryCommentDto;
 import com.djunderworld.nongjik.entity.Story;
 import com.djunderworld.nongjik.entity.StoryComment;
 import com.djunderworld.nongjik.entity.User;
@@ -25,16 +26,16 @@ import com.djunderworld.nongjik.service.storycomment.StoryCommentService;
 public class StoryController {
 	@Autowired
 	private StoryService storyService;
-	
+
 	@Autowired
 	private StoryCommentService storyCommentService;
-	
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public String detail(@PathVariable long id, Model model, HttpSession session) throws Exception {
 		Story story = storyService.getStoryById(id);
-		List<StoryComment> storyComments = storyCommentService.getStoryCommentsByStoryIdAndPageRequests(id, 0, PaginationFlag.STORY_COMMENT_MAX_LIMIT);
-		
+		List<StoryComment> storyComments = storyCommentService.getStoryCommentsByStoryIdAndPageRequests(id, 0,
+				PaginationFlag.STORY_COMMENT_MAX_LIMIT);
+
 		User user = (User) session.getAttribute("user");
 
 		boolean isLiked = false;
@@ -57,16 +58,25 @@ public class StoryController {
 
 		return "story/detail";
 	}
-	
+
 	@RequestMapping(value = "/{id}/like", method = RequestMethod.POST)
 	@ResponseBody
-	public Integer like (@PathVariable long id, @RequestParam("userId") long userId) throws Exception{
+	public Integer like(@PathVariable long id, @RequestParam("userId") long userId) throws Exception {
 		return storyService.getLikeCountSavedOrDeletedByIdAndUserId(id, userId);
 	}
 
 	@RequestMapping(value = "/{id}/scrap", method = RequestMethod.POST)
 	@ResponseBody
-	public void scrap (@PathVariable long id, @RequestParam("userId") long userId) throws Exception{
+	public void scrap(@PathVariable long id, @RequestParam("userId") long userId) throws Exception {
 		storyService.saveOrDeleteStoryScrapByIdAndUserId(id, userId);
 	}
+
+	@RequestMapping(value = "/{id}/comments.json", method = RequestMethod.GET)
+	@ResponseBody
+	public List<StoryCommentDto> storyCommentDtos(@PathVariable long id,
+			@RequestParam(name = "page", required = false, defaultValue = "0") int page) throws Exception {
+
+		return storyCommentService.getStoryCommentDtosByStoryIdAndPageRequests(id, page, PaginationFlag.STORY_COMMENT_MAX_LIMIT);
+	}
+
 }

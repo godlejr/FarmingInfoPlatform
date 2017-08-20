@@ -143,8 +143,29 @@
 											<div class="comment-description">
 												<span class="user-name">${comment.user.name}</span>
 												<span class="comment-date">${comment.getCustomCreatedAt()}</span>
-												<span id="comment-edit-button">수정</span>
-												<span id="comment-reply-button">답변</span>
+												
+												<c:choose>
+													<c:when test="${comment.user.id == sessionScope.user.id}">
+														<span id="comment-edit-button">수정</span>
+														<span id="comment-delete-button">삭제</span>
+													</c:when>
+													
+													<c:otherwise>
+														<c:if test="${story.user.id == sessionScope.user.id && comment.depth == 0}">
+															<c:choose>															
+																<c:when test="${comment.groupIdCount == 1}">
+																	<span id="comment-reply-button">답변</span>
+																</c:when>
+																
+																<c:otherwise>
+																	<span id="comment-reply-complete-button">답변완료</span>
+																</c:otherwise>
+															</c:choose>
+															
+														</c:if>
+													</c:otherwise>
+												</c:choose>
+												
 											</div>
 											<div class="comment-content">
 												${comment.content}
@@ -154,6 +175,21 @@
 								</li>
 							</c:forEach>
 						</ul>
+						<c:if test="${sessionScope.user != null }">
+							<div class="section-comment-write">
+								<div class="comment-write-left">
+									<img class="user-avatar" alt="" src="${cloudFrontUserAvatarPath}${sessionScope.user.avatar}">	
+								</div>
+								<div class="comment-write-right">
+									<textarea id="comment-text" placeholder="댓글을 입력해주세요" ></textarea>
+									<div class="comment-write-actvity">
+										<span class="comment-write-button">									
+											<i class="fa fa-pencil" aria-hidden="true"></i>
+										</span>
+									</div>
+								</div>
+							</div>
+						</c:if>
 					</div>
 				</div>
 			</div>
@@ -209,17 +245,72 @@
 	</div>
 
 	<script>
+		var page = 1;
+	
 		var storyCommentTotalCount = ${fn:length(story.storyComments)};
 		var storyCommentCount = ${fn:length(storyComments)};
 		var commentMoreButtom = $('#comment-more-button');
 		
-		if(storyCommentCount == storyCommentTotalCount){
-			commentMoreButtom.hide();
+		storyCommentViewUpdate();
+		
+		function storyCommentViewUpdate(){
+			if(storyCommentCount == storyCommentTotalCount){
+				commentMoreButtom.hide();
+			}
 		}
 		
 		$('#comment-more-button').click(function(){
-			
-			
+			var storyId = ${story.id};
+			var commentList =$('.comment-list:first');
+			$.ajax({
+				type : "GET",
+				url : "${contextPath}/stories/"+ storyId + "/comments.json",
+				data:{
+					page: page
+		        },
+		        success:function(data){
+		        	if(data.length == 0){
+		    			commentMoreButtom.hide();
+					}else{
+						$(data).each(function(){
+							
+							var userAvatarUrl ="http://d3fmxlpcykzndk.cloudfront.net/nongjik/images/users/avatars/";
+							var commentCssClass = this.depth == 0 ? "story-comment" : "story-comment reply";
+							
+							var sessionUserId =  "${sessionScope.user.id}";
+							
+							var storyCommentActvityTemplate = "";
+							
+							if(sessionUserId != ""){
+								if(sessionUserId == this.user.id){
+									storyCommentActvityTemplate = '<span id="comment-edit-button">수정</span><span id="comment-delete-button">삭제</span>';
+								}else{
+									var storyUserId = ${story.user.id};
+									if(storyUserId == sessionUserId && this.depth == 0){
+										if(this.groupIdCount == 1){
+											storyCommentActvityTemplate = '<span id="comment-reply-button">답변</span>';
+										}else{
+											storyCommentActvityTemplate = '<span id="comment-reply-complete-button">답변완료</span>';
+										}
+									}
+								}
+							}
+							
+							var storyCommentTemplate = '<li><div class="' + commentCssClass + '">' +
+									'<div class="comment-left"><img class="user-avatar" alt="" src="' + userAvatarUrl + this.user.avatar + '"></div>' + 
+									'<div class="comment-right"><div class="comment-description"><span class="user-name">' + this.user.name + '</span><span class="comment-date">' + this.customCreatedAt + '</span>' +
+									storyCommentActvityTemplate + '</div><div class="comment-content">' + this.content + '</div></div></div></li>';
+
+							commentList.prepend(storyCommentTemplate);
+						});
+			            ++page;
+			            storyCommentCount += data.length;
+					}
+		        },
+		        complete: function(){
+		        	storyCommentViewUpdate();
+		        }
+			});
 		});
 	
 	

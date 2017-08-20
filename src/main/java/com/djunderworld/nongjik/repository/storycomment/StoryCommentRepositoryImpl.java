@@ -28,7 +28,6 @@ public class StoryCommentRepositoryImpl  extends QueryDslRepositorySupport imple
 		BooleanBuilder booleanBuilder = new BooleanBuilder();
 		booleanBuilder.and(storyComment.story.id.eq(storyId));
 		
-
 		SearchResults<StoryComment> searchResults = from(storyComment).where(booleanBuilder).orderBy(storyComment.groupId.desc(),storyComment.depth.asc()).offset(offset)
 				.limit(size).listResults(storyComment);
 

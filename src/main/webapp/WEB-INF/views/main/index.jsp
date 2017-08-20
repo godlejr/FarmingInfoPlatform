@@ -225,8 +225,8 @@
 		var loader = $('.section-loader');
 		
 		$.ajax({
-			type : "POST",
-			url : "${contextPath}/infiniteScrollDown",
+			type : "GET",
+			url : "${contextPath}/stories.json",
 			data:{
 				categoryId: (categoryId!="")? categoryId : 0,
 				itemCategoryId: (itemCategoryId!="")? itemCategoryId : 0,
@@ -240,8 +240,12 @@
 					isEndOfStories = true;
 				}else{
 					$(data).each(function(){
+						
+						var storyImageUrl = "http://d3fmxlpcykzndk.cloudfront.net/nongjik/images/stories/";
+						var userAvatarUrl ="http://d3fmxlpcykzndk.cloudfront.net/nongjik/images/users/avatars/";
+						
 						var storyTemplate = '<div class="section-story col-'+ ${columnSize} +'" data-id="' + this.id + '">' +
-							'<div class="story-avatar" style="background-image:url(http://d3fmxlpcykzndk.cloudfront.net/nongjik/images/stories/' + this.fileAvatar + ')">' +
+							'<div class="story-avatar" style="background-image:url(' + storyImageUrl + this.fileAvatar + ')">' +
 							'<div class="story-value"> <div class="value-count">' +
 							'<div class="count-check"><i class="fa fa-eye" aria-hidden="true"></i><span>' + this.hits + '</span></div>'+
 							'<div class="count-like"><i class="fa fa-heart-o" aria-hidden="true"></i><span>' + this.storyLikeCount + '</span></div>'+
@@ -249,7 +253,7 @@
 							'</div></div></div>'+
 							'<div class="story-info"><div class="info-content">'+
 							'<div class="content-title"><span>' + this.title + '</span></div>'+
-							'<div class="content-user"><img class="user-avatar" data-id="' + this.user.id + '" alt=""src="http://d3fmxlpcykzndk.cloudfront.net/nongjik/images/users/avatars/' + this.user.avatar + '">'+ 
+							'<div class="content-user"><img class="user-avatar" data-id="' + this.user.id + '" alt=""src="' + userAvatarUrl + this.user.avatar + '">'+ 
 							'<span class="user-name" data-id="' + this.user.id + '">' + this.user.name + '</span></div></div></div></div>';
 							
 						storyList.after(storyTemplate);

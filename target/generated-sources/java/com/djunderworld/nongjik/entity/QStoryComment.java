@@ -33,6 +33,8 @@ public class QStoryComment extends EntityPathBase<StoryComment> {
 
     public final NumberPath<Long> groupId = createNumber("groupId", Long.class);
 
+    public final NumberPath<Long> groupIdCount = createNumber("groupIdCount", Long.class);
+
     //inherited
     public final NumberPath<Long> id = _super.id;
 

@@ -21,8 +21,8 @@ public interface StoryService {
 
 	Boolean isFollowedByStoryUserIdAndUserId(long storyUserId, long userId) throws Exception;
 
-	int getLikeCountSavedOrDeletedByIdAndUserId(long id, long userId) throws Exception;
+	int getLikeCountSavedOrDeletedByIdAndUserIdAndStoryUserId(long id, long userId,long storyUserId) throws Exception;
 
-	void saveOrDeleteStoryScrapByIdAndUserId(long id, long userId) throws Exception;
+	void saveOrDeleteStoryScrapByIdAndUserIdAndStoryUserId(long id, long userId,long storyUserId) throws Exception;
 
 }

@@ -203,10 +203,12 @@
 							<div class="user-name">
 								<span>${story.user.name}</span>
 							</div>
-							<div class="user-follow">
-								<span class="${followCssClass}" data-id="${story.user.id}">Follow
-									+</span>
-							</div>
+							<c:if test="${sessionScope.user.id != story.user.id}">
+								<div class="user-follow">
+									<span class="${followCssClass}" data-id="${story.user.id}">Follow
+										+</span>
+								</div>
+							</c:if>
 						</div>
 					</div>
 					<div class="info-body">
@@ -229,16 +231,18 @@
 								aria-hidden="true"></i></a></span>
 						</div>
 					</div>
-					<div class="info-bottom">
-						<div class="story-activity">
-							<div class="${likeCssClass}">
-								<i class="fa fa-heart-o" aria-hidden="true"></i><span>좋아요</span>
-							</div>
-							<div class="${scrapCssClass}">
-								<i class="fa fa-share-square-o" aria-hidden="true"></i><span>스크랩</span>
+					<c:if test="${sessionScope.user.id != story.user.id}">
+						<div class="info-bottom">
+							<div class="story-activity">
+								<div class="${likeCssClass}">
+									<i class="fa fa-heart-o" aria-hidden="true"></i><span>좋아요</span>
+								</div>
+								<div class="${scrapCssClass}">
+									<i class="fa fa-share-square-o" aria-hidden="true"></i><span>스크랩</span>
+								</div>
 							</div>
 						</div>
-					</div>
+					</c:if>
 				</div>
 			</div>
 		</div>
@@ -319,12 +323,14 @@
 			if(userId != ""){
 				var self = this;
 				var storyId = "${story.id}";
+				var storyUserId = "${story.user.id}";
 				
 				$.ajax({
 					type : "POST",
 					url : "${contextPath}/stories/" + storyId + "/like",
 					data:{
-						userId: userId
+						userId: userId,
+						storyUserId: storyUserId
 				   	},
 			      	success:function(data){
 				      	var preCount = parseInt($('#story-like-count').text());
@@ -347,12 +353,14 @@
 			if(userId != ""){
 				var self = this;
 				var storyId = "${story.id}";
+				var storyUserId = "${story.user.id}";
 				
 				$.ajax({
 					type : "POST",
 					url : "${contextPath}/stories/" + storyId + "/scrap",
 					data:{
-						userId: userId
+						userId: userId,
+						storyUserId: storyUserId
 				   	},
 			      	success:function(data){
 				      	//not yet
@@ -379,7 +387,8 @@
 					type : "POST",
 					url : "${contextPath}/users/" + storyUserId + "/follow",
 					data:{
-						userId: userId
+						userId: userId,
+						storyUserId: storyUserId
 				   	},
 			      	success:function(data){
 				      	//not yet

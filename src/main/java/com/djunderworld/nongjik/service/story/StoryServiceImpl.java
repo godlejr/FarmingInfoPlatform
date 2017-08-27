@@ -8,15 +8,22 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.djunderworld.nongjik.common.flag.NotificationFlag;
 import com.djunderworld.nongjik.dto.StoryDto;
+import com.djunderworld.nongjik.entity.Behavior;
+import com.djunderworld.nongjik.entity.Notification;
 import com.djunderworld.nongjik.entity.Story;
 import com.djunderworld.nongjik.entity.StoryLike;
 import com.djunderworld.nongjik.entity.StoryScrap;
 import com.djunderworld.nongjik.entity.User;
+import com.djunderworld.nongjik.entity.UserNotification;
+import com.djunderworld.nongjik.repository.behavior.BehaviorRepository;
+import com.djunderworld.nongjik.repository.notification.NotificationRepository;
 import com.djunderworld.nongjik.repository.story.StoryRepository;
 import com.djunderworld.nongjik.repository.storylike.StoryLikeRepository;
 import com.djunderworld.nongjik.repository.storyscrap.StoryScrapRepository;
 import com.djunderworld.nongjik.repository.userfollower.UserFollowerRepository;
+import com.djunderworld.nongjik.repository.usernotification.UserNotificationRepository;
 
 @Service
 @Transactional
@@ -34,6 +41,15 @@ public class StoryServiceImpl implements StoryService {
 	@Autowired
 	private UserFollowerRepository userFollowerRepository;
 
+	@Autowired
+	private UserNotificationRepository userNotificationRepository;
+
+	@Autowired
+	private NotificationRepository notificationRepository;
+
+	@Autowired
+	private BehaviorRepository behaviorRepository;
+
 	@Override
 	public List<Story> getStoriesByPageRequests(long categoryId, long itemCategoryId, int orderId, int userLevel,
 			String search, int page, int limit) throws Exception {
@@ -50,7 +66,6 @@ public class StoryServiceImpl implements StoryService {
 		PageRequest pageRequest = new PageRequest(page, limit);
 		List<Story> stories = storyRepository.findAllByPageRequest(categoryId, itemCategoryId, orderId, userLevel,
 				search, pageRequest);
-
 		List<StoryDto> storyDtos = new ArrayList<StoryDto>();
 
 		for (Story story : stories) {
@@ -84,7 +99,8 @@ public class StoryServiceImpl implements StoryService {
 	}
 
 	@Override
-	public int getLikeCountSavedOrDeletedByIdAndUserId(long id, long userId) throws Exception {
+	public int getLikeCountSavedOrDeletedByIdAndUserIdAndStoryUserId(long id, long userId, long storyUserId)
+			throws Exception {
 		int count = 0;
 		StoryLike storyLike = storyLikeRepository.findOneByStoryIdAndUserId(id, userId);
 
@@ -105,13 +121,34 @@ public class StoryServiceImpl implements StoryService {
 
 			storyLikeRepository.save(storyLike);
 			count++;
+
+			Notification notification = new Notification();
+			notification.setUser(user);
+			notification.setReceiverCategoryId(NotificationFlag.TO_WRITER);
+			notification.setReceiverId(storyUserId);
+			notification.setContent(NotificationFlag.CONTENT_OBJECT_OF_WRITING_COMMENT_OR_LIKE_SCRAP);
+			notification.setNavigationCategoryId(NotificationFlag.NAVIGATE_TO_THE_PAGE_OF_STORY);
+			notification.setNavigationId(id);
+			Behavior behavior = behaviorRepository.findById(NotificationFlag.LIKE_THE_STORY);
+			notification.setBehavior(behavior);
+
+			notificationRepository.saveAndFlush(notification);
+
+			UserNotification userNotification = new UserNotification();
+			User storyUser = new User();
+			storyUser.setId(storyUserId);
+			userNotification.setUser(storyUser);
+			userNotification.setNotification(notification);
+
+			userNotificationRepository.save(userNotification);
 		}
 
 		return count;
 	}
 
 	@Override
-	public void saveOrDeleteStoryScrapByIdAndUserId(long id, long userId) throws Exception {
+	public void saveOrDeleteStoryScrapByIdAndUserIdAndStoryUserId(long id, long userId, long storyUserId)
+			throws Exception {
 		StoryScrap storyScrap = storyScrapRepository.findOneByStoryIdAndUserId(id, userId);
 
 		if (storyScrap != null) {
@@ -129,6 +166,26 @@ public class StoryServiceImpl implements StoryService {
 			storyScrap.setUser(user);
 
 			storyScrapRepository.save(storyScrap);
+
+			Notification notification = new Notification();
+			notification.setUser(user);
+			notification.setReceiverCategoryId(NotificationFlag.TO_WRITER);
+			notification.setReceiverId(storyUserId);
+			notification.setContent(NotificationFlag.CONTENT_OBJECT_OF_WRITING_COMMENT_OR_LIKE_SCRAP);
+			notification.setNavigationCategoryId(NotificationFlag.NAVIGATE_TO_THE_PAGE_OF_STORY);
+			notification.setNavigationId(id);
+			Behavior behavior = behaviorRepository.findById(NotificationFlag.SCRAP_THE_STORY);
+			notification.setBehavior(behavior);
+
+			notificationRepository.saveAndFlush(notification);
+
+			UserNotification userNotification = new UserNotification();
+			User storyUser = new User();
+			storyUser.setId(storyUserId);
+			userNotification.setUser(storyUser);
+			userNotification.setNotification(notification);
+
+			userNotificationRepository.save(userNotification);
 		}
 	}
 

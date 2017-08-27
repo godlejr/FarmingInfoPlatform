@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
@@ -21,7 +20,6 @@ import com.djunderworld.nongjik.common.annotation.BusinessNumber;
 import com.djunderworld.nongjik.common.annotation.EmailConfirm;
 import com.djunderworld.nongjik.common.annotation.Password;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "users")
@@ -55,6 +53,10 @@ public class User extends Base implements Serializable {
 	@OneToOne(mappedBy = "user")
 	@JsonBackReference
 	private Professional professional;
+	
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+	@JsonBackReference
+	private List<Notification> notifications = new ArrayList<Notification>();
 
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	@JsonBackReference
@@ -229,5 +231,12 @@ public class User extends Base implements Serializable {
 		this.followerUsers = followerUsers;
 	}
 
+	public List<Notification> getNotifications() {
+		return notifications;
+	}
+
+	public void setNotifications(List<Notification> notifications) {
+		this.notifications = notifications;
+	}
 
 }

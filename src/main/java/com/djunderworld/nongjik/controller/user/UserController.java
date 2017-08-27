@@ -20,7 +20,7 @@ public class UserController {
 	
 	@RequestMapping(value = "/{id}/follow", method = RequestMethod.POST)
 	@ResponseBody
-	public void follow(@PathVariable long id, @RequestParam("userId") long userId) throws Exception{
-		userService.saveOrDeleteUserFollowerByIdAndUserId(id, userId);
+	public void follow(@PathVariable long id, @RequestParam("userId") long userId, @RequestParam("storyUserId") long storyUserId) throws Exception{
+		userService.saveOrDeleteUserFollowerByIdAndUserIdAndStoryUserId(id, userId, storyUserId);
 	}
 }

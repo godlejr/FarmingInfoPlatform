@@ -61,14 +61,16 @@ public class StoryController {
 
 	@RequestMapping(value = "/{id}/like", method = RequestMethod.POST)
 	@ResponseBody
-	public Integer like(@PathVariable long id, @RequestParam("userId") long userId) throws Exception {
-		return storyService.getLikeCountSavedOrDeletedByIdAndUserId(id, userId);
+	public Integer like(@PathVariable long id, @RequestParam("userId") long userId,
+			@RequestParam("storyUserId") long storyUserId) throws Exception {
+		return storyService.getLikeCountSavedOrDeletedByIdAndUserIdAndStoryUserId(id, userId, storyUserId);
 	}
 
 	@RequestMapping(value = "/{id}/scrap", method = RequestMethod.POST)
 	@ResponseBody
-	public void scrap(@PathVariable long id, @RequestParam("userId") long userId) throws Exception {
-		storyService.saveOrDeleteStoryScrapByIdAndUserId(id, userId);
+	public void scrap(@PathVariable long id, @RequestParam("userId") long userId,
+			@RequestParam("storyUserId") long storyUserId) throws Exception {
+		storyService.saveOrDeleteStoryScrapByIdAndUserIdAndStoryUserId(id, userId, storyUserId);
 	}
 
 	@RequestMapping(value = "/{id}/comments.json", method = RequestMethod.GET)
@@ -76,7 +78,8 @@ public class StoryController {
 	public List<StoryCommentDto> storyCommentDtos(@PathVariable long id,
 			@RequestParam(name = "page", required = false, defaultValue = "0") int page) throws Exception {
 
-		return storyCommentService.getStoryCommentDtosByStoryIdAndPageRequests(id, page, PaginationFlag.STORY_COMMENT_MAX_LIMIT);
+		return storyCommentService.getStoryCommentDtosByStoryIdAndPageRequests(id, page,
+				PaginationFlag.STORY_COMMENT_MAX_LIMIT);
 	}
 
 }

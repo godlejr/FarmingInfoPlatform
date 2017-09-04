@@ -124,7 +124,8 @@
 						</div>
 					
 						<ul class="comment-list">
-							<c:forEach var="comment" items="${storyComments}">
+							<c:forEach var="comment"  items="${storyComments}" varStatus="status" >
+								
 								<c:choose>
 									<c:when test="${comment.depth == 0}">
 										<c:set value="story-comment" var="commentCssClass"></c:set>
@@ -135,7 +136,7 @@
 								</c:choose>
 								
 								<li>
-									<div class="${commentCssClass}">
+									<div class="${commentCssClass}" data-id="${comment.id}">
 										<div class="comment-left">
 											<img class="user-avatar" alt="" src="${cloudFrontUserAvatarPath}${comment.user.avatar}">	
 										</div>
@@ -300,7 +301,7 @@
 								}
 							}
 							
-							var storyCommentTemplate = '<li><div class="' + commentCssClass + '">' +
+							var storyCommentTemplate = '<li><div class="' + commentCssClass + '" data-id="' + this.id + '">' +
 									'<div class="comment-left"><img class="user-avatar" alt="" src="' + userAvatarUrl + this.user.avatar + '"></div>' + 
 									'<div class="comment-right"><div class="comment-description"><span class="user-name">' + this.user.name + '</span><span class="comment-date">' + this.customCreatedAt + '</span>' +
 									storyCommentActvityTemplate + '</div><div class="comment-content">' + this.content + '</div></div></div></li>';
@@ -402,6 +403,48 @@
 				});
 			}else{
 				navigateToLogin();
+			}
+		});
+		
+		$('.comment-write-button').click(function(){
+			var contentTag = $(document.getElementById('comment-text'));
+			var content = contentTag.val();
+			
+			if(content.length > 0){
+				var storyId = "${story.id}";
+				var storyUserId = "${story.user.id}";
+				var userId = "${sessionScope.user.id}";
+				var commentList =$('.comment-list:last');
+
+				
+				$.ajax({
+					type : "POST",
+					url : "${contextPath}/stories/" + storyId + "/comment",
+					data:{
+						userId: userId,
+						storyUserId: storyUserId,
+						content:content
+				   	},
+			      	success:function(data){
+			      		var userAvatarUrl ="http://d3fmxlpcykzndk.cloudfront.net/nongjik/images/users/avatars/";
+						var commentCssClass = "story-comment";
+												
+						var storyCommentActvityTemplate = '<span id="comment-edit-button">수정</span><span id="comment-delete-button">삭제</span>';
+						
+						var storyCommentTemplate = '<li><div class="' + commentCssClass +  '" data-id="' + this.id + '">' +
+								'<div class="comment-left"><img class="user-avatar" alt="" src="' + userAvatarUrl + this.user.avatar + '"></div>' + 
+								'<div class="comment-right"><div class="comment-description"><span class="user-name">' + this.user.name + '</span><span class="comment-date">방금</span>' +
+								storyCommentActvityTemplate + '</div><div class="comment-content">' + this.content + '</div></div></div></li>';
+
+						commentList.after(storyCommentTemplate);
+			      	},
+			      	beforeSend:function(){
+			      		contentTag.empty();
+			      	},
+			      	error:function(request, status, error){
+			      		contentTag.val(content);
+			      	}
+				});
 			}
 		});
 		

@@ -19,7 +19,6 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Entity
 @Table(name = "story_comments")
 public class StoryComment extends Base {
-	
 
 	@ManyToOne
 	@JoinColumn(name = "story_id")
@@ -35,7 +34,7 @@ public class StoryComment extends Base {
 	private long depth;
 	private long position;
 	private String content;
-	
+
 	@Formula("(select count(sc.group_id) from story_comments sc where sc.group_id = group_id)")
 	private long groupIdCount;
 
@@ -97,7 +96,6 @@ public class StoryComment extends Base {
 		this.content = content;
 	}
 
-
 	public long getGroupIdCount() {
 		return groupIdCount;
 	}
@@ -135,15 +133,16 @@ public class StoryComment extends Base {
 	public void setUpdatedAt(String updatedAt) {
 		super.setUpdatedAt(updatedAt);
 	}
-	
+
 	public String getCustomCreatedAt() {
 		return calculateDate(this.getCreatedAt());
 	}
 
 	public String calculateDate(String dateTime) {
+		String message = null;
+
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date date = null;
-		String message = null;
 
 		try {
 			date = simpleDateFormat.parse(dateTime);
@@ -168,4 +167,5 @@ public class StoryComment extends Base {
 		}
 		return message;
 	}
+
 }

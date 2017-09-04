@@ -124,8 +124,12 @@ public class StoryCommentDto extends BaseDto {
 
 	public void buildDto(StoryComment storyComment) {
 		setId(storyComment.getId());
-		setCreatedAt(storyComment.getCreatedAt());
-		setUpdatedAt(storyComment.getUpdatedAt());
+
+		String storyCreatedAt = storyComment.getCreatedAt();
+		if (storyCreatedAt != null) {
+			setUpdatedAt(storyComment.getUpdatedAt());
+			this.customCreatedAt = calculateDate(storyCreatedAt);
+		}
 
 		this.story = storyComment.getStory();
 		this.user = storyComment.getUser();
@@ -134,15 +138,15 @@ public class StoryCommentDto extends BaseDto {
 		this.groupId = storyComment.getGroupId();
 		this.depth = storyComment.getDepth();
 		this.position = storyComment.getPosition();
-		this.customCreatedAt = calculateDate(storyComment.getCreatedAt());
 
 		this.groupIdCount = storyComment.getGroupIdCount();
 	}
 
 	public String calculateDate(String dateTime) {
+		String message = null;
+
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date date = null;
-		String message = null;
 
 		try {
 			date = simpleDateFormat.parse(dateTime);

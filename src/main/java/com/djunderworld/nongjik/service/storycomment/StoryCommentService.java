@@ -9,7 +9,9 @@ public interface StoryCommentService {
 
 	List<StoryComment> getStoryCommentsByStoryIdAndPageRequests(long storyId, int page, int limit) throws Exception;
 
-	List<StoryCommentDto> getStoryCommentDtosByStoryIdAndPageRequests(long storyId, int page, int limit) throws Exception;
+	List<StoryCommentDto> getStoryCommentDtosByStoryIdAndPageRequests(long storyId, int page, int limit)
+			throws Exception;
 
+	StoryCommentDto getStoryCommentDtoByInsertingStoryComment(StoryComment storyComment) throws Exception;
 
 }

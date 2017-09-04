@@ -1,5 +1,6 @@
 package com.djunderworld.nongjik.controller.story;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -49,6 +50,8 @@ public class StoryController {
 			isScraped = storyService.isScrapedByIdAndUserId(id, userId);
 			isFollowed = storyService.isFollowedByStoryUserIdAndUserId(storyUserId, userId);
 		}
+		
+		Collections.reverse(storyComments);
 
 		model.addAttribute("story", story);
 		model.addAttribute("storyComments", storyComments);
@@ -80,6 +83,33 @@ public class StoryController {
 
 		return storyCommentService.getStoryCommentDtosByStoryIdAndPageRequests(id, page,
 				PaginationFlag.STORY_COMMENT_MAX_LIMIT);
+	}
+
+	@RequestMapping(value = "/{id}/comment", method = RequestMethod.POST)
+	@ResponseBody
+	public StoryCommentDto insertStoryComment(@PathVariable long id, @RequestParam("userId") long userId,
+			@RequestParam("storyUserId") long storyUserId, @RequestParam("content") String content,
+			@RequestParam(name = "depth", required = false, defaultValue = "0") long depth,
+			@RequestParam(name = "groupId", required = false, defaultValue = "0") long groupId) throws Exception {
+		StoryComment storyComment = new StoryComment();
+		
+		User user = new User();
+		user.setId(userId);
+		
+		Story story = new Story();
+		User storyUser = new User();
+		
+		storyUser.setId(storyUserId);
+		story.setId(id);
+		story.setUser(storyUser);
+		
+		storyComment.setStory(story);
+		storyComment.setUser(user);
+		storyComment.setGroupId(groupId);
+		storyComment.setContent(content);
+		storyComment.setDepth(depth);
+		
+		return storyCommentService.getStoryCommentDtoByInsertingStoryComment(storyComment);
 	}
 
 }
